@@ -6,7 +6,7 @@ repository = "https://thunderstore.io"
 
 [package]
 namespace = "Computerdores"
-name = "Better Terminal"
+name = "BetterTerminal"
 description = "A Mod to improve the terminal."
 websiteUrl = "https://github.com/Computerdores/BetterTerminal"
 containsNsfwContent = false
