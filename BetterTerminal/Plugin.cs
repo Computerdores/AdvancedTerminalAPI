@@ -21,6 +21,6 @@ public class Plugin : BaseUnityPlugin
     private void Awake()
     {
 
-        Log.LogInfo("BetterTerminal Awake()");
+        Log.LogInfo("BetterTerminal starting up...");
     }
 }
