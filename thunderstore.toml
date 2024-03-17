@@ -5,10 +5,10 @@ schemaVersion = "0.0.1"
 repository = "https://thunderstore.io"
 
 [package]
-namespace = "YourThunderstoreTeam"
-name = "Template"
-description = "A template for Lethal Company plugins."
-websiteUrl = "https://github.com/Distractic/LethalCompanyTemplate"
+namespace = "Computerdores"
+name = "Better Terminal"
+description = "A Mod to improve the terminal."
+websiteUrl = "https://github.com/Computerdores/BetterTerminal"
 containsNsfwContent = false
 
 [package.dependencies]
@@ -21,8 +21,8 @@ readme = "README.md"
 outdir = "build"
 
 [[build.copy]]
-source = "Template/bin/Template.dll"
-target = "BepInEx/plugins/Template.dll"
+source = "BetterTerminal/bin/BetterTerminal.dll"
+target = "BepInEx/plugins/BetterTerminal.dll"
 
 [[build.copy]]
 source = "CHANGELOG.md"
