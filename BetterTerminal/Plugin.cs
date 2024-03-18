@@ -1,26 +1,29 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using Computerdores.patch;
 using HarmonyLib;
 
 namespace Computerdores;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-public class Plugin : BaseUnityPlugin
-{
+public class Plugin : BaseUnityPlugin {
     public static Plugin Instance { get; set; }
-
     public static ManualLogSource Log => Instance.Logger;
-
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-    public Plugin()
-    {
+    public static InputFieldDriver Driver;
+
+    public Plugin() {
         Instance = this;
     }
 
-    private void Awake()
-    {
+    private void Awake() {
+        Log.LogInfo("Applying Patches...");
+        ApplyPatches();
+        Log.LogInfo("Patches applied.");
+    }
 
-        Log.LogInfo("BetterTerminal starting up...");
+    private void ApplyPatches() {
+        _harmony.PatchAll(typeof(TerminalPatch));
     }
 }
