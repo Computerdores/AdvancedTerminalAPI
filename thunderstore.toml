@@ -6,8 +6,8 @@ repository = "https://thunderstore.io"
 
 [package]
 namespace = "Computerdores"
-name = "BetterTerminal"
-description = "A Mod to improve the terminal."
+name = "AdvancedTerminalAPI"
+description = "A Mod to provide a more advanced API for the Terminal."
 websiteUrl = "https://github.com/Computerdores/BetterTerminal"
 containsNsfwContent = false
 
@@ -21,8 +21,8 @@ readme = "README.md"
 outdir = "build"
 
 [[build.copy]]
-source = "BetterTerminal/bin/BetterTerminal.dll"
-target = "BepInEx/plugins/BetterTerminal.dll"
+source = "AdvancedTerminalAPI/bin/AdvancedTerminalAPI.dll"
+target = "BepInEx/plugins/AdvancedTerminalAPI.dll"
 
 [[build.copy]]
 source = "CHANGELOG.md"

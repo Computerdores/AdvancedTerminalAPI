@@ -1,4 +1,4 @@
-# BetterTerminal
+# AdvancedTerminalAPI
 
 // TODO
 
