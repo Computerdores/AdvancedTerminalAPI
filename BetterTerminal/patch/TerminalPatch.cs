@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Computerdores.patch;
 
+// Note: This whole thing will silently fail if there are ever more than 2 terminals in the level
 [HarmonyPatch(typeof(Terminal))]
 public class TerminalPatch {
 
@@ -24,5 +25,11 @@ public class TerminalPatch {
     [HarmonyPatch("TextChanged")]
     public static bool TextChangedPrefix() {
         return false; // disable TextChanged Event in Terminal class
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch("BeginUsingTerminal")]
+    public static void BeginUsingTerminalPostfix(Terminal __instance) {
+        Plugin.Driver.OnBeginUsingTerminal(!__instance.usedTerminalThisSession);
     }
 }

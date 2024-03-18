@@ -55,4 +55,8 @@ public class InputFieldDriver {
         _inputField.ActivateInputField();
         _inputField.Select();
     }
+    
+    public void OnBeginUsingTerminal(bool firstTime) {
+        // TODO
+    }
 }
