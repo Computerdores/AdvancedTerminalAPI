@@ -12,6 +12,7 @@ public class Plugin : BaseUnityPlugin {
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
     public static InputFieldDriver Driver;
+    public static ITerminal CustomTerminal = new VanillinTerminal();
 
     public Plugin() {
         Instance = this;

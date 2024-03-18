@@ -16,6 +16,8 @@ public class InputFieldDriver {
     // <---- Public API ----> //
 
     public string Input { get; private set; } = "";
+    
+    public Terminal VanillaTerminal { get; }
 
     public delegate void EnterTerminalEvent(bool firstTime);
     public delegate void SubmitEvent(string text);
@@ -25,11 +27,14 @@ public class InputFieldDriver {
 
     public InputFieldDriver(Terminal __instance) {
         // Init variables
+        VanillaTerminal = __instance;
         _inputField = __instance.screenText;
         // Add event listeners
         _inputField.onValueChanged.AddListener(OnInputFieldChangedHandler);
         _inputField.onSubmit.AddListener(OnInputFieldSubmitHandler);
         TerminalPatch.OnEnterTerminal += OnEnterTerminalHandler;
+        // Register yourself with the Modded Terminal
+        Plugin.CustomTerminal.RegisterDriver(this);
     }
 
     public void DisplayText(string text, bool clearInput) {
