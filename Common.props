@@ -51,6 +51,7 @@
         <DllNames Include="Assembly-CSharp" Publicize="true" />
         <DllNames Include="Unity.Netcode.Runtime" />
         <DllNames Include="Unity.TextMeshPro" />
+        <DllNames Include="UnityEngine.UI" />
 
         <Reference Include="@(DllNames)" HintPath="$(AssemblyGameDir)%(Identity).dll" />
     </ItemGroup>

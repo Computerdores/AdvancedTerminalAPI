@@ -14,4 +14,15 @@ public class TerminalPatch {
         Plugin.Driver = new InputFieldDriver(__instance);
     }
 
+    [HarmonyPrefix]
+    [HarmonyPatch("OnSubmit")]
+    public static bool OnSubmitPrefix() {
+        return false; // disable OnSubmit Event in Terminal class
+    }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch("TextChanged")]
+    public static bool TextChangedPrefix() {
+        return false; // disable TextChanged Event in Terminal class
+    }
 }
