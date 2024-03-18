@@ -11,9 +11,9 @@ public class TerminalPatch {
 
     public static event InputFieldDriver.EnterTerminalEvent OnEnterTerminal;
     
-    [HarmonyPostfix]
-    [HarmonyPatch("Start")]
-    public static void StartPostfix(Terminal __instance) {
+    [HarmonyPrefix]
+    [HarmonyPatch("Awake")]
+    public static void AwakePrefix(Terminal __instance) {
         Plugin.Driver = new InputFieldDriver(__instance);
     }
 
