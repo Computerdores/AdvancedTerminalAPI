@@ -9,6 +9,8 @@ namespace Computerdores.patch;
 [HarmonyPatch(typeof(Terminal))]
 public class TerminalPatch {
 
+    public static event InputFieldDriver.EnterTerminalEvent OnEnterTerminal;
+    
     [HarmonyPostfix]
     [HarmonyPatch("Start")]
     public static void StartPostfix(Terminal __instance) {
@@ -30,6 +32,6 @@ public class TerminalPatch {
     [HarmonyPostfix]
     [HarmonyPatch("BeginUsingTerminal")]
     public static void BeginUsingTerminalPostfix(Terminal __instance) {
-        Plugin.Driver.OnBeginUsingTerminal(!__instance.usedTerminalThisSession);
+        OnEnterTerminal?.Invoke(!__instance.usedTerminalThisSession);
     }
 }
