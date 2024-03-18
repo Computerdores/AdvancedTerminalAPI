@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using BepInEx.Logging;
+using HarmonyLib;
 
-namespace Computerdores; 
+namespace Computerdores;
 
 public class VanillinTerminal : ITerminal {
-
     private InputFieldDriver _driver;
-    
+
+    private Dictionary<string, ICommand> _commands = new();
+
     private Terminal VanillaTerminal => _driver.VanillaTerminal;
     private string Input => _driver.Input;
-    
+    private ManualLogSource Log => Plugin.Log;
+
     public void RegisterDriver(InputFieldDriver driver) {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
@@ -21,15 +27,38 @@ public class VanillinTerminal : ITerminal {
     public void PostStart() { }
     public void PreUpdate() { }
     public void PostUpdate() { }
+
     public void AddCommand(ICommand command) {
-        // TODO
+        _commands[command.GetName()] = command;
+    }
+    public void CopyCommandsTo(ITerminal terminal) {
+        foreach (ICommand command in _commands.Values) {
+            terminal.AddCommand(command);
+        }
     }
 
     private void OnSubmit(string text) {
-        // TODO
+        string[] words = text.Split(' ');
+        string arguments = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
+        ICommand nCommand = FindCommand(words[0]);
+        if (nCommand is {} command) {
+            Log.LogInfo($"Found Command for word: '{words[0]}'");
+            _driver.DisplayText(command.Execute(arguments));
+        } else {
+            Log.LogInfo($"Did not find Command for word: '{words[0]}'");
+            // TODO handle Command not found
+        }
+    }
+
+    private void OnEnterTerminal(bool firstTime) {
+        ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help");
+        Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
+        _driver.DisplayText(welcomeCommand?.Execute("").output, true);
     }
     
-    private void OnEnterTerminal(bool firstTime) {
-        // TODO
+
+    private ICommand FindCommand(string command) {
+        string[] keys = _commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
+        return keys.Length != 1 ? null : _commands[keys[0]];
     }
 }

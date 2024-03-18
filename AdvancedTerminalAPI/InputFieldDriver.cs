@@ -38,9 +38,14 @@ public class InputFieldDriver {
     }
 
     public void DisplayText(string text, bool clearInput) {
+        if (text is null) return;
         _displayedText = "\n\n\n"+text;
         if (clearInput) Input = "";
         _renderToInputField();
+    }
+    public void DisplayText((string text, bool clearInput)? nullableTuple) {
+        if (nullableTuple is { } tuple)
+            DisplayText(tuple.text, tuple.clearInput);
     }
 
 
@@ -64,7 +69,7 @@ public class InputFieldDriver {
     }
 
     private void OnInputFieldSubmitHandler(string text) {
-        OnSubmit?.Invoke(text);
+        OnSubmit?.Invoke(Input);
         _inputField.ActivateInputField();
         _inputField.Select();
     }

@@ -16,6 +16,7 @@ public class Plugin : BaseUnityPlugin {
 
     public Plugin() {
         Instance = this;
+        CustomTerminal.AddCommand(new WelcomeCommand());
     }
 
     private void Awake() {

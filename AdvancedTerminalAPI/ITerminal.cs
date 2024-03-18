@@ -14,4 +14,5 @@ public interface ITerminal {
     public void PostUpdate();
 
     public void AddCommand(ICommand command);
+    public void CopyCommandsTo(ITerminal terminal);
 }
