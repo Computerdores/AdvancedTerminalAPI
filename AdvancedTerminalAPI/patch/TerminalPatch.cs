@@ -7,6 +7,8 @@ namespace Computerdores.patch;
 public class TerminalPatch {
 
     public static event InputFieldDriver.EnterTerminalEvent OnEnterTerminal;
+
+    private static bool _usedTerminalThisSession;
     
     [HarmonyPrefix]
     [HarmonyPatch("Awake")]
@@ -26,9 +28,16 @@ public class TerminalPatch {
         return false; // disable TextChanged Event in Terminal class
     }
 
+    
+    [HarmonyPrefix]
+    [HarmonyPatch("BeginUsingTerminal")]
+    public static void BeginUsingTerminalPrefix(Terminal __instance) {
+        _usedTerminalThisSession = __instance.usedTerminalThisSession;
+    }
+    
     [HarmonyPostfix]
     [HarmonyPatch("BeginUsingTerminal")]
     public static void BeginUsingTerminalPostfix(Terminal __instance) {
-        OnEnterTerminal?.Invoke(!__instance.usedTerminalThisSession);
+        OnEnterTerminal?.Invoke(!_usedTerminalThisSession);
     }
 }
