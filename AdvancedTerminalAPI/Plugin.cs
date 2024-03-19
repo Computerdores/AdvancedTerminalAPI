@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using Computerdores.Commands;
 using Computerdores.patch;
 using HarmonyLib;
 
@@ -11,12 +12,12 @@ public class Plugin : BaseUnityPlugin {
     public static ManualLogSource Log => Instance.Logger;
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-    public static InputFieldDriver Driver;
-    public static ITerminal CustomTerminal = new VanillinTerminal();
+    public static InputFieldDriver driver;
+    public static ITerminal customTerminal = new VanillinTerminal();
 
     public Plugin() {
         Instance = this;
-        CustomTerminal.AddCommand(new WelcomeCommand());
+        customTerminal.AddCommand(new WelcomeCommand());
     }
 
     private void Awake() {

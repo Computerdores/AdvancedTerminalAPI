@@ -1,4 +1,4 @@
-﻿namespace Computerdores; 
+﻿namespace Computerdores.Commands; 
 
 public class WelcomeCommand : ICommand {
     public string GetName() {

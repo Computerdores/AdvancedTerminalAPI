@@ -34,7 +34,7 @@ public class InputFieldDriver {
         _inputField.onSubmit.AddListener(OnInputFieldSubmitHandler);
         TerminalPatch.OnEnterTerminal += OnEnterTerminalHandler;
         // Register yourself with the Modded Terminal
-        Plugin.CustomTerminal.RegisterDriver(this);
+        Plugin.customTerminal.RegisterDriver(this);
     }
 
     public void DisplayText(string text, bool clearInput) {
@@ -63,7 +63,8 @@ public class InputFieldDriver {
         if (newText.Length < _displayedText.Length) {
             Input = "";
         } else {
-            Input = newText.Substring(_displayedText.Length, Math.Min(MaxInputLength, newText.Length - _displayedText.Length));
+            int newInputLength = Math.Min(MaxInputLength, newText.Length - _displayedText.Length);
+            Input = newText.Substring(_displayedText.Length, newInputLength);
         }
         _renderToInputField();
     }

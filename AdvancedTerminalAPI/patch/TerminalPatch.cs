@@ -13,7 +13,7 @@ public class TerminalPatch {
     [HarmonyPrefix]
     [HarmonyPatch("Awake")]
     public static void AwakePrefix(Terminal __instance) {
-        Plugin.Driver = new InputFieldDriver(__instance);
+        Plugin.driver = new InputFieldDriver(__instance);
     }
 
     [HarmonyPrefix]

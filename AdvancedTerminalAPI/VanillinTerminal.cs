@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -9,11 +8,9 @@ namespace Computerdores;
 public class VanillinTerminal : ITerminal {
     private InputFieldDriver _driver;
 
-    private Dictionary<string, ICommand> _commands = new();
+    private readonly Dictionary<string, ICommand> _commands = new();
 
-    private Terminal VanillaTerminal => _driver.VanillaTerminal;
-    private string Input => _driver.Input;
-    private ManualLogSource Log => Plugin.Log;
+    private static ManualLogSource Log => Plugin.Log;
 
     public void RegisterDriver(InputFieldDriver driver) {
         _driver = driver;
@@ -46,7 +43,7 @@ public class VanillinTerminal : ITerminal {
             _driver.DisplayText(command.Execute(arguments));
         } else {
             Log.LogInfo($"Did not find Command for word: '{words[0]}'");
-            // TODO handle Command not found
+            _driver.DisplayText("[There was no action supplied with the word.]\n\n", true);
         }
     }
 
