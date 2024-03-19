@@ -20,6 +20,12 @@ public class Plugin : BaseUnityPlugin {
         customTerminal.AddCommand(new WelcomeCommand());
     }
 
+    public void ReplaceTerminal(ITerminal newTerminal) {
+        ITerminal oldTerminal = customTerminal;
+        customTerminal = newTerminal;
+        oldTerminal.CopyCommandsTo(customTerminal);
+    }
+
     private void Awake() {
         Log.LogInfo("Applying Patches...");
         ApplyPatches();
