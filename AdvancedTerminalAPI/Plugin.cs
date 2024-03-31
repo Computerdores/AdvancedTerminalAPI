@@ -18,6 +18,7 @@ public class Plugin : BaseUnityPlugin {
     public Plugin() {
         Instance = this;
         customTerminal.AddCommand(new WelcomeCommand());
+        customTerminal.AddCommand(new SwitchCommand());
     }
 
     public void ReplaceTerminal(ITerminal newTerminal) {
