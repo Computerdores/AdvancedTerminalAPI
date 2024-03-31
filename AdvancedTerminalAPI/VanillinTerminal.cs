@@ -40,7 +40,7 @@ public class VanillinTerminal : ITerminal {
         ICommand nCommand = FindCommand(words[0]);
         if (nCommand is {} command) {
             Log.LogInfo($"Found Command for word: '{words[0]}'");
-            _driver.DisplayText(command.Execute(arguments));
+            _driver.DisplayText(command.Execute(arguments, this));
         } else {
             Log.LogInfo($"Did not find Command for word: '{words[0]}'");
             _driver.DisplayText("[There was no action supplied with the word.]\n\n", true);
@@ -50,7 +50,7 @@ public class VanillinTerminal : ITerminal {
     private void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help");
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
-        _driver.DisplayText(welcomeCommand?.Execute("").output, true);
+        _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
     }
     
 

@@ -11,7 +11,7 @@ public class WelcomeCommand : ICommand {
         return partialArgumentsText;
     }
 
-    public (string output, bool clearScreen) Execute(string finalArgumentsText) {
+    public (string output, bool clearScreen) Execute(string finalArgumentsText, ITerminal terminal) {
         return ("Welcome to the FORTUNE-9 OS\n"+
                 "          Courtesy of the Company\n\n"+
                $"Happy {DateTime.Now.DayOfWeek.ToString()}.\n\n"+
