@@ -5,5 +5,5 @@ public interface ICommand {
 
     public string PredictArguments(string partialArgumentsText);
 
-    public (string output, bool clearScreen) Execute(string finalArgumentsText, ITerminal terminal);
+    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal);
 }

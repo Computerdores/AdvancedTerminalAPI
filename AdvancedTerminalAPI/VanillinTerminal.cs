@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
+using UnityEngine.Yoga;
 
 namespace Computerdores;
 
@@ -40,9 +42,15 @@ public class VanillinTerminal : ITerminal {
         ICommand nCommand = FindCommand(words[0]);
         if (nCommand is {} command) {
             Log.LogInfo($"Found Command for word: '{words[0]}'");
-            _driver.DisplayText(command.Execute(arguments, this));
+            (string outp, bool clear, bool success) = command.Execute(arguments, this);
+            if (success) {
+                _driver.DisplayText(outp, clear);
+            } else {
+                Log.LogInfo($"Command execution failed for input: '{text}'");
+                _driver.DisplayText("[There was no object supplied with the action, or your word was typed incorrectly or does not exist.]\n\n", true);
+            }
         } else {
-            Log.LogInfo($"Did not find Command for word: '{words[0]}'");
+            Log.LogInfo($"Did not find Command for input: '{text}'");
             _driver.DisplayText("[There was no action supplied with the word.]\n\n", true);
         }
     }

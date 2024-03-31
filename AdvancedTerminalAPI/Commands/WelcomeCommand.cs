@@ -11,10 +11,10 @@ public class WelcomeCommand : ICommand {
         return partialArgumentsText;
     }
 
-    public (string output, bool clearScreen) Execute(string finalArgumentsText, ITerminal terminal) {
+    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
         return ("Welcome to the FORTUNE-9 OS\n"+
                 "          Courtesy of the Company\n\n"+
                $"Happy {DateTime.Now.DayOfWeek.ToString()}.\n\n"+
-                "Type \"Help\" for a list of commands.\n\n\n\n\n", true);
+                "Type \"Help\" for a list of commands.\n\n\n\n\n", true, true);
     }
 }
