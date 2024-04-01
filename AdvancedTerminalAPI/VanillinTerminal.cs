@@ -20,6 +20,8 @@ public class VanillinTerminal : ITerminal {
         _driver.OnEnterTerminal += OnEnterTerminal;
     }
 
+    public InputFieldDriver GetDriver() => _driver;
+
     public void PreAwake() { }
     public void PostAwake() { }
     public void PreStart() { }

@@ -5,6 +5,7 @@ public interface ITerminal {
     public delegate string DisplayTextSupplier(string finalArguments);
     
     public void RegisterDriver(InputFieldDriver driver);
+    public InputFieldDriver GetDriver();
     
     public void PreAwake();
     public void PostAwake();
