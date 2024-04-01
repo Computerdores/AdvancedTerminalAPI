@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
-using UnityEngine.Yoga;
 
 namespace Computerdores;
 
@@ -49,11 +47,11 @@ public class VanillinTerminal : ITerminal {
                 _driver.DisplayText(outp, clear);
             } else {
                 Log.LogInfo($"Command execution failed for input: '{text}'");
-                _driver.DisplayText("[There was no object supplied with the action, or your word was typed incorrectly or does not exist.]\n\n", true);
+                _driver.DisplayText(SpecialText(11), true);
             }
         } else {
             Log.LogInfo($"Did not find Command for input: '{text}'");
-            _driver.DisplayText("[There was no action supplied with the word.]\n\n", true);
+            _driver.DisplayText(SpecialText(10), true);
         }
     }
 
@@ -67,5 +65,11 @@ public class VanillinTerminal : ITerminal {
     private ICommand FindCommand(string command) {
         string[] keys = _commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
         return keys.Length != 1 ? null : _commands[keys[0]];
+    }
+
+    private string SpecialText(int i) => GetSpecialNode(i).displayText; // purely for convenience
+    private TerminalNode GetSpecialNode(int nodeIndex) => GetSpecialNode(_driver.VanillaTerminal, nodeIndex);
+    private static TerminalNode GetSpecialNode(Terminal vanillaTerminal, int nodeIndex) {
+        return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
     }
 }
