@@ -79,7 +79,9 @@ public class VanillinTerminal : ITerminal {
         // Keywords
         for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.allKeywords.Length; i++) {
             TerminalKeyword kw = _driver.VanillaTerminal.terminalNodes.allKeywords[i];
-            string displayText = kw.specialKeywordResult?.displayText?.Replace("\n", "\\n");
+            string displayText = kw.specialKeywordResult == null
+                ? null
+                : kw.specialKeywordResult.displayText?.Replace("\n", "\\n");
             Log.LogDebug($"Keyword ({i}), " + (kw.isVerb ? "Verb" : "Noun") + $" '{kw.word}'" +
                          (displayText != null ? $": '{displayText}' " : ""));
         }
