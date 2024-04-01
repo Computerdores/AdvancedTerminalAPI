@@ -16,6 +16,6 @@ public class SwitchCommand : ICommand {
         } else {
             StartOfRound.Instance.mapScreen.SwitchRadarTargetForward(true);
         }
-        return ("Switching Radar cam view.\n\n", true, true);
+        return (Util.FindNoun(terminal.GetDriver().VanillaTerminal, "switch").specialKeywordResult.displayText, true, true);
     }
 }
