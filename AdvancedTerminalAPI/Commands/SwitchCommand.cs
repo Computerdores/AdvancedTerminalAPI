@@ -16,8 +16,11 @@ public class SwitchCommand : ICommand {
     public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
         int index = GetPlayerIndexByName(finalArgumentsText); 
         if (index != -1 || finalArgumentsText == "") {
-            if (index == -1) index = StartOfRound.Instance.mapScreen.targetTransformIndex + 1;
-            StartOfRound.Instance.mapScreen.SwitchRadarTargetAndSync(index);
+            if (index != -1) {
+                StartOfRound.Instance.mapScreen.SwitchRadarTargetAndSync(index);
+            } else {
+                StartOfRound.Instance.mapScreen.SwitchRadarTargetForward(true);
+            }
             return ("Switching Radar cam view.\n\n", true, true);
         }
         return ("", false, false);
