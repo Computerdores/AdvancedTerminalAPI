@@ -3,18 +3,14 @@
 namespace Computerdores.Commands; 
 
 public class WelcomeCommand : ICommand {
-    public string GetName() {
-        return "welcome";
-    }
+    public string GetName() => "welcome";
 
     public string PredictArguments(string partialArgumentsText) {
         return partialArgumentsText;
     }
 
     public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
-        return ("Welcome to the FORTUNE-9 OS\n"+
-                "          Courtesy of the Company\n\n"+
-               $"Happy {DateTime.Now.DayOfWeek.ToString()}.\n\n"+
-                "Type \"Help\" for a list of commands.\n\n\n\n\n", true, true);
+        return (Util.GetSpecialNode(terminal.GetDriver().VanillaTerminal, 1).displayText
+            .Replace("[currentDay]", DateTime.Now.DayOfWeek.ToString()), true, true);
     }
 }
