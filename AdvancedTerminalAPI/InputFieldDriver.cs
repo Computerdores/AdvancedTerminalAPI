@@ -11,11 +11,19 @@ public class InputFieldDriver {
     private readonly TMP_InputField _inputField;
 
     private string _displayedText = "\n\n\n";
+    private string _input = "";
 
 
     // <---- Public API ----> //
 
-    public string Input { get; private set; } = "";
+    // ReSharper disable once MemberCanBePrivate.Global
+    public string Input {
+        get => _input;
+        set {
+            _input = value;
+            _renderToInputField();
+        }
+    }
     
     public Terminal VanillaTerminal { get; }
 
@@ -43,10 +51,8 @@ public class InputFieldDriver {
         if (clearInput) Input = "";
         _renderToInputField();
     }
-    public void DisplayText((string text, bool clearInput)? nullableTuple) {
-        if (nullableTuple is { } tuple)
-            DisplayText(tuple.text, tuple.clearInput);
-    }
+
+    public string GetDisplayedText() => _displayedText;
 
 
     // <---- Private Methods ----> //
