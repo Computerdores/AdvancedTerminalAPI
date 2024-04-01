@@ -16,6 +16,7 @@ public class VanillinTerminal : ITerminal {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
         _driver.OnEnterTerminal += OnEnterTerminal;
+        DebugLogNodeInfo();
     }
 
     public InputFieldDriver GetDriver() => _driver;
@@ -69,4 +70,18 @@ public class VanillinTerminal : ITerminal {
 
     // purely for convenience
     private string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
+
+    private void DebugLogNodeInfo() {
+        // Special Nodes
+        for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.specialNodes.Count; i++) {
+            Log.LogDebug($"Special Node ({i}): '{_driver.VanillaTerminal.terminalNodes.specialNodes[i].displayText.Replace("\n", "\\n")}'");
+        }
+        // Keywords
+        for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.allKeywords.Length; i++) {
+            TerminalKeyword kw = _driver.VanillaTerminal.terminalNodes.allKeywords[i];
+            string displayText = kw.specialKeywordResult?.displayText?.Replace("\n", "\\n");
+            Log.LogDebug($"Keyword ({i}), " + (kw.isVerb ? "Verb" : "Noun") + $" '{kw.word}'" +
+                         (displayText != null ? $": '{displayText}' " : ""));
+        }
+    }
 }
