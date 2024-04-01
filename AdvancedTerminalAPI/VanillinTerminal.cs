@@ -67,9 +67,6 @@ public class VanillinTerminal : ITerminal {
         return keys.Length != 1 ? null : _commands[keys[0]];
     }
 
-    private string SpecialText(int i) => GetSpecialNode(i).displayText; // purely for convenience
-    private TerminalNode GetSpecialNode(int nodeIndex) => GetSpecialNode(_driver.VanillaTerminal, nodeIndex);
-    private static TerminalNode GetSpecialNode(Terminal vanillaTerminal, int nodeIndex) {
-        return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
-    }
+    // purely for convenience
+    private string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
 }
