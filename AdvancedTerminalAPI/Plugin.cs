@@ -14,11 +14,12 @@ public class Plugin : BaseUnityPlugin {
 
     public static InputFieldDriver driver;
     public static ITerminal customTerminal = new VanillinTerminal();
-
+    
     public Plugin() {
         Instance = this;
         customTerminal.AddCommand(new WelcomeCommand());
         customTerminal.AddCommand(new SwitchCommand());
+        customTerminal.AddCommand(new ViewCommand());
     }
 
     public void ReplaceTerminal(ITerminal newTerminal) {
