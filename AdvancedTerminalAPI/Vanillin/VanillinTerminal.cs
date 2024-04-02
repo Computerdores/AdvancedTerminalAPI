@@ -24,6 +24,7 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new ViewCommand());
         AddBuiltinCommand(new HelpCommand());
         AddBuiltinCommand(new OtherCommand());
+        AddBuiltinCommand(new ScanCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
