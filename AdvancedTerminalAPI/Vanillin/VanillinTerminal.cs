@@ -23,6 +23,7 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new SwitchCommand());
         AddBuiltinCommand(new ViewCommand());
         AddBuiltinCommand(new HelpCommand());
+        AddBuiltinCommand(new OtherCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
@@ -87,7 +88,10 @@ public class VanillinTerminal : ITerminal {
     private void DebugLogNodeInfo() {
         // Special Nodes
         for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.specialNodes.Count; i++) {
-            Log.LogDebug($"Special Node ({i}): '{_driver.VanillaTerminal.terminalNodes.specialNodes[i].displayText.Replace("\n", "\\n")}'");
+            Log.LogDebug($"Special Node ({i}): '" + 
+                         _driver.VanillaTerminal.terminalNodes.specialNodes[i].displayText
+                             .Replace("\n", "\\n") + 
+                         "'");
         }
         // Keywords
         for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.allKeywords.Length; i++) {
