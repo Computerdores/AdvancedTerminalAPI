@@ -10,22 +10,9 @@
         <!-- Path of the game directory, should contain Lethal Company.exe -->
         <!-- PROGRA~1 is the short path for Program Files -->
         <!-- PROGRA~2 is the short path for Program Files (x86) -->
-        <SteamDir>C:\PROGRA~2\Steam\</SteamDir>
-        <GameDir>$(SteamDir)steamapps\common\Lethal Company\</GameDir>
-        <ThunderstoreProfileDir>$(appdata)\Thunderstore Mod Manager\DataFolder\LethalCompany\profiles\Mod Dev\</ThunderstoreProfileDir>
-        <SteamStartOptions>-applaunch 1966720 --doorstop-enable true --doorstop-target "%appdata%/Thunderstore Mod Manager/DataFolder/LethalCompany/profiles/Mod Dev/BepInEx/core/BepInEx.Preloader.dll"</SteamStartOptions>
-        <!-- Path of the game's plugin directory where the built plugin will be copied to -->
-        <PluginGameDir>$(ThunderstoreProfileDir)BepInEx\plugins\</PluginGameDir>
+        <GameDir>C:\PROGRA~2\Steam\steamapps\common\Lethal Company\</GameDir>
         <!-- Path of the game's managed directory where the game's dlls are located -->
         <AssemblyGameDir>$(GameDir)Lethal Company_Data\Managed\</AssemblyGameDir>
-        <!-- Name of the game executable -->
-        <GameExe>Lethal Company.exe</GameExe>
-        <!-- Name of the steam executable -->
-        <SteamExe>steam.exe</SteamExe>
-        <!-- Entire path of the game executable -->
-        <GameExePath>$(GameDir)$(GameExe)</GameExePath>
-        <!-- Entire path of the steam executable -->
-        <SteamExePath>$(SteamDir)$(SteamExe)</SteamExePath>
         <!-- Version of the game supported by the plugin -->
         <!-- The value must be the same than the one in CI/CD -->
         <!-- https://www.nuget.org/packages/LethalCompany.GameLibs.Steam -->
