@@ -13,6 +13,11 @@ public class VanillinTerminal : ITerminal {
 
     private static ManualLogSource Log => Plugin.Log;
 
+    private static readonly string[] TerminalAccessibleObjects = {
+        "b3", "c1", "c2", "c7", "d6", "f2", "h5", "i1", "j6", "k9", "l0", "m6", "m9", "o5", "p1", "r2", "r4", "t2",
+        "u2", "u9", "v0", "x8", "y9", "z3"
+    };
+
     public void RegisterDriver(InputFieldDriver driver) {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
@@ -25,6 +30,9 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new HelpCommand());
         AddBuiltinCommand(new OtherCommand());
         AddBuiltinCommand(new ScanCommand());
+        foreach (string name in TerminalAccessibleObjects) {
+            AddBuiltinCommand(new AccessibleObjectCommand(name));
+        }
     }
 
     public InputFieldDriver GetDriver() => _driver;
