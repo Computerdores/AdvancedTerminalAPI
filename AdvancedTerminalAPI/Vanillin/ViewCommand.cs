@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Computerdores.Commands; 
+namespace Computerdores.Vanillin; 
 
 public class ViewCommand : ICommand {
     public string GetName() => "view";

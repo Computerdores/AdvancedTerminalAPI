@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Commands; 
+﻿namespace Computerdores.Vanillin; 
 
 public class HelpCommand : ICommand {
     public string GetName() => "help";

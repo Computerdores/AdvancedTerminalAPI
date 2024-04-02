@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Computerdores.Commands; 
+namespace Computerdores.Vanillin; 
 
 public class WelcomeCommand : ICommand {
     public string GetName() => "welcome";

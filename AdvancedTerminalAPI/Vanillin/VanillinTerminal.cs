@@ -3,7 +3,7 @@ using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
 
-namespace Computerdores;
+namespace Computerdores.Vanillin;
 
 public class VanillinTerminal : ITerminal {
     private InputFieldDriver _driver;
