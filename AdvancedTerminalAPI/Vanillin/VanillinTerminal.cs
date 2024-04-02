@@ -9,6 +9,7 @@ public class VanillinTerminal : ITerminal {
     private InputFieldDriver _driver;
 
     private readonly Dictionary<string, ICommand> _commands = new();
+    private readonly Dictionary<string, ICommand> _builtinCommands = new();
 
     private static ManualLogSource Log => Plugin.Log;
 
@@ -17,6 +18,11 @@ public class VanillinTerminal : ITerminal {
         _driver.OnSubmit += OnSubmit;
         _driver.OnEnterTerminal += OnEnterTerminal;
         DebugLogNodeInfo();
+        // Add Vanillin Commands
+        AddBuiltinCommand(new WelcomeCommand());
+        AddBuiltinCommand(new SwitchCommand());
+        AddBuiltinCommand(new ViewCommand());
+        AddBuiltinCommand(new HelpCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
@@ -28,6 +34,9 @@ public class VanillinTerminal : ITerminal {
     public void PreUpdate() { }
     public void PostUpdate() { }
 
+    private void AddBuiltinCommand(ICommand command) {
+        _builtinCommands[command.GetName()] = command;
+    }
     public void AddCommand(ICommand command) {
         _commands[command.GetName()] = command;
     }
@@ -64,8 +73,12 @@ public class VanillinTerminal : ITerminal {
     
 
     private ICommand FindCommand(string command) {
-        string[] keys = _commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
-        return keys.Length != 1 ? null : _commands[keys[0]];
+        return FindCommand(_commands, command) ?? FindCommand(_builtinCommands, command);
+    }
+    
+    private static ICommand FindCommand(Dictionary<string, ICommand> commands, string command) {
+        string[] keys = commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
+        return keys.Length != 1 ? null : commands[keys[0]];
     }
 
     // purely for convenience
