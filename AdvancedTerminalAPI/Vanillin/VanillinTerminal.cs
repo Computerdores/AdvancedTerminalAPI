@@ -71,7 +71,7 @@ public class VanillinTerminal : ITerminal {
                 _driver.DisplayText(SpecialText(11), true);
             }
             if (!more) _currentCommand = null;
-        } else {
+        } else if (text != "") {
             Log.LogInfo($"Did not find Command for input: '{text}'");
             _driver.DisplayText(SpecialText(10), true);
         }
