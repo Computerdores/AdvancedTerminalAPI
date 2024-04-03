@@ -5,13 +5,8 @@ public class HelpCommand : SimpleCommand, ICommand {
 
     protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
-        return new CommandResult(Util.GetSpecialNode(vT, 13).displayText.
-            Replace("[numberOfItemsOnRoute]",
-                vT.numberOfItemsInDropship > 0
-                    ? $"{vT.numberOfItemsInDropship} purchased items on route."
-                    : ""
-                ),
-            true, true);
+        TerminalNode node = Util.GetSpecialNode(vT, 13);
+        return new CommandResult(vT.TextPostProcess(node.displayText, node), true, true);
     }
 
     public object Clone() => new HelpCommand();
