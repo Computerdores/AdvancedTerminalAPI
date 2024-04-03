@@ -53,25 +53,6 @@ public class VanillinTerminal : ITerminal {
         }
     }
 
-    private void OnSubmit1(string text) {
-        string[] words = text.Split(' ');
-        string arguments = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
-        ICommand nCommand = FindCommand(words[0]);
-        if (nCommand is {} command) {
-            Log.LogInfo($"Found Command for word: '{words[0]}'");
-            CommandResult result = command.Execute(arguments, this, out bool more);
-            if (result.success) {
-                _driver.DisplayText(result.output, result.clearScreen);
-            } else {
-                Log.LogInfo($"Command execution failed for input: '{text}'");
-                _driver.DisplayText(SpecialText(11), true);
-            }
-        } else {
-            Log.LogInfo($"Did not find Command for input: '{text}'");
-            _driver.DisplayText(SpecialText(10), true);
-        }
-    }
-    
     private void OnSubmit(string text) {
         string input = text;
         if (_currentCommand == null) {
