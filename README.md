@@ -11,7 +11,7 @@
 - [ ] info
 - [ ] moons
 - [x] other
-- [ ] ping
+- [x] ping
 - [ ] route
 - [x] scan
 - [ ] sigurd

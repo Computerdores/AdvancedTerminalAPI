@@ -52,4 +52,9 @@ public static class Util {
     public static string PredictConfirmation(string partialInput) {
         return partialInput.ToLower().StartsWith("c") ? "CONFIRM" : "DENY";
     }
+
+    public static string PredictPlayerName(string partialInput) { // untested
+        int index = GetPlayerIndexByName(partialInput);
+        return index != -1 ? StartOfRound.Instance.mapScreen.radarTargets[index].name : partialInput;
+    }
 }

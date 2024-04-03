@@ -21,16 +21,17 @@ public class VanillinTerminal : ITerminal {
         _driver.OnEnterTerminal += OnEnterTerminal;
         DebugLogNodeInfo();
         // Add Vanillin Commands
-        AddBuiltinCommand(new WelcomeCommand());
-        AddBuiltinCommand(new SwitchCommand());
-        AddBuiltinCommand(new ViewCommand());
+        AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new HelpCommand());
         AddBuiltinCommand(new OtherCommand());
+        AddBuiltinCommand(new PingCommand());
         AddBuiltinCommand(new ScanCommand());
+        AddBuiltinCommand(new SwitchCommand());
+        AddBuiltinCommand(new ViewCommand());
+        AddBuiltinCommand(new WelcomeCommand());
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
-        AddBuiltinCommand(new EjectCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
