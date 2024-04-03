@@ -63,11 +63,16 @@ public class InputFieldDriver {
         // Register yourself with the Modded Terminal
         Plugin.customTerminal.RegisterDriver(this);
     }
-
-    public void DisplayText(string text, bool clearInput) {
+    
+    /// <summary>
+    /// Change the Text that is displayed in the console.
+    /// </summary>
+    /// <param name="text">The new text to be displayed.</param>
+    /// <param name="clearScreen">Whether the text should added after or instead of the current text.</param>
+    public void DisplayText(string text, bool clearScreen) {
         if (text is null) return;
-        _displayedText = "\n\n\n"+text;
-        if (clearInput) Input = "";
+        _displayedText = (clearScreen ? "\n" : _inputField.text ) + $"\n\n{text}";
+        Input = "";
         _renderToInputField();
     }
 
