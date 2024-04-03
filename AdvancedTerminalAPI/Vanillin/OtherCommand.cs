@@ -3,10 +3,6 @@
 public class OtherCommand : ASimpleCommand, ICommand {
     public string GetName() => "other";
 
-    public string PredictArguments(string partialArgumentsText) {
-        return partialArgumentsText;
-    }
-
     protected override CommandResult Execute(string input, ITerminal terminal) {
         return new CommandResult(
             Util.FindNoun(terminal.GetDriver().VanillaTerminal, "other").specialKeywordResult.displayText,

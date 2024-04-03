@@ -9,8 +9,6 @@ public class AccessibleObjectCommand : ASimpleCommand, ICommand {
     
     public string GetName() => _name;
 
-    public string PredictArguments(string partialArgumentsText) => partialArgumentsText;
-
     protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         vT.CallFunctionInAccessibleTerminalObject(_name);

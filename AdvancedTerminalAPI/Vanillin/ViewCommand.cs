@@ -2,7 +2,7 @@
 
 namespace Computerdores.Vanillin; 
 
-public class ViewCommand : ASimpleCommand, ICommand {
+public class ViewCommand : ASimpleCommand, ICommand, IPredictable {
     public string GetName() => "view";
 
     public string PredictArguments(string partialArgumentsText) {

@@ -3,10 +3,6 @@
 public class HelpCommand : ASimpleCommand, ICommand {
     public string GetName() => "help";
 
-    public string PredictArguments(string partialArgumentsText) {
-        return partialArgumentsText;
-    }
-
     protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         return new CommandResult(Util.GetSpecialNode(vT, 13).displayText.
