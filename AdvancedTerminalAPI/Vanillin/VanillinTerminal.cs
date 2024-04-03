@@ -80,7 +80,7 @@ public class VanillinTerminal : ITerminal {
     }
 
     private void OnEnterTerminal(bool firstTime) {
-        ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help");
+        ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help"); // TODO handle first time users
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
         _driver.DisplayText(welcomeCommand?.Execute("", this, out bool more).output, true);
     }
