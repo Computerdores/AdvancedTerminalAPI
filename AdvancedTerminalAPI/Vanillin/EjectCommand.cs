@@ -19,7 +19,7 @@ public class EjectCommand : ICommand, IPredictable {
             : partialInput;
 
     public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput) {
-        wantsMoreInput = !_awaitingConfirmation;
+        wantsMoreInput = true;
         CommandResult result = new();
         
         if (!_awaitingConfirmation) {
@@ -29,18 +29,18 @@ public class EjectCommand : ICommand, IPredictable {
             return result;
         }
         
-        bool confirmed = input.ToLower().StartsWith("c");
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode node = (
             from option in Util.FindNoun(vT, "eject")
                 .specialKeywordResult.terminalOptions
-            where option.noun.word.ToLower() == (confirmed ? "confirm" : "deny")
+            where string.Equals(option.noun.word, Util.PredictConfirmation(input),
+                StringComparison.CurrentCultureIgnoreCase)
             select option
         ).FirstOrDefault()?.result;
         if (node == null) {
-            result.success = false;
+            wantsMoreInput = false;
         } else {
-            if (confirmed) vT.RunTerminalEvents(node);
+            vT.RunTerminalEvents(node);
             result.output = node.displayText;
         }
         return result;
