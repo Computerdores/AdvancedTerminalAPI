@@ -1,13 +1,12 @@
-﻿using System;
-
-namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin; 
 
 public class WelcomeCommand : SimpleCommand, ICommand {
     public string GetName() => "welcome";
 
     protected override CommandResult Execute(string input, ITerminal terminal) {
-        return new CommandResult(Util.GetSpecialNode(terminal.GetDriver().VanillaTerminal, 1).displayText
-            .Replace("[currentDay]", DateTime.Now.DayOfWeek.ToString()), true, true);
+        Terminal vT = terminal.GetDriver().VanillaTerminal;
+        TerminalNode node = Util.GetSpecialNode(vT, 1);
+        return new CommandResult(vT.TextPostProcess(node.displayText, node), true, true);
     }
 
     public object Clone() => new WelcomeCommand();
