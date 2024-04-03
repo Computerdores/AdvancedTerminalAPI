@@ -76,6 +76,10 @@ public class InputFieldDriver {
         _renderToInputField();
     }
 
+    /// <summary>
+    /// Get the text last displayed using <see cref="DisplayText"/>.
+    /// </summary>
+    /// <returns>The displayed text without the Input.</returns>
     public string GetDisplayedText() => _displayedText;
 
 
