@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores; 
 
 public abstract class ASimpleCommand {
 
