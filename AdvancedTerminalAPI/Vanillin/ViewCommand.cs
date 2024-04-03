@@ -5,7 +5,7 @@ namespace Computerdores.Vanillin;
 public class ViewCommand : SimpleCommand, ICommand, IPredictable {
     public string GetName() => "view";
 
-    public string PredictArguments(string partialArgumentsText) {
+    public string PredictInput(string partialInput) {
         throw new System.NotImplementedException(); // TODO
     }
 

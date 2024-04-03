@@ -3,9 +3,9 @@
 public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
     public string GetName() => "switch";
 
-    public string PredictArguments(string partialArgumentsText) { // untested
-        int index = Util.GetPlayerIndexByName(partialArgumentsText);
-        return index != -1 ? StartOfRound.Instance.mapScreen.radarTargets[index].name : partialArgumentsText;
+    public string PredictInput(string partialInput) { // untested
+        int index = Util.GetPlayerIndexByName(partialInput);
+        return index != -1 ? StartOfRound.Instance.mapScreen.radarTargets[index].name : partialInput;
     }
 
     protected override CommandResult Execute(string input, ITerminal terminal) {
