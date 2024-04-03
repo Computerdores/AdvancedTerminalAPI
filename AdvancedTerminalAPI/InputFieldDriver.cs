@@ -6,7 +6,7 @@ namespace Computerdores;
 
 public class InputFieldDriver {
 
-    private const int MaxInputLength = 40;
+    private int _maxInputLength = 40;
 
     private readonly TMP_InputField _inputField;
 
@@ -15,6 +15,19 @@ public class InputFieldDriver {
 
 
     // <---- Public API ----> //
+
+    /// <summary>
+    /// The maximum number of characters the player is able to input.
+    /// Decreasing it will automatically trim the users input if necessary.
+    /// </summary>
+    public int MaxInputLength {
+        get => _maxInputLength;
+        set {
+            _maxInputLength = value;
+            if (_input.Length > _maxInputLength)
+                OnInputFieldChangedHandler(_inputField.text);
+        }
+    }
 
     /// <summary>
     /// Can be used to get or set the current Input by the Player.
@@ -97,7 +110,7 @@ public class InputFieldDriver {
         if (newText.Length < _displayedText.Length) {
             Input = "";
         } else {
-            int newInputLength = Math.Min(MaxInputLength, newText.Length - _displayedText.Length);
+            int newInputLength = Math.Min(_maxInputLength, newText.Length - _displayedText.Length);
             Input = newText.Substring(_displayedText.Length, newInputLength);
         }
         _renderToInputField();
