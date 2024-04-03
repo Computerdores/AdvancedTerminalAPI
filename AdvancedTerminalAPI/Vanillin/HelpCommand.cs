@@ -1,15 +1,15 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class HelpCommand : ICommand {
+public class HelpCommand : ASimpleCommand, ICommand {
     public string GetName() => "help";
 
     public string PredictArguments(string partialArgumentsText) {
         return partialArgumentsText;
     }
 
-    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
+    protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
-        return (Util.GetSpecialNode(vT, 13).displayText.
+        return new CommandResult(Util.GetSpecialNode(vT, 13).displayText.
             Replace("[numberOfItemsOnRoute]",
                 vT.numberOfItemsInDropship > 0
                     ? $"{vT.numberOfItemsInDropship} purchased items on route."
@@ -17,4 +17,6 @@ public class HelpCommand : ICommand {
                 ),
             true, true);
     }
+
+    public object Clone() => new HelpCommand();
 }

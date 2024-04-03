@@ -1,9 +1,11 @@
-﻿namespace Computerdores; 
+﻿using System;
 
-public interface ICommand {
+namespace Computerdores; 
+
+public interface ICommand : ICloneable {
     public string GetName();
 
     public string PredictArguments(string partialArgumentsText);
 
-    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal);
+    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput);
 }

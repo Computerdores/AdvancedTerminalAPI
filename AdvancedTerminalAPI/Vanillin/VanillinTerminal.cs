@@ -13,6 +13,8 @@ public class VanillinTerminal : ITerminal {
 
     private static ManualLogSource Log => Plugin.Log;
 
+    private ICommand _currentCommand;
+
     public void RegisterDriver(InputFieldDriver driver) {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
@@ -51,15 +53,15 @@ public class VanillinTerminal : ITerminal {
         }
     }
 
-    private void OnSubmit(string text) {
+    private void OnSubmit1(string text) {
         string[] words = text.Split(' ');
         string arguments = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
         ICommand nCommand = FindCommand(words[0]);
         if (nCommand is {} command) {
             Log.LogInfo($"Found Command for word: '{words[0]}'");
-            (string outp, bool clear, bool success) = command.Execute(arguments, this);
-            if (success) {
-                _driver.DisplayText(outp, clear);
+            CommandResult result = command.Execute(arguments, this, out bool more);
+            if (result.success) {
+                _driver.DisplayText(result.output, result.clearScreen);
             } else {
                 Log.LogInfo($"Command execution failed for input: '{text}'");
                 _driver.DisplayText(SpecialText(11), true);
@@ -69,11 +71,34 @@ public class VanillinTerminal : ITerminal {
             _driver.DisplayText(SpecialText(10), true);
         }
     }
+    
+    private void OnSubmit(string text) {
+        string input = text;
+        if (_currentCommand == null) {
+            string[] words = text.Split(' ');
+            input = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
+            _currentCommand = (ICommand)FindCommand(words[0])?.Clone();
+        }
+        if (_currentCommand is {} command) {
+            Log.LogInfo($"Executing Command ({_currentCommand.GetName()}) for input : '{text}'");
+            CommandResult result = command.Execute(input, this, out bool more);
+            if (result.success) {
+                _driver.DisplayText(result.output, result.clearScreen);
+            } else {
+                Log.LogInfo($"Command execution failed for input ({_currentCommand.GetName()}): '{text}'");
+                _driver.DisplayText(SpecialText(11), true);
+            }
+            if (!more) _currentCommand = null;
+        } else {
+            Log.LogInfo($"Did not find Command for input: '{text}'");
+            _driver.DisplayText(SpecialText(10), true);
+        }
+    }
 
     private void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help");
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
-        _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
+        _driver.DisplayText(welcomeCommand?.Execute("", this, out bool more).output, true);
     }
     
 

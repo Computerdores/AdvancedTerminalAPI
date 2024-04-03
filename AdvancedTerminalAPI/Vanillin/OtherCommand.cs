@@ -1,16 +1,18 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class OtherCommand : ICommand {
+public class OtherCommand : ASimpleCommand, ICommand {
     public string GetName() => "other";
 
     public string PredictArguments(string partialArgumentsText) {
         return partialArgumentsText;
     }
 
-    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
-        return (
+    protected override CommandResult Execute(string input, ITerminal terminal) {
+        return new CommandResult(
             Util.FindNoun(terminal.GetDriver().VanillaTerminal, "other").specialKeywordResult.displayText,
             true, true
             );
     }
+
+    public object Clone() => new OtherCommand();
 }

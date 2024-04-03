@@ -2,18 +2,20 @@
 
 namespace Computerdores.Vanillin; 
 
-public class ViewCommand : ICommand {
+public class ViewCommand : ASimpleCommand, ICommand {
     public string GetName() => "view";
 
     public string PredictArguments(string partialArgumentsText) {
         throw new System.NotImplementedException(); // TODO
     }
 
-    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
+    protected override CommandResult Execute(string input, ITerminal terminal) {
         TerminalNode node = Util.FindNode(terminal.GetDriver().VanillaTerminal, "view",
-            finalArgumentsText.Split(' ').First());
-        if (node == null) return ("", false, false);
+            input.Split(' ').First());
+        if (node == null) return new CommandResult("", false, false);
         terminal.GetDriver().VanillaTerminal.LoadTerminalImage(node);
-        return (node.displayText, node.clearPreviousText, true);
+        return new CommandResult(node.displayText, node.clearPreviousText, true);
     }
+
+    public object Clone() => new ViewCommand();
 }

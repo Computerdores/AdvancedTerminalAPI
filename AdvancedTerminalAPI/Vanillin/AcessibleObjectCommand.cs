@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class AccessibleObjectCommand : ICommand {
+public class AccessibleObjectCommand : ASimpleCommand, ICommand {
     private readonly string _name;
 
     public AccessibleObjectCommand(string name) {
@@ -11,10 +11,12 @@ public class AccessibleObjectCommand : ICommand {
 
     public string PredictArguments(string partialArgumentsText) => partialArgumentsText;
 
-    public (string output, bool clearScreen, bool success) Execute(string finalArgumentsText, ITerminal terminal) {
+    protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         vT.CallFunctionInAccessibleTerminalObject(_name);
         vT.PlayBroadcastCodeEffect();
-        return (Util.GetSpecialNode(vT, 19).displayText, true, true);
+        return new CommandResult(Util.GetSpecialNode(vT, 19).displayText, true, true);
     }
+
+    public object Clone() => new AccessibleObjectCommand(_name);
 }
