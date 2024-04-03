@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Computerdores.Vanillin; 
 
@@ -18,6 +19,9 @@ public class EjectCommand : ICommand, IPredictable {
             ? Util.PredictConfirmation(partialInput)
             : partialInput;
 
+    /// <summary>
+    /// For the vanilla implementation see: <see cref="Terminal.RunTerminalEvents"/>.
+    /// </summary>
     public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput) {
         wantsMoreInput = true;
         CommandResult result = new();

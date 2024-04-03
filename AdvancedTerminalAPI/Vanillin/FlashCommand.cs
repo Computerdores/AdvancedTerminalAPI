@@ -5,6 +5,9 @@ public class FlashCommand : SimpleCommand, ICommand, IPredictable {
 
     public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
 
+    /// <summary>
+    /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
+    /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         CommandResult result = new();
         int index = Util.GetPlayerIndexByName(input);

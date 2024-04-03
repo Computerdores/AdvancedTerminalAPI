@@ -6,6 +6,9 @@ public class PingCommand : SimpleCommand, ICommand, IPredictable {
 
     public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
     
+    /// <summary>
+    /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
+    /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
         CommandResult result = new();

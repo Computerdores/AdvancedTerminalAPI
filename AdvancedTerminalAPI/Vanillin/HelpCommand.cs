@@ -3,6 +3,10 @@
 public class HelpCommand : SimpleCommand, ICommand {
     public string GetName() => "help";
 
+    /// <summary>
+    /// This extracts and uses the vanilla string.
+    /// It also uses the vanilla string formatting, see: <see cref="Terminal.TextPostProcess"/>.
+    /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode node = Util.GetSpecialNode(vT, 13);

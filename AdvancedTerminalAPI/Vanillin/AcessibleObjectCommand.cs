@@ -9,6 +9,9 @@ public class AccessibleObjectCommand : SimpleCommand, ICommand {
     
     public string GetName() => _name;
 
+    /// <summary>
+    /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
+    /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         vT.CallFunctionInAccessibleTerminalObject(_name);

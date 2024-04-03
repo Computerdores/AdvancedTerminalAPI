@@ -9,6 +9,9 @@ public class ViewCommand : SimpleCommand, ICommand, IPredictable {
         throw new System.NotImplementedException(); // TODO
     }
 
+    /// <summary>
+    /// For the vanilla implementation, see: <see cref="Terminal.LoadNewNode"/>.
+    /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         TerminalNode node = Util.FindNode(terminal.GetDriver().VanillaTerminal, "view",
             input.Split(' ').First().ToLower());
