@@ -11,7 +11,7 @@ public class ViewCommand : SimpleCommand, ICommand, IPredictable {
 
     protected override CommandResult Execute(string input, ITerminal terminal) {
         TerminalNode node = Util.FindNode(terminal.GetDriver().VanillaTerminal, "view",
-            input.Split(' ').First());
+            input.Split(' ').First().ToLower());
         if (node == null) return new CommandResult("", false, false);
         terminal.GetDriver().VanillaTerminal.LoadTerminalImage(node);
         return new CommandResult(node.displayText, node.clearPreviousText, true);
