@@ -2,7 +2,7 @@
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Computerdores; 
+namespace Computerdores.Vanillin; 
 
 public static class Util {
     public static TerminalNode GetSpecialNode(Terminal vanillaTerminal, int nodeIndex) {
