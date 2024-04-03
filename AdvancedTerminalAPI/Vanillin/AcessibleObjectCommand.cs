@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class AccessibleObjectCommand : ASimpleCommand, ICommand {
+public class AccessibleObjectCommand : SimpleCommand, ICommand {
     private readonly string _name;
 
     public AccessibleObjectCommand(string name) {

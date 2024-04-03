@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class ScanCommand : ASimpleCommand, ICommand {
+public class ScanCommand : SimpleCommand, ICommand {
     public string GetName() => "scan";
 
     protected override CommandResult Execute(string input, ITerminal terminal) {

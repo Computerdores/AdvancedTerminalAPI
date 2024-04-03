@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class SwitchCommand : ASimpleCommand, ICommand, IPredictable {
+public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
     public string GetName() => "switch";
 
     public string PredictArguments(string partialArgumentsText) { // untested

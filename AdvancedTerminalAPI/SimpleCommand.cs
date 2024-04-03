@@ -1,6 +1,6 @@
 ﻿namespace Computerdores; 
 
-public abstract class ASimpleCommand {
+public abstract class SimpleCommand {
 
     public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput) {
         wantsMoreInput = false;

@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class HelpCommand : ASimpleCommand, ICommand {
+public class HelpCommand : SimpleCommand, ICommand {
     public string GetName() => "help";
 
     protected override CommandResult Execute(string input, ITerminal terminal) {

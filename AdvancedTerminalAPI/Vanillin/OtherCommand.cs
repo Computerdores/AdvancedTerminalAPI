@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin; 
 
-public class OtherCommand : ASimpleCommand, ICommand {
+public class OtherCommand : SimpleCommand, ICommand {
     public string GetName() => "other";
 
     protected override CommandResult Execute(string input, ITerminal terminal) {

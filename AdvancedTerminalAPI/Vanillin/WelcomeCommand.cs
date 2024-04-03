@@ -2,7 +2,7 @@
 
 namespace Computerdores.Vanillin; 
 
-public class WelcomeCommand : ASimpleCommand, ICommand {
+public class WelcomeCommand : SimpleCommand, ICommand {
     public string GetName() => "welcome";
 
     protected override CommandResult Execute(string input, ITerminal terminal) {
