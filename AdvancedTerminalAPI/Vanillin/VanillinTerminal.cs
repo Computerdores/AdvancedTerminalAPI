@@ -30,6 +30,7 @@ public class VanillinTerminal : ITerminal {
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
+        AddBuiltinCommand(new EjectCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;

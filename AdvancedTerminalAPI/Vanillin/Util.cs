@@ -48,4 +48,8 @@ public static class Util {
         }
         return -1;
     }
+
+    public static string PredictConfirmation(string partialInput) {
+        return partialInput.ToLower().StartsWith("c") ? "CONFIRM" : "DENY";
+    }
 }
