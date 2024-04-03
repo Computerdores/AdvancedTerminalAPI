@@ -37,13 +37,6 @@ public class VanillinTerminal : ITerminal {
 
     public InputFieldDriver GetDriver() => _driver;
 
-    public void PreAwake() { }
-    public void PostAwake() { }
-    public void PreStart() { }
-    public void PostStart() { }
-    public void PreUpdate() { }
-    public void PostUpdate() { }
-
     private void AddBuiltinCommand(ICommand command) {
         _builtinCommands[command.GetName()] = command;
     }
