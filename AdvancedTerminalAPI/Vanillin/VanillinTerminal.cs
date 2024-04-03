@@ -22,6 +22,7 @@ public class VanillinTerminal : ITerminal {
         DebugLogNodeInfo();
         // Add Vanillin Commands
         AddBuiltinCommand(new EjectCommand());
+        AddBuiltinCommand(new FlashCommand());
         AddBuiltinCommand(new HelpCommand());
         AddBuiltinCommand(new OtherCommand());
         AddBuiltinCommand(new PingCommand());

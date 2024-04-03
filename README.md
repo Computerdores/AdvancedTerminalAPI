@@ -6,7 +6,7 @@
 - [ ] buy
 - [ ] decor
 - [x] eject
-- [ ] flash
+- [x] flash
 - [x] help
 - [ ] info
 - [ ] moons
