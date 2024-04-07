@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -12,12 +13,13 @@ public static class Util {
         return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
     }
 
-    public static TerminalKeyword FindNoun(Terminal vanillaTerm, string verb) {
-        TerminalKeyword tNoun = vanillaTerm.terminalNodes.allKeywords.
-            FirstOrDefault(n => !n.isVerb && n.word == verb);
-        if (tNoun == null && verb.Length >= 3) tNoun = vanillaTerm.terminalNodes.allKeywords.
-            FirstOrDefault(n => !n.isVerb && n.word.StartsWith(verb[..3]));
-        return tNoun;
+    public static TerminalNode FindByKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
+        TerminalKeyword tWord = vanillaTerm.terminalNodes.allKeywords.
+            FirstOrDefault(w => w.word == word && (predicate?.Invoke(w) ?? true));
+        if (tWord == null && word.Length >= 3)
+            tWord = vanillaTerm.terminalNodes.allKeywords.
+                FirstOrDefault(w => w.word.StartsWith(word[..3]) & (predicate?.Invoke(w) ?? true));
+        return tWord != null ? tWord.specialKeywordResult : null;
     }
     
     public static TerminalNode FindNode(Terminal vanillaTerm, string verb, [CanBeNull] string noun) {

@@ -28,15 +28,14 @@ public class EjectCommand : ICommand, IPredictable {
         
         if (!_awaitingConfirmation) {
             _awaitingConfirmation = true;
-            result.output = Util.FindNoun(terminal.GetDriver().VanillaTerminal, "eject").specialKeywordResult
+            result.output = Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "eject")
                 .displayText;
             return result;
         }
         
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode node = (
-            from option in Util.FindNoun(vT, "eject")
-                .specialKeywordResult.terminalOptions
+            from option in Util.FindByKeyword(vT, "eject").terminalOptions
             where string.Equals(option.noun.word, Util.PredictConfirmation(input),
                 StringComparison.CurrentCultureIgnoreCase)
             select option

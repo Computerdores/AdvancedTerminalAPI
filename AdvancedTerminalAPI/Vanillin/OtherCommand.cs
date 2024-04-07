@@ -8,7 +8,7 @@ public class OtherCommand : SimpleCommand, ICommand {
     /// </summary>
     protected override CommandResult Execute(string input, ITerminal terminal) {
         return new CommandResult(
-            Util.FindNoun(terminal.GetDriver().VanillaTerminal, "other").specialKeywordResult.displayText,
+            Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "other").displayText,
             true, true
             );
     }

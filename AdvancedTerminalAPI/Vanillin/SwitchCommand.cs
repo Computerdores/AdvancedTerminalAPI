@@ -18,7 +18,7 @@ public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
             StartOfRound.Instance.mapScreen.SwitchRadarTargetForward(true);
         }
         return new CommandResult(
-            Util.FindNoun(terminal.GetDriver().VanillaTerminal, "switch").specialKeywordResult.displayText,
+            Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "switch").displayText,
             true, true
         );
     }
