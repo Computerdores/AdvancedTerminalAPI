@@ -5,6 +5,9 @@ using JetBrains.Annotations;
 namespace Computerdores.Vanillin; 
 
 public static class Util {
+
+    public static TerminalNode GetSpecialNode(ITerminal terminal, int nodeIndex) => 
+        GetSpecialNode(terminal.GetDriver().VanillaTerminal, nodeIndex);
     public static TerminalNode GetSpecialNode(Terminal vanillaTerminal, int nodeIndex) {
         return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
     }

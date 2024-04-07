@@ -20,7 +20,7 @@ public class FlashCommand : SimpleCommand, ICommand, IPredictable {
             }
         }
         StartOfRound.Instance.mapScreen.FlashRadarBooster(index);
-        result.output = Util.GetSpecialNode(terminal.GetDriver().VanillaTerminal, 23).displayText;
+        result.output = Util.GetSpecialNode(terminal, 23).displayText;
         return result;
     }
 

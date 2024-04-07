@@ -14,7 +14,7 @@ public class PingCommand : SimpleCommand, ICommand, IPredictable {
         CommandResult result = new();
         if (index != -1) {
             StartOfRound.Instance.mapScreen.PingRadarBooster(index);
-            result.output = Util.GetSpecialNode(terminal.GetDriver().VanillaTerminal, 21).displayText;
+            result.output = Util.GetSpecialNode(terminal, 21).displayText;
         } else {
             result.success = false;
             result.clearScreen = false;
