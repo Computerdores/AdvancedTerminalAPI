@@ -13,12 +13,17 @@ public static class Util {
         return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
     }
 
-    public static TerminalNode FindByKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
+    public static TerminalKeyword FindKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
         TerminalKeyword tWord = vanillaTerm.terminalNodes.allKeywords.
             FirstOrDefault(w => w.word == word && (predicate?.Invoke(w) ?? true));
         if (tWord == null && word.Length >= 3)
             tWord = vanillaTerm.terminalNodes.allKeywords.
                 FirstOrDefault(w => w.word.StartsWith(word[..3]) & (predicate?.Invoke(w) ?? true));
+        return tWord;
+    }
+
+    public static TerminalNode FindByKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
+        TerminalKeyword tWord = FindKeyword(vanillaTerm, word, predicate);
         return tWord != null ? tWord.specialKeywordResult : null;
     }
     
