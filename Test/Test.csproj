@@ -7,6 +7,8 @@
         <!-- We need an engine to run test, netstandard doesn't have one -->
         <TargetFramework>net7.0</TargetFramework>
 
+        <NoWarn>436</NoWarn>
+
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
