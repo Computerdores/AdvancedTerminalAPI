@@ -22,5 +22,5 @@ public interface ICommand : ICloneable {
     /// or wants further input from the player.</param>
     /// <returns>A <see cref="CommandResult"/> object which gives details about the execution of the Command
     /// (e.g. whether it was successful).</returns>
-    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput);
+    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput); // TODO move wantsMoreInput into CommandResult
 }

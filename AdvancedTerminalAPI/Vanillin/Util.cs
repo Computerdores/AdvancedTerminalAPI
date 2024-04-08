@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Computerdores.Vanillin; 
 
@@ -13,33 +12,66 @@ public static class Util {
         return vanillaTerminal.terminalNodes.specialNodes[nodeIndex];
     }
 
-    public static TerminalKeyword FindKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
-        TerminalKeyword tWord = vanillaTerm.terminalNodes.allKeywords.
-            FirstOrDefault(w => w.word == word && (predicate?.Invoke(w) ?? true));
+    /// <summary>
+    /// Match an IEnumerable against a string using the vanilla string matching.
+    /// </summary>
+    /// <param name="enumerable">The IEnumerable of objects to be matched.</param>
+    /// <param name="word">The string to be matched against.</param>
+    /// <param name="stringConverter">A delegate which, given an object of type <see cref="T"/>,
+    /// returns the string to be matched.</param>
+    /// <param name="predicate">An additional condition that the result needs to satisfy (optional).</param>
+    /// <returns>An object of type <see cref="T"/> which matches the vanilla string matching rules,
+    /// when converted to a string using <paramref name="stringConverter" />.</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static T VanillaStringMatch<T>(this IEnumerable<T> enumerable, string word,
+        Converter<T, string> stringConverter, Predicate<T> predicate = null
+    ) {
+        IEnumerable<T> array = enumerable as T[] ?? enumerable.ToArray();
+        T tWord = array.
+            FirstOrDefault(n => 
+                string.Equals(stringConverter(n), word, StringComparison.CurrentCultureIgnoreCase) &&
+                (predicate?.Invoke(n) ?? true)
+            );
         if (tWord == null && word.Length >= 3)
-            tWord = vanillaTerm.terminalNodes.allKeywords.
-                FirstOrDefault(w => w.word.StartsWith(word[..3]) & (predicate?.Invoke(w) ?? true));
+            tWord = array.
+                FirstOrDefault(n =>
+                    stringConverter(n).StartsWith(word[..3], StringComparison.CurrentCultureIgnoreCase) &&
+                    (predicate?.Invoke(n) ?? true)
+                );
         return tWord;
     }
+
+    /// <summary>
+    /// Find a terminal option using the vanilla string matching.
+    /// </summary>
+    public static CompatibleNoun FindTerminalOption(this TerminalNode node, string word, Predicate<CompatibleNoun> predicate = null)
+        => node.terminalOptions.VanillaStringMatch(word, compatibleNoun => compatibleNoun.noun.word, predicate);
+
+    /// <summary>
+    /// Find a compatible noun using the vanilla string matching.
+    /// </summary>
+    public static CompatibleNoun FindNoun(this TerminalKeyword keyword, string word, Predicate<CompatibleNoun> predicate = null)
+        => keyword.compatibleNouns.VanillaStringMatch(word, compatibleNoun => compatibleNoun.noun.word, predicate);
+
+
+    /// <summary>
+    /// Find a keyword using the vanilla string matching.
+    /// </summary>
+    /// <param name="vanillaTerm">The Terminal instance.</param>
+    /// <param name="word">The string, that was entered by the player, which the Keyword should match.</param>
+    /// <param name="predicate">A predicate which evaluates additional conditions (optional).</param>
+    public static TerminalKeyword FindKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null)
+        => vanillaTerm.terminalNodes.allKeywords.VanillaStringMatch(word, keyword => keyword.word, predicate);
+
+    /// <summary>
+    /// Wrapper for <see cref="FindKeyword(Terminal,string,System.Predicate{TerminalKeyword})"/>.
+    /// </summary>
+    public static TerminalKeyword FindKeyword(ITerminal terminal, string word, Predicate<TerminalKeyword> predicate = null)
+        => FindKeyword(terminal.GetDriver().VanillaTerminal, word, predicate);
 
     public static TerminalNode FindByKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
         TerminalKeyword tWord = FindKeyword(vanillaTerm, word, predicate);
         return tWord != null ? tWord.specialKeywordResult : null;
-    }
-    
-    public static TerminalNode FindNode(Terminal vanillaTerm, string verb, [CanBeNull] string noun) {
-        // find fitting verb
-        TerminalKeyword tVerb = vanillaTerm.terminalNodes.allKeywords.
-            FirstOrDefault(v => v.isVerb && v.word == verb);
-        if (tVerb == null && verb.Length >= 3) tVerb = vanillaTerm.terminalNodes.allKeywords.
-            FirstOrDefault(v => v.isVerb && v.word.StartsWith(verb[..3]));
-        Plugin.Log.LogDebug($"tVerb is: {tVerb}, '{tVerb?.word}', '{tVerb?.specialKeywordResult?.displayText}'");
-        if (tVerb == null || noun == null) return tVerb != null ? tVerb.specialKeywordResult : null; // if no noun given, return node of verb
-        // find fitting noun
-        CompatibleNoun tNoun = tVerb.compatibleNouns?.FirstOrDefault(n => n.noun.word == noun);
-        if (tNoun == null && noun.Length >= 3) tNoun = tVerb.compatibleNouns?.
-            FirstOrDefault(n => n.noun.word.StartsWith(noun[..3]));
-        return tNoun?.result;
     }
     
     public static int GetPlayerIndexByName(string name) {
