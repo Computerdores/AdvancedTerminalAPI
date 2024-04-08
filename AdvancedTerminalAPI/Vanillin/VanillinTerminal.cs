@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -33,6 +34,9 @@ public class VanillinTerminal : ITerminal {
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
+        foreach (BuyItemCommand command in BuyItemCommand.GetAll(this)) {
+            AddBuiltinCommand(command);
+        }
     }
 
     public InputFieldDriver GetDriver() => _driver;
@@ -58,11 +62,22 @@ public class VanillinTerminal : ITerminal {
         }
         if (_currentCommand is {} command) {
             Log.LogInfo($"Executing Command ({_currentCommand.GetName()}) for input : '{text}'");
-            CommandResult result = command.Execute(input, this, out bool more);
+            CommandResult result;
+            bool more;
+            try {
+                result = command.Execute(input, this, out more);
+            } catch (Exception e) {
+                result = new CommandResult(
+                    "An Error occured while executing the command.\nPlease contact the author of the mod that the command is from.\n\n",
+                    true, true
+                );
+                more = false;
+                Log.LogInfo($"An error occurred during execution of '{_currentCommand.GetName()}': {e}");
+            }
             if (result.success) {
                 _driver.DisplayText(result.output, result.clearScreen);
             } else {
-                Log.LogInfo($"Command execution failed for input ({_currentCommand.GetName()}): '{text}'");
+                Log.LogInfo($"Command execution was not successful for input ({_currentCommand.GetName()}): '{text}'");
                 _driver.DisplayText(SpecialText(11), true);
             }
             if (!more) _currentCommand = null;
