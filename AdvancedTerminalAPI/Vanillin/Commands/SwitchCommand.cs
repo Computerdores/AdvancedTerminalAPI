@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
     public string GetName() => "switch";

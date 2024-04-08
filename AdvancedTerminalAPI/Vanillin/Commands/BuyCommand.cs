@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using HarmonyLib;
 
-namespace Computerdores.Vanillin; 
+namespace Computerdores.Vanillin.Commands; 
 
 public class BuyCommand : ICommand {
     private bool _awaitingConfirmation;

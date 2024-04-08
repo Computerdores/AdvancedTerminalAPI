@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class ScanCommand : SimpleCommand, ICommand {
     public string GetName() => "scan";

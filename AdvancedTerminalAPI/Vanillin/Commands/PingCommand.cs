@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class PingCommand : SimpleCommand, ICommand, IPredictable {
 

@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class WelcomeCommand : SimpleCommand, ICommand {
     public string GetName() => "welcome";

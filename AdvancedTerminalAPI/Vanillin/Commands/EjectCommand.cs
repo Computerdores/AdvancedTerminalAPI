@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Computerdores.Vanillin; 
+namespace Computerdores.Vanillin.Commands; 
 
 public class EjectCommand : ICommand, IPredictable {
 

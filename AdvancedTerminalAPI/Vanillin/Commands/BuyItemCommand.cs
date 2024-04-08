@@ -5,7 +5,7 @@ using BepInEx;
 using Computerdores.patch;
 using UnityEngine;
 
-namespace Computerdores.Vanillin; 
+namespace Computerdores.Vanillin.Commands; 
 
 public class BuyItemCommand : ICommand {
     private readonly string _itemName;

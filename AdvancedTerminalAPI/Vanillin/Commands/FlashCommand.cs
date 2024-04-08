@@ -1,4 +1,4 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class FlashCommand : SimpleCommand, ICommand, IPredictable {
     public string GetName() => "flash";

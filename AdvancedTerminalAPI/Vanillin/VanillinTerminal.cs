@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
+using Computerdores.Vanillin.Commands;
 using HarmonyLib;
 
 namespace Computerdores.Vanillin;
