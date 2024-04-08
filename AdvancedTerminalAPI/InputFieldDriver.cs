@@ -1,5 +1,6 @@
 ﻿using System;
 using Computerdores.patch;
+using JetBrains.Annotations;
 using TMPro;
 
 namespace Computerdores; 
@@ -80,11 +81,13 @@ public class InputFieldDriver {
     /// <summary>
     /// Change the Text that is displayed in the console.
     /// </summary>
-    /// <param name="text">The new text to be displayed.</param>
+    /// <param name="text">The new text to be displayed. If text is null, the displayed text won't change,
+    ///     but the Input will be reset.</param>
     /// <param name="clearScreen">Whether the text should added after or instead of the current text.</param>
-    public void DisplayText(string text, bool clearScreen) {
-        if (text is null) return;
-        _displayedText = (clearScreen ? "\n" : _inputField.text ) + $"\n\n{text}";
+    public void DisplayText([CanBeNull] string text, bool clearScreen) {
+        if (text != null || clearScreen) {
+            _displayedText = (clearScreen ? "\n" : _inputField.text) + (text != null ? $"\n\n{text}" : "");
+        }
         Input = "";
         _renderToInputField();
     }
