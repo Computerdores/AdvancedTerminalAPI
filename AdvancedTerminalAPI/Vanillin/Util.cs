@@ -18,24 +18,24 @@ public static class Util {
     /// <param name="enumerable">The IEnumerable of objects to be matched.</param>
     /// <param name="word">The string to be matched against.</param>
     /// <param name="stringConverter">A delegate which, given an object of type <see cref="T"/>,
-    /// returns the string to be matched.</param>
+    ///     returns the string to be matched.</param>
     /// <param name="predicate">An additional condition that the result needs to satisfy (optional).</param>
+    /// <param name="specificity"></param>
     /// <returns>An object of type <see cref="T"/> which matches the vanilla string matching rules,
-    /// when converted to a string using <paramref name="stringConverter" />.</returns>
+    ///     when converted to a string using <paramref name="stringConverter" />.</returns>
     // ReSharper disable once MemberCanBePrivate.Global
     public static T VanillaStringMatch<T>(this IEnumerable<T> enumerable, string word,
-        Converter<T, string> stringConverter, Predicate<T> predicate = null
-    ) {
+        Converter<T, string> stringConverter, Predicate<T> predicate = null, int specificity = 3) {
         IEnumerable<T> array = enumerable as T[] ?? enumerable.ToArray();
         T tWord = array.
             FirstOrDefault(n => 
                 string.Equals(stringConverter(n), word, StringComparison.CurrentCultureIgnoreCase) &&
                 (predicate?.Invoke(n) ?? true)
             );
-        if (tWord == null && word.Length >= 3)
+        if (tWord == null && word.Length >= specificity)
             tWord = array.
                 FirstOrDefault(n =>
-                    stringConverter(n).StartsWith(word[..3], StringComparison.CurrentCultureIgnoreCase) &&
+                    stringConverter(n).StartsWith(word[..specificity], StringComparison.CurrentCultureIgnoreCase) &&
                     (predicate?.Invoke(n) ?? true)
                 );
         return tWord;
@@ -45,7 +45,7 @@ public static class Util {
     /// Find a terminal option using the vanilla string matching.
     /// </summary>
     public static CompatibleNoun FindTerminalOption(this TerminalNode node, string word, Predicate<CompatibleNoun> predicate = null)
-        => node.terminalOptions.VanillaStringMatch(word, compatibleNoun => compatibleNoun.noun.word, predicate);
+        => node.terminalOptions.VanillaStringMatch(word, compatibleNoun => compatibleNoun.noun.word, predicate, 1);
 
     /// <summary>
     /// Find a compatible noun using the vanilla string matching.
@@ -72,6 +72,10 @@ public static class Util {
     public static TerminalNode FindByKeyword(Terminal vanillaTerm, string word, Predicate<TerminalKeyword> predicate = null) {
         TerminalKeyword tWord = FindKeyword(vanillaTerm, word, predicate);
         return tWord != null ? tWord.specialKeywordResult : null;
+    }
+
+    public static string TextPostProcess(Terminal vanillaTerm, TerminalNode node) {
+        return vanillaTerm.TextPostProcess(node.displayText, node);
     }
     
     public static int GetPlayerIndexByName(string name) {
