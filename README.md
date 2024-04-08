@@ -19,7 +19,7 @@
 - [ ] store
 - [x] switch
 - [x] Terminal Accessible Objects
-- [ ] transmit
+- [x] transmit
 - [ ] upgrades
 - [x] view monitor
 
