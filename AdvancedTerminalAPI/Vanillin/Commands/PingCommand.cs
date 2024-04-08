@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class PingCommand : SimpleCommand, ICommand, IPredictable {
+public class PingCommand : ICommand, IPredictable {
 
     public string GetName() => "ping";
 
@@ -9,7 +9,7 @@ public class PingCommand : SimpleCommand, ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
     /// </summary>
-    protected override CommandResult Execute(string input, ITerminal terminal) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
         CommandResult result = new();
         if (index != -1) {

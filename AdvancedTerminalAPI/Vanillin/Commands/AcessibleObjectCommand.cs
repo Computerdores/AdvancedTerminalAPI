@@ -1,6 +1,6 @@
-﻿namespace Computerdores.Vanillin; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
-public class AccessibleObjectCommand : SimpleCommand, ICommand {
+public class AccessibleObjectCommand : ICommand {
     private readonly string _name;
 
     public AccessibleObjectCommand(string name) {
@@ -12,11 +12,11 @@ public class AccessibleObjectCommand : SimpleCommand, ICommand {
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
     /// </summary>
-    protected override CommandResult Execute(string input, ITerminal terminal) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         vT.CallFunctionInAccessibleTerminalObject(_name);
         vT.PlayBroadcastCodeEffect();
-        return new CommandResult(Util.GetSpecialNode(vT, 19).displayText, true, true);
+        return new CommandResult(Util.GetSpecialNode(vT, 19).displayText);
     }
 
     public object Clone() => new AccessibleObjectCommand(_name);

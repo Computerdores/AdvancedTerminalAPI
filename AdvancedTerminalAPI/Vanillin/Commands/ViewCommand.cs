@@ -2,7 +2,7 @@
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class ViewCommand : SimpleCommand, ICommand, IPredictable {
+public class ViewCommand : ICommand, IPredictable {
     public string GetName() => "view";
 
     public string PredictInput(string partialInput) {
@@ -12,13 +12,13 @@ public class ViewCommand : SimpleCommand, ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.LoadNewNode"/>.
     /// </summary>
-    protected override CommandResult Execute(string input, ITerminal terminal) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         TerminalNode node = Util.FindKeyword(terminal.GetDriver().VanillaTerminal, "view")
             .FindNoun(input.Split(' ').First())
             .result;
         if (node == null) return new CommandResult("", false, false);
         terminal.GetDriver().VanillaTerminal.LoadTerminalImage(node);
-        return new CommandResult(node.displayText, node.clearPreviousText, true);
+        return new CommandResult(node.displayText, node.clearPreviousText);
     }
 
     public object Clone() => new ViewCommand();

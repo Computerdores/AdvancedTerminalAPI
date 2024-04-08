@@ -1,12 +1,12 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class TestCommand : SimpleCommand, ICommand {
+public class TestCommand : ICommand {
     
     public string GetName() => "test";
-    
-    protected override CommandResult Execute(string input, ITerminal terminal) {
-        return new CommandResult("test!\n", false, true);
+
+    public CommandResult Execute(string input, ITerminal terminal) {
+        return new CommandResult("test!\n", false);
     }
-    
+
     public object Clone() => new TestCommand();
 }

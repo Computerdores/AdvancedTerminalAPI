@@ -65,15 +65,12 @@ public class VanillinTerminal : ITerminal {
         if (_currentCommand is {} command) {
             Log.LogInfo($"Executing Command ({_currentCommand.GetName()}) for input : '{text}'");
             CommandResult result;
-            bool more;
             try {
-                result = command.Execute(input, this, out more);
+                result = command.Execute(input, this);
             } catch (Exception e) {
                 result = new CommandResult(
-                    "An Error occured while executing the command.\nPlease contact the author of the mod that the command is from.\n\n",
-                    true, true
+                    "An Error occured while executing the command.\nPlease contact the author of the mod that the command is from.\n\n"
                 );
-                more = false;
                 Log.LogInfo($"An error occurred during execution of '{_currentCommand.GetName()}': {e}");
             }
             if (result.success) {
@@ -82,7 +79,7 @@ public class VanillinTerminal : ITerminal {
                 Log.LogInfo($"Command execution was not successful for input ({_currentCommand.GetName()}): '{text}'");
                 _driver.DisplayText(SpecialText(11), true);
             }
-            if (!more) _currentCommand = null;
+            if (!result.wantsMoreInput) _currentCommand = null;
         } else if (text != "") {
             Log.LogInfo($"Did not find Command for input: '{text}'");
             _driver.DisplayText(SpecialText(10), true);
@@ -92,7 +89,7 @@ public class VanillinTerminal : ITerminal {
     private void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help"); // TODO handle first time users
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
-        _driver.DisplayText(welcomeCommand?.Execute("", this, out bool more).output, true);
+        _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
     }
     
 

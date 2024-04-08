@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
+public class SwitchCommand : ICommand, IPredictable {
     public string GetName() => "switch";
 
     public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
@@ -9,7 +9,7 @@ public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
     /// Very similar to the vanilla implementation, see:
     /// <see cref="Terminal.ParsePlayerSentence"/> and <see cref="Terminal.RunTerminalEvents"/>.
     /// </summary>
-    protected override CommandResult Execute(string input, ITerminal terminal) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
         if (index == -1 && input != "") return new CommandResult("", false, false);
         if (index != -1) {
@@ -17,10 +17,7 @@ public class SwitchCommand : SimpleCommand, ICommand, IPredictable {
         } else {
             StartOfRound.Instance.mapScreen.SwitchRadarTargetForward(true);
         }
-        return new CommandResult(
-            Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "switch").displayText,
-            true, true
-        );
+        return new CommandResult(Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "switch").displayText);
     }
 
     public object Clone() => new SwitchCommand();

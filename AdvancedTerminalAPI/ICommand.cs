@@ -18,9 +18,7 @@ public interface ICommand : ICloneable {
     /// to be interpreted by the command instead of being interpreted by the Terminal.</param>
     /// <param name="terminal">The Terminal this Command is being executed in.
     /// Can be used to the current <see cref="InputFieldDriver"/> and <see cref="Terminal"/> instance. </param>
-    /// <param name="wantsMoreInput">Whether the command has finished executing,
-    /// or wants further input from the player.</param>
     /// <returns>A <see cref="CommandResult"/> object which gives details about the execution of the Command
     /// (e.g. whether it was successful).</returns>
-    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput); // TODO move wantsMoreInput into CommandResult
+    public CommandResult Execute(string input, ITerminal terminal);
 }

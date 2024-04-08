@@ -22,10 +22,11 @@ public class EjectCommand : ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation see: <see cref="Terminal.RunTerminalEvents"/>.
     /// </summary>
-    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput) {
-        wantsMoreInput = true;
-        CommandResult result = new();
-        
+    public CommandResult Execute(string input, ITerminal terminal) {
+        CommandResult result = new() {
+            wantsMoreInput = true
+        };
+
         if (!_awaitingConfirmation) {
             _awaitingConfirmation = true;
             result.output = Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "eject")
@@ -41,7 +42,7 @@ public class EjectCommand : ICommand, IPredictable {
             select option
         ).FirstOrDefault()?.result;
         if (node == null) {
-            wantsMoreInput = false;
+            result.wantsMoreInput = false;
         } else {
             vT.RunTerminalEvents(node);
             result.output = node.displayText;

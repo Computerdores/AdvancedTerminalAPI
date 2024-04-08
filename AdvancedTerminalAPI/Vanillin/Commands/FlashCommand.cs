@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class FlashCommand : SimpleCommand, ICommand, IPredictable {
+public class FlashCommand : ICommand, IPredictable {
     public string GetName() => "flash";
 
     public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
@@ -8,7 +8,7 @@ public class FlashCommand : SimpleCommand, ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
     /// </summary>
-    protected override CommandResult Execute(string input, ITerminal terminal) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         CommandResult result = new();
         int index = Util.GetPlayerIndexByName(input);
         if (index == -1) {

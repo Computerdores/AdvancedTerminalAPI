@@ -19,7 +19,7 @@ public class BuyItemCommand : ICommand {
 
     public string GetName() => _itemName; 
 
-    public CommandResult Execute(string input, ITerminal terminal, out bool wantsMoreInput) {
+    public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n;
         if (!_awaitingConfirmation) {
@@ -30,20 +30,18 @@ public class BuyItemCommand : ICommand {
             // trigger the vanilla behaviour
             n = TerminalPatch.LoadNewNodeIfAffordable(vT, _item.result);
             // output
-            wantsMoreInput = _awaitingConfirmation = n.isConfirmationNode;
-            return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true);
+            _awaitingConfirmation = n.isConfirmationNode;
+            return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
         }
 
         
         CompatibleNoun cn = _item.result.FindTerminalOption(input);
         // if the input doesn't match any available option ignore it
         if (cn == null) {
-            wantsMoreInput = true;
-            return new CommandResult(null, false, true);
+            return new CommandResult(null, false, true, true);
         }
-        wantsMoreInput = false;
         n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
-        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true);
+        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
     public object Clone()
