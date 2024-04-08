@@ -3,7 +3,7 @@
 ## Planned for 1.0.0
 ### Commands
 - [ ] bestiary
-- [ ] buy
+- [x] buy
 - [ ] decor
 - [x] eject
 - [x] flash
