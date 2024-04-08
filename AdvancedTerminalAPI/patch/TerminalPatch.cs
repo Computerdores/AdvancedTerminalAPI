@@ -56,63 +56,63 @@ public static class TerminalPatch {
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch("OnSubmit")]
+    [HarmonyPatch(nameof(Terminal.OnSubmit))]
     public static bool OnSubmitPrefix() {
         return false; // disable OnSubmit Event in Terminal class
     }
     
     [HarmonyPrefix]
-    [HarmonyPatch("TextChanged")]
+    [HarmonyPatch(nameof(Terminal.TextChanged))]
     public static bool TextChangedPrefix() {
         return false; // disable TextChanged Event in Terminal class
     }
 
     
     [HarmonyPrefix]
-    [HarmonyPatch("BeginUsingTerminal")]
+    [HarmonyPatch(nameof(Terminal.BeginUsingTerminal))]
     public static void BeginUsingTerminalPrefix(Terminal __instance) {
         _usedTerminalThisSession = __instance.usedTerminalThisSession;
     }
     
     [HarmonyPostfix]
-    [HarmonyPatch("BeginUsingTerminal")]
+    [HarmonyPatch(nameof(Terminal.BeginUsingTerminal))]
     public static void BeginUsingTerminalPostfix(Terminal __instance) {
         OnEnterTerminal?.Invoke(!_usedTerminalThisSession);
     }
     
     [HarmonyPrefix]
-    [HarmonyPatch("Awake")]
+    [HarmonyPatch(nameof(Terminal.Awake))]
     public static void AwakePrefix(Terminal __instance) {
         Plugin.driver = new InputFieldDriver(__instance);
         PreAwake?.Invoke();
     }
     
     [HarmonyPostfix]
-    [HarmonyPatch("Awake")]
+    [HarmonyPatch(nameof(Terminal.Awake))]
     public static void AwakePostfix() {
         PostAwake?.Invoke();
     }
     
     [HarmonyPrefix]
-    [HarmonyPatch("Start")]
+    [HarmonyPatch(nameof(Terminal.Start))]
     public static void StartPrefix() {
         PreStart?.Invoke();
     }
     
     [HarmonyPostfix]
-    [HarmonyPatch("Start")]
+    [HarmonyPatch(nameof(Terminal.Start))]
     public static void StartPostfix() {
         PostStart?.Invoke();
     }
     
     [HarmonyPrefix]
-    [HarmonyPatch("Update")]
+    [HarmonyPatch(nameof(Terminal.Update))]
     public static void UpdatePrefix() {
         PreUpdate?.Invoke();
     }
     
     [HarmonyPostfix]
-    [HarmonyPatch("Update")]
+    [HarmonyPatch(nameof(Terminal.Update))]
     public static void UpdatePostfix() {
         PostUpdate?.Invoke();
     }
