@@ -37,6 +37,7 @@ public class VanillinTerminal : ITerminal {
         foreach (BuyItemCommand command in BuyItemCommand.GetAll(this)) {
             AddBuiltinCommand(command);
         }
+        AddBuiltinCommand(new BuyCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;

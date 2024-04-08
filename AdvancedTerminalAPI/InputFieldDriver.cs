@@ -81,8 +81,7 @@ public class InputFieldDriver {
     /// <summary>
     /// Change the Text that is displayed in the console.
     /// </summary>
-    /// <param name="text">The new text to be displayed. If text is null, the displayed text won't change,
-    ///     but the Input will be reset.</param>
+    /// <param name="text">The new text to be displayed. If text is null, the Input will be reset.</param>
     /// <param name="clearScreen">Whether the text should added after or instead of the current text.</param>
     public void DisplayText([CanBeNull] string text, bool clearScreen) {
         if (text != null || clearScreen) {
