@@ -4,7 +4,7 @@ namespace Computerdores.patch;
 
 // Note: This whole thing will silently fail if there are ever more than 2 terminals in the level
 [HarmonyPatch(typeof(Terminal))]
-public class TerminalPatch {
+public static class TerminalPatch {
 
     public delegate void SimpleEvent();
 
@@ -16,14 +16,43 @@ public class TerminalPatch {
     public static event SimpleEvent PostStart;
     public static event SimpleEvent PreUpdate;
     public static event SimpleEvent PostUpdate;
+    
+    private static bool _redirectLoadNewNode;
 
     private static bool _usedTerminalThisSession;
     
+    public static TerminalNode lastLoadedNode;
+
     [HarmonyPrefix]
-    [HarmonyPatch("Awake")]
-    public static void AwakePrefix(Terminal __instance) {
-        Plugin.driver = new InputFieldDriver(__instance);
-        PreAwake?.Invoke();
+    [HarmonyPatch(nameof(Terminal.LoadNewNode))]
+    private static bool InterceptLoadNewNode(this Terminal __instance, TerminalNode node) {
+        if (!_redirectLoadNewNode) return true;
+        LoadNewNode(__instance, node);
+        return false;
+    }
+
+    public static TerminalNode LoadNewNodeIfAffordable(Terminal term, TerminalNode node) {
+        lastLoadedNode = null;
+        // make sure LoadNewNode is redirected to TerminalPatch.LoadNewNode
+        bool prev = _redirectLoadNewNode;
+        _redirectLoadNewNode = true;
+        // execute vanilla method
+        term.LoadNewNodeIfAffordable(node);
+        // undo previous set
+        _redirectLoadNewNode = prev;
+        return lastLoadedNode;
+    }
+    
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static void LoadNewNode(Terminal term, TerminalNode node) {
+        term.RunTerminalEvents(node);
+        term.screenText.interactable = true;
+        lastLoadedNode = node;
+        if (node.playSyncedClip != -1)
+            term.PlayTerminalAudioServerRpc(node.playSyncedClip);
+        else if (node.playClip != null)
+            term.terminalAudio.PlayOneShot(node.playClip);
+        term.LoadTerminalImage(node);
     }
 
     [HarmonyPrefix]
@@ -49,6 +78,13 @@ public class TerminalPatch {
     [HarmonyPatch("BeginUsingTerminal")]
     public static void BeginUsingTerminalPostfix(Terminal __instance) {
         OnEnterTerminal?.Invoke(!_usedTerminalThisSession);
+    }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch("Awake")]
+    public static void AwakePrefix(Terminal __instance) {
+        Plugin.driver = new InputFieldDriver(__instance);
+        PreAwake?.Invoke();
     }
     
     [HarmonyPostfix]
