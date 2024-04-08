@@ -39,6 +39,7 @@ public class VanillinTerminal : ITerminal {
             AddBuiltinCommand(command);
         }
         AddBuiltinCommand(new BuyCommand());
+        AddBuiltinCommand(new TransmitCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
