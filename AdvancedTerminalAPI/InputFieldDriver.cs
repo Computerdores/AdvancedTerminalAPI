@@ -1,4 +1,5 @@
 ﻿using System;
+using BepInEx;
 using Computerdores.patch;
 using JetBrains.Annotations;
 using TMPro;
@@ -81,11 +82,16 @@ public class InputFieldDriver {
     /// <summary>
     /// Change the Text that is displayed in the console.
     /// </summary>
-    /// <param name="text">The new text to be displayed. If text is null, the Input will be reset.</param>
+    /// <param name="text">The new text to be displayed. If text is null or whitespace,
+    ///     this parameter won't affect the displayed text, but the Input will be reset.</param>
     /// <param name="clearScreen">Whether the text should added after or instead of the current text.</param>
     public void DisplayText([CanBeNull] string text, bool clearScreen) {
-        if (text != null || clearScreen) {
-            _displayedText = (clearScreen ? "\n" : _inputField.text) + (text != null ? $"\n\n{text}" : "");
+        if (clearScreen) {
+            _displayedText = "\n";
+        }
+        if (!text.IsNullOrWhiteSpace()) {
+            if (!clearScreen) _displayedText += Input;
+            _displayedText += $"\n\n{text}";
         }
         Input = "";
         _renderToInputField();
