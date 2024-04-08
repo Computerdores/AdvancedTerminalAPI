@@ -77,7 +77,7 @@ public class VanillinTerminal : ITerminal {
                 _driver.DisplayText(result.output, result.clearScreen);
             } else {
                 Log.LogInfo($"Command execution was not successful for input ({_currentCommand.GetName()}): '{text}'");
-                _driver.DisplayText(SpecialText(11), true);
+                _driver.DisplayText(SpecialText(11), result.clearScreen);
             }
             if (!result.wantsMoreInput) _currentCommand = null;
         } else if (text != "") {
