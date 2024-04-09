@@ -28,6 +28,8 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new SimpleCommand("other"));
         AddBuiltinCommand(new SimpleCommand("moons"));
         AddBuiltinCommand(new SimpleCommand("store"));
+        AddBuiltinCommand(new SimpleCommand("upgrades"));
+        AddBuiltinCommand(new SimpleCommand("decor"));
         AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new FlashCommand());
         AddBuiltinCommand(new PingCommand());

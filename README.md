@@ -4,7 +4,7 @@
 ### Commands
 - [ ] bestiary
 - [ ] buy
-- [ ] decor
+- [x] decor
 - [x] eject
 - [x] flash
 - [x] help
@@ -20,7 +20,7 @@
 - [x] switch
 - [x] Terminal Accessible Objects
 - [x] transmit
-- [ ] upgrades
+- [x] upgrades
 - [x] view monitor
 
 ### API
