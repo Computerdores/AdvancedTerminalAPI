@@ -44,6 +44,7 @@ public class VanillinTerminal : ITerminal {
             AddBuiltinCommand(command);
         }
         AddBuiltinCommand(new RouteCommand());
+        AddBuiltinCommand(new InfoCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;

@@ -8,7 +8,7 @@
 - [x] eject
 - [x] flash
 - [x] help
-- [ ] info
+- [x] info
 - [ ] moons
 - [x] other
 - [x] ping
