@@ -23,15 +23,15 @@ public class VanillinTerminal : ITerminal {
         _driver.OnEnterTerminal += OnEnterTerminal;
         DebugLogNodeInfo();
         // Add Vanillin Commands
+        AddBuiltinCommand(new SpecialNodeCommand("welcome", 1));
+        AddBuiltinCommand(new SpecialNodeCommand("help", 13));
         AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new FlashCommand());
-        AddBuiltinCommand(new HelpCommand());
         AddBuiltinCommand(new OtherCommand());
         AddBuiltinCommand(new PingCommand());
         AddBuiltinCommand(new ScanCommand());
         AddBuiltinCommand(new SwitchCommand());
         AddBuiltinCommand(new ViewCommand());
-        AddBuiltinCommand(new WelcomeCommand());
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
