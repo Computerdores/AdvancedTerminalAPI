@@ -39,7 +39,7 @@ public class VanillinTerminal : ITerminal {
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
-        foreach (BuyItemCommand command in BuyItemCommand.GetAll(this)) {
+        foreach (ICommand command in BuyCommand.GetAll(this)) {
             AddBuiltinCommand(command);
         }
         AddBuiltinCommand(new BuyCommand());

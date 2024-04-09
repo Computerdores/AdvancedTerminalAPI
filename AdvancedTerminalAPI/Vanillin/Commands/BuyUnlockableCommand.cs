@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using BepInEx;
 using Computerdores.patch;
-using UnityEngine;
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class BuyItemCommand : ICommand {
+public class BuyUnlockableCommand : ICommand{
     private readonly string _itemName;
     
     private bool _awaitingConfirmation;
     private CompatibleNoun _item;
 
-    public BuyItemCommand(string itemName) {
+    public BuyUnlockableCommand(string itemName) {
         _itemName = itemName;
     }
 
@@ -23,14 +20,11 @@ public class BuyItemCommand : ICommand {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n;
         if (!_awaitingConfirmation) {
-            // determine the ordered amount and set it in Terminal
             _item = Util.FindKeyword(terminal, "buy").FindNoun(_itemName);
-            string count = Regex.Match(input, "\\d+").Value;
-            vT.playerDefinedAmount = count.IsNullOrWhiteSpace() ? 1 : Mathf.Clamp(int.Parse(count), 0, 10);
             // trigger the vanilla behaviour
             n = TerminalPatch.LoadNewNodeIfAffordable(vT, _item.result);
             // output
-            _awaitingConfirmation = n.isConfirmationNode;
+            _awaitingConfirmation = (n.terminalOptions?.Length ?? 0) > 0;
             return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
         }
 
@@ -46,9 +40,9 @@ public class BuyItemCommand : ICommand {
     public object Clone()
         => new BuyItemCommand(_itemName);
 
-    public static IEnumerable<BuyItemCommand> GetAll(ITerminal term) {
+    public static IEnumerable<BuyUnlockableCommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "buy").compatibleNouns 
-            where noun.result.buyItemIndex != -1
-            select new BuyItemCommand(noun.noun.word);
+            where noun.result.shipUnlockableID != -1
+            select new BuyUnlockableCommand(noun.noun.word);
     }
 }
