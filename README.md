@@ -9,7 +9,7 @@
 - [x] flash
 - [x] help
 - [x] info
-- [ ] moons
+- [x] moons
 - [x] other
 - [x] ping
 - [x] route

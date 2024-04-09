@@ -25,9 +25,10 @@ public class VanillinTerminal : ITerminal {
         // Add Vanillin Commands
         AddBuiltinCommand(new SpecialNodeCommand("welcome", 1));
         AddBuiltinCommand(new SpecialNodeCommand("help", 13));
+        AddBuiltinCommand(new SimpleCommand("other"));
+        AddBuiltinCommand(new SimpleCommand("moons"));
         AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new FlashCommand());
-        AddBuiltinCommand(new OtherCommand());
         AddBuiltinCommand(new PingCommand());
         AddBuiltinCommand(new ScanCommand());
         AddBuiltinCommand(new SwitchCommand());
