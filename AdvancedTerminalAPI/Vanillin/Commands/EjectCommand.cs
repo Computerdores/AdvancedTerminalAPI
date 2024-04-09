@@ -6,11 +6,6 @@ namespace Computerdores.Vanillin.Commands;
 public class EjectCommand : ICommand, IPredictable {
 
     private bool _awaitingConfirmation;
-
-    public EjectCommand() {}
-    private EjectCommand(bool awaitingConfirmation) {
-        _awaitingConfirmation = awaitingConfirmation;
-    }
     
     public string GetName() => "eject";
 
@@ -51,5 +46,5 @@ public class EjectCommand : ICommand, IPredictable {
     }
 
 
-    public object Clone() => new EjectCommand(_awaitingConfirmation);
+    public object Clone() => new EjectCommand();
 }
