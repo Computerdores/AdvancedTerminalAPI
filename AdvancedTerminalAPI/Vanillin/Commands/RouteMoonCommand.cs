@@ -1,0 +1,56 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Computerdores.patch;
+
+namespace Computerdores.Vanillin.Commands; 
+
+public class RouteMoonCommand : ICommand {
+    private readonly string _moonName;
+
+    private bool _awaitingConfirmation;
+    private CompatibleNoun _moon;
+    
+    public RouteMoonCommand(string moonName) {
+        _moonName = moonName;
+    }
+
+    public string GetName() => _moonName;
+
+    public CommandResult Execute(string input, ITerminal terminal) {
+        Terminal vT = terminal.GetDriver().VanillaTerminal;
+        TerminalNode n;
+        if (!_awaitingConfirmation) {
+            // get the vanilla keyword
+            _moon = Util.FindKeyword(terminal, "route").FindNoun(_moonName);
+            if (_moon.result.itemCost != 0 || _moon.result.buyRerouteToMoon == -2) {
+                vT.totalCostOfItems = _moon.result.itemCost;
+            } 
+            // trigger the vanilla behaviour
+            n = TerminalPatch.LoadNewNodeIfAffordable(vT, _moon.result);
+            // output
+            _awaitingConfirmation = (n.terminalOptions?.Length ?? 0) > 0; // kinda janky, but isConfirmationNode is always false for these
+            return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
+        }
+        
+        CompatibleNoun cn = _moon.result.FindTerminalOption(input);
+        // if the input doesn't match any available option ignore it
+        if (cn == null) {
+            return new CommandResult(null, false, true, true);
+        }
+        n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
+        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+    }
+
+    public object Clone() => new RouteMoonCommand(_moonName);
+    
+    public static IEnumerable<RouteMoonCommand> GetAll(ITerminal term) {
+        return from noun in Util.FindKeyword(term, "route").compatibleNouns
+            select new RouteMoonCommand(noun.noun.word);
+    }
+
+    public static RouteMoonCommand FromPlayerInput(Terminal term, string input) {
+        return new RouteMoonCommand(Util.FindKeyword(term, "route").
+            FindNoun(input).noun.word
+        );
+    }
+}

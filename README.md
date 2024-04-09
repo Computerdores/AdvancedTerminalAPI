@@ -12,7 +12,7 @@
 - [ ] moons
 - [x] other
 - [x] ping
-- [ ] route
+- [x] route
 - [x] scan
 - [ ] sigurd
 - [ ] storage

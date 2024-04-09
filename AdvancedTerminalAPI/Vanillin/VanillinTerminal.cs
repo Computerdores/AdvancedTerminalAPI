@@ -40,6 +40,10 @@ public class VanillinTerminal : ITerminal {
         }
         AddBuiltinCommand(new BuyCommand());
         AddBuiltinCommand(new TransmitCommand());
+        foreach (RouteMoonCommand command in RouteMoonCommand.GetAll(this)) {
+            AddBuiltinCommand(command);
+        }
+        AddBuiltinCommand(new RouteCommand());
     }
 
     public InputFieldDriver GetDriver() => _driver;
