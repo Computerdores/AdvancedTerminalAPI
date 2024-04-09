@@ -22,6 +22,7 @@
 - [x] transmit
 - [x] upgrades
 - [x] view monitor
+- [ ] suits?
 
 ### API
 - [x] Custom Terminal Support
