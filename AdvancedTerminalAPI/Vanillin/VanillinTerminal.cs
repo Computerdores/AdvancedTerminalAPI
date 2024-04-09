@@ -108,9 +108,9 @@ public class VanillinTerminal : ITerminal {
         return FindCommand(_commands, command) ?? FindCommand(_builtinCommands, command);
     }
     
-    private static ICommand FindCommand(Dictionary<string, ICommand> commands, string command) {
+    private static ICommand FindCommand(Dictionary<string, ICommand> commands, string command) { // TODO use vanilla matching
         string[] keys = commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
-        return keys.Length != 1 ? null : commands[keys[0]];
+        return keys.Length >= 1 ? commands[keys[0]] : null;
     }
 
     // purely for convenience
