@@ -15,7 +15,7 @@
 - [x] route
 - [x] scan
 - [ ] sigurd
-- [ ] storage
+- [x] storage
 - [x] store
 - [x] switch
 - [x] Terminal Accessible Objects
