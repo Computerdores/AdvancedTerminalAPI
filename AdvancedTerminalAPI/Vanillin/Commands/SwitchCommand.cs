@@ -1,4 +1,6 @@
-﻿namespace Computerdores.Vanillin.Commands; 
+﻿using BepInEx;
+
+namespace Computerdores.Vanillin.Commands; 
 
 public class SwitchCommand : ICommand, IPredictable {
     public string GetName() => "switch";
@@ -11,7 +13,7 @@ public class SwitchCommand : ICommand, IPredictable {
     /// </summary>
     public CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
-        if (index == -1 && input != "") return new CommandResult("", false, false);
+        if (index == -1 && input.IsNullOrWhiteSpace()) return CommandResult.GENERIC_ERROR;
         if (index != -1) {
             StartOfRound.Instance.mapScreen.SwitchRadarTargetAndSync(index);
         } else {

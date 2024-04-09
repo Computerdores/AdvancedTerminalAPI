@@ -15,4 +15,7 @@ public struct CommandResult {
         this.success = success;
         this.wantsMoreInput = wantsMoreInput;
     }
+
+    public static readonly CommandResult IGNORE_INPUT = new() {clearScreen = false, wantsMoreInput = true};
+    public static readonly CommandResult GENERIC_ERROR = new() {success = false};
 }

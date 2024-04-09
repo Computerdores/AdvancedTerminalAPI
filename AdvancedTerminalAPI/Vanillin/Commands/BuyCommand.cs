@@ -17,8 +17,8 @@ public class BuyCommand : ICommand {
         string[] words = input.Split(' ');
         _command = BuyItemCommand.FromPlayerInput(terminal.GetDriver().VanillaTerminal, words.First());
         
-        if (_command == null) return new CommandResult(null, false, true, true);
-        return _command.Execute(words.Skip(1).Join(delimiter: " "), terminal);
+        return _command == null ? CommandResult.IGNORE_INPUT : 
+            _command.Execute(words.Skip(1).Join(delimiter: " "), terminal);
     }
 
     public object Clone() => new BuyCommand();

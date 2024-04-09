@@ -9,19 +9,15 @@ public class FlashCommand : ICommand, IPredictable {
     /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.
     /// </summary>
     public CommandResult Execute(string input, ITerminal terminal) {
-        CommandResult result = new();
         int index = Util.GetPlayerIndexByName(input);
         if (index == -1) {
             index = StartOfRound.Instance.mapScreen.targetTransformIndex;
             if (!StartOfRound.Instance.mapScreen.radarTargets[index].isNonPlayer) {
-                result.success = false;
-                result.clearScreen = false;
-                return result;
+                return CommandResult.GENERIC_ERROR;
             }
         }
         StartOfRound.Instance.mapScreen.FlashRadarBooster(index);
-        result.output = Util.GetSpecialNode(terminal, 23).displayText;
-        return result;
+        return new CommandResult(Util.GetSpecialNode(terminal, 23).displayText);
     }
 
     public object Clone() => new FlashCommand();

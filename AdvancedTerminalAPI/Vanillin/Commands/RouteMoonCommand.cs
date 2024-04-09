@@ -34,9 +34,8 @@ public class RouteMoonCommand : ICommand {
         
         CompatibleNoun cn = _moon.result.FindTerminalOption(input);
         // if the input doesn't match any available option ignore it
-        if (cn == null) {
-            return new CommandResult(null, false, true, true);
-        }
+        if (cn == null) return CommandResult.IGNORE_INPUT;
+        
         n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }

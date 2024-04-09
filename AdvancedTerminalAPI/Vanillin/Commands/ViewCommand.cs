@@ -16,7 +16,7 @@ public class ViewCommand : ICommand, IPredictable {
         TerminalNode node = Util.FindKeyword(terminal.GetDriver().VanillaTerminal, "view")
             .FindNoun(input.Split(' ').First())
             .result;
-        if (node == null) return new CommandResult("", false, false);
+        if (node == null) return CommandResult.GENERIC_ERROR;
         terminal.GetDriver().VanillaTerminal.LoadTerminalImage(node);
         return new CommandResult(node.displayText, node.clearPreviousText);
     }
