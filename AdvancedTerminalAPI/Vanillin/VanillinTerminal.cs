@@ -37,6 +37,9 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new PingCommand());
         AddBuiltinCommand(new ScanCommand());
         AddBuiltinCommand(new SwitchCommand());
+        foreach (ICommand command in ViewCommand.GetAll(this)) {
+            AddBuiltinCommand(command);
+        }
         AddBuiltinCommand(new ViewCommand());
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));

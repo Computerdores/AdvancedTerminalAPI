@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 
 namespace Computerdores.Vanillin.Commands; 
 
@@ -13,13 +15,18 @@ public class ViewCommand : ICommand, IPredictable {
     /// For the vanilla implementation, see: <see cref="Terminal.LoadNewNode"/>.
     /// </summary>
     public CommandResult Execute(string input, ITerminal terminal) {
-        TerminalNode node = Util.FindKeyword(terminal.GetDriver().VanillaTerminal, "view")
-            .FindNoun(input.Split(' ').First())
-            .result;
-        if (node == null) return CommandResult.GENERIC_ERROR;
-        terminal.GetDriver().VanillaTerminal.LoadTerminalImage(node);
-        return new CommandResult(node.displayText, node.clearPreviousText);
+        ViewThingCommand cmd = FromPlayerInput(terminal.GetDriver().VanillaTerminal, input);
+        return cmd?.Execute(input.Split(' ').Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.GENERIC_ERROR;
     }
 
     public object Clone() => new ViewCommand();
+
+    public static IEnumerable<ICommand> GetAll(ITerminal term) {
+        return from noun in Util.FindKeyword(term, "view").compatibleNouns 
+            where noun.noun.defaultVerb != null
+            select new ViewThingCommand(noun.noun.word);
+    }
+
+    private static ViewThingCommand FromPlayerInput(Terminal term, string input) =>
+        new(Util.FindKeyword(term, "view").FindNoun(input).noun.word);
 }

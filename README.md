@@ -14,7 +14,7 @@
 - [x] ping
 - [x] route
 - [x] scan
-- [ ] sigurd
+- [x] sigurd
 - [x] storage
 - [x] store
 - [x] switch
