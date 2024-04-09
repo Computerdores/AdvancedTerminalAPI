@@ -3,7 +3,7 @@
 ## Planned for 1.0.0
 ### Commands
 - [ ] bestiary
-- [x] buy
+- [ ] buy
 - [ ] decor
 - [x] eject
 - [x] flash
@@ -16,7 +16,7 @@
 - [x] scan
 - [ ] sigurd
 - [ ] storage
-- [ ] store
+- [x] store
 - [x] switch
 - [x] Terminal Accessible Objects
 - [x] transmit
