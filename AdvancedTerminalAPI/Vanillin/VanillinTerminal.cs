@@ -23,30 +23,11 @@ public class VanillinTerminal : ITerminal {
         _driver.OnEnterTerminal += OnEnterTerminal;
         DebugLogNodeInfo();
         // Add Vanillin Commands
-        AddBuiltinCommand(new SpecialNodeCommand("welcome", 1));
-        AddBuiltinCommand(new SpecialNodeCommand("help", 13));
-        AddBuiltinCommands(SimpleCommand.GetAll());
-        AddBuiltinCommands(AccessibleObjectCommand.GetAll(this));
-        AddBuiltinCommand(new EjectCommand());
-        AddBuiltinCommand(new FlashCommand());
-        AddBuiltinCommand(new PingCommand());
-        AddBuiltinCommand(new ScanCommand());
-        AddBuiltinCommand(new SwitchCommand());
-        AddBuiltinCommand(new ViewCommand());
-        AddBuiltinCommand(new BuyCommand());
-        AddBuiltinCommand(new TransmitCommand());
-        AddBuiltinCommand(new RouteCommand());
-        AddBuiltinCommand(new InfoCommand());
+        AddBuiltinCommands(GetBuiltinCommands(GetDriver()));
     }
 
     public InputFieldDriver GetDriver() => _driver;
 
-    private void AddBuiltinCommands(IEnumerable<ICommand> commands) {
-        foreach (ICommand command in commands) {
-            AddBuiltinCommand(command);
-        }
-    }
-    private void AddBuiltinCommand(ICommand command) => AddCommand(_builtinCommands, command);
     public void AddCommand(ICommand command) => AddCommand(_commands, command);
 
     private void AddCommand(IDictionary<string, ICommand> commands, ICommand command) {
@@ -60,6 +41,24 @@ public class VanillinTerminal : ITerminal {
     public void CopyCommandsTo(ITerminal terminal) {
         foreach (ICommand command in _commands.Values) {
             terminal.AddCommand(command);
+        }
+    }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static IEnumerable<ICommand> GetBuiltinCommands(InputFieldDriver driver) {
+        var a = new List<ICommand> {
+            new SpecialNodeCommand("welcome", 1), new SpecialNodeCommand("help", 13),
+            new EjectCommand(), new FlashCommand(), new PingCommand(), new ScanCommand(), new SwitchCommand(),
+            new ViewCommand(), new BuyCommand(), new TransmitCommand(), new RouteCommand(), new InfoCommand()
+        };
+        a.AddRange(SimpleCommand.GetAll());
+        a.AddRange(AccessibleObjectCommand.GetAll(driver));
+        return a;
+    }
+
+    private void AddBuiltinCommands(IEnumerable<ICommand> commands) {
+        foreach (ICommand command in commands) {
+            AddCommand(_builtinCommands, command);
         }
     }
 

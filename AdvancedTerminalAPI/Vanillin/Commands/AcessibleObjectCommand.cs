@@ -24,8 +24,8 @@ public class AccessibleObjectCommand : ICommand {
 
     public object Clone() => new AccessibleObjectCommand(_name);
 
-    public static IEnumerable<AccessibleObjectCommand> GetAll(ITerminal term) =>
-        term.GetDriver().VanillaTerminal.terminalNodes.allKeywords.
+    public static IEnumerable<AccessibleObjectCommand> GetAll(InputFieldDriver driver) =>
+        driver.VanillaTerminal.terminalNodes.allKeywords.
             Where(keyword => keyword.accessTerminalObjects).
             Select(keyword => new AccessibleObjectCommand(keyword.word));
 }
