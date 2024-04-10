@@ -7,7 +7,7 @@ If you are looking for an API that is close to the way the vanilla commands are 
 ## Contributing
 If you want to contribute just open a pull request and make sure your code follows the same style as the existing code base.
 
-Also the [[license|LICENSE]] used by this project includes a [CLA](https://en.wikipedia.org/wiki/Contributor_License_Agreement).
+Also the [license](LICENSE) used by this project includes a [CLA](https://en.wikipedia.org/wiki/Contributor_License_Agreement).
 
 ## Credits
 This project uses the [LethalCompanyTemplate by Distractic](https://github.com/Distractic/LethalCompanyTemplate) under the [MIT License](https://github.com/Distractic/LethalCompanyTemplate/blob/main/LICENSE).
