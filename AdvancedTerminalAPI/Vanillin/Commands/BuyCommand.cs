@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class BuyCommand : ICommand {
+public class BuyCommand : ICommand, IAliasable {
     private bool _awaitingConfirmation;
 
     private ICommand _command;
@@ -23,16 +23,22 @@ public class BuyCommand : ICommand {
 
     public object Clone() => new BuyCommand();
 
-    public static IEnumerable<ICommand> GetAll(ITerminal term) {
-        return ((IEnumerable<ICommand>)BuyItemCommand.GetAll(term)).Concat(BuyUnlockableCommand.GetAll(term));
+    public IEnumerable<ICommand> GetAll(ITerminal term) {
+        return from cn in Util.FindKeyword(term, "buy").compatibleNouns 
+            where cn.result.shipUnlockableID != -1 || cn.result.buyItemIndex != -1
+            select FromCN(cn);
     }
 
-    public static ICommand FromPlayerInput(Terminal term, string input) {
+    private static ICommand FromPlayerInput(Terminal term, string input) {
         CompatibleNoun a = Util.FindKeyword(term, "buy").
             FindNoun(input, cn => cn.result.shipUnlockableID != -1 || cn.result.buyItemIndex != -1);
-        if (a.result.buyItemIndex != -1) {
-            return new BuyItemCommand(a.noun.word);
+        return FromCN(a);
+    }
+
+    private static ICommand FromCN(CompatibleNoun cn) {
+        if (cn.result.buyItemIndex != -1) {
+            return new BuyItemCommand(cn.noun.word);
         }
-        return new BuyUnlockableCommand(a.noun.word);
+        return new BuyUnlockableCommand(cn.noun.word);
     }
 }

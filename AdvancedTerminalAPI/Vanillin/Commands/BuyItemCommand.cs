@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using BepInEx;
 using Computerdores.patch;
 using UnityEngine;
@@ -45,10 +43,4 @@ public class BuyItemCommand : ICommand {
 
     public object Clone()
         => new BuyItemCommand(_itemName);
-
-    public static IEnumerable<BuyItemCommand> GetAll(ITerminal term) {
-        return from noun in Util.FindKeyword(term, "buy").compatibleNouns 
-            where noun.result.buyItemIndex != -1
-            select new BuyItemCommand(noun.noun.word);
-    }
 }

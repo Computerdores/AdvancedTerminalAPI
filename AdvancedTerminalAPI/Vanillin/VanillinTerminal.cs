@@ -45,9 +45,6 @@ public class VanillinTerminal : ITerminal {
         foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
             AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
         }
-        foreach (ICommand command in BuyCommand.GetAll(this)) {
-            AddBuiltinCommand(command);
-        }
         AddBuiltinCommand(new BuyCommand());
         AddBuiltinCommand(new TransmitCommand());
         foreach (RouteMoonCommand command in RouteMoonCommand.GetAll(this)) {

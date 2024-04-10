@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Computerdores.patch;
+﻿using Computerdores.patch;
 
 namespace Computerdores.Vanillin.Commands; 
 
@@ -39,10 +37,4 @@ public class BuyUnlockableCommand : ICommand{
 
     public object Clone()
         => new BuyUnlockableCommand(_itemName);
-
-    public static IEnumerable<BuyUnlockableCommand> GetAll(ITerminal term) {
-        return from noun in Util.FindKeyword(term, "buy").compatibleNouns 
-            where noun.result.shipUnlockableID != -1
-            select new BuyUnlockableCommand(noun.noun.word);
-    }
 }
