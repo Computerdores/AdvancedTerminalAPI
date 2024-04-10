@@ -8,16 +8,16 @@ using HarmonyLib;
 namespace Computerdores.Vanillin;
 
 public class VanillinTerminal : ITerminal {
-    private InputFieldDriver _driver;
+    private readonly InputFieldDriver _driver;
 
     private readonly List<ICommand> _commands = new();
     private readonly List<ICommand> _builtinCommands = new();
 
-    private static ManualLogSource Log => Plugin.Log;
+    private static ManualLogSource Log => AdvancedTerminalAPI.Log;
 
     private ICommand _currentCommand;
 
-    public void RegisterDriver(InputFieldDriver driver) {
+    public VanillinTerminal(InputFieldDriver driver) {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
         _driver.OnEnterTerminal += OnEnterTerminal;
@@ -34,12 +34,6 @@ public class VanillinTerminal : ITerminal {
         commands.Add(command);
         if (command is not IAliasable aliasable) return;
         aliasable.GetAll(this).Do(cmd => AddCommand(commands, cmd));
-    }
-    
-    public void CopyCommandsTo(ITerminal terminal) {
-        foreach (ICommand command in _commands) {
-            terminal.AddCommand(command);
-        }
     }
 
     // ReSharper disable once MemberCanBePrivate.Global

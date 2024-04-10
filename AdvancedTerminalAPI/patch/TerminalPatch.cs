@@ -92,7 +92,7 @@ public static class TerminalPatch {
     [HarmonyPrefix]
     [HarmonyPatch(nameof(Terminal.Awake))]
     public static void AwakePrefix(Terminal __instance) {
-        Plugin.driver = new InputFieldDriver(__instance);
+        AdvancedTerminalAPI.RegisterTerminal(__instance);
         PreAwake?.Invoke();
     }
     

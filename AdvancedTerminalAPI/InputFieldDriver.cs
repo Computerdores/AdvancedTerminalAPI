@@ -75,8 +75,6 @@ public class InputFieldDriver {
         _inputField.onValueChanged.AddListener(OnInputFieldChangedHandler);
         _inputField.onSubmit.AddListener(OnInputFieldSubmitHandler);
         TerminalPatch.OnEnterTerminal += OnEnterTerminalHandler;
-        // Register yourself with the Modded Terminal
-        Plugin.customTerminal.RegisterDriver(this);
     }
     
     /// <summary>
