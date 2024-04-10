@@ -10,8 +10,8 @@ namespace Computerdores.Vanillin;
 public class VanillinTerminal : ITerminal {
     private InputFieldDriver _driver;
 
-    private readonly Dictionary<string, ICommand> _commands = new();
-    private readonly Dictionary<string, ICommand> _builtinCommands = new();
+    private readonly List<ICommand> _commands = new();
+    private readonly List<ICommand> _builtinCommands = new();
 
     private static ManualLogSource Log => Plugin.Log;
 
@@ -30,16 +30,14 @@ public class VanillinTerminal : ITerminal {
 
     public void AddCommand(ICommand command) => AddCommand(_commands, command);
 
-    private void AddCommand(IDictionary<string, ICommand> commands, ICommand command) {
-        commands[command.GetName()] = command;
+    private void AddCommand(ICollection<ICommand> commands, ICommand command) {
+        commands.Add(command);
         if (command is not IAliasable aliasable) return;
-        foreach (ICommand cmd in aliasable.GetAll(this)) {
-            AddCommand(commands, cmd);
-        }
+        aliasable.GetAll(this).Do(cmd => AddCommand(commands, cmd));
     }
     
     public void CopyCommandsTo(ITerminal terminal) {
-        foreach (ICommand command in _commands.Values) {
+        foreach (ICommand command in _commands) {
             terminal.AddCommand(command);
         }
     }
@@ -104,10 +102,8 @@ public class VanillinTerminal : ITerminal {
         return FindCommand(_commands, command) ?? FindCommand(_builtinCommands, command);
     }
     
-    private static ICommand FindCommand(Dictionary<string, ICommand> commands, string command) { // TODO use vanilla matching
-        string[] keys = commands.Keys.Where(cmd => cmd.StartsWith(command)).ToArray();
-        return keys.Length >= 1 ? commands[keys[0]] : null;
-    }
+    private static ICommand FindCommand(IEnumerable<ICommand> commands, string command)
+        => commands.VanillaStringMatch(command, s => s.GetName());
 
     // purely for convenience
     private string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
