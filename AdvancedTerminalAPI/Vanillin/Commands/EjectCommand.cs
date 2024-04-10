@@ -46,5 +46,5 @@ public class EjectCommand : ICommand, IPredictable {
     }
 
 
-    public object Clone() => new EjectCommand();
+    public ICommand CloneStateless() => new EjectCommand();
 }

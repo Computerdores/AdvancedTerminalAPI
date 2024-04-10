@@ -41,6 +41,6 @@ public class BuyItemCommand : ICommand {
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone()
+    public ICommand CloneStateless()
         => new BuyItemCommand(_itemName);
 }

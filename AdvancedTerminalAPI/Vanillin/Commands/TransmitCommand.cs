@@ -21,5 +21,5 @@ public class TransmitCommand : ICommand {
         return new CommandResult(n.displayText, n.clearPreviousText);
     }
 
-    public object Clone() => new TransmitCommand();
+    public ICommand CloneStateless() => new TransmitCommand();
 }

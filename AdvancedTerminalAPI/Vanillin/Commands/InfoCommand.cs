@@ -12,7 +12,7 @@ public class InfoCommand : ICommand, IAliasable {
         return new InfoThingCommand(words[0]).Execute(words.Skip(1).Join(delimiter: " "), terminal);
     }
 
-    public object Clone() => new InfoCommand();
+    public ICommand CloneStateless() => new InfoCommand();
 
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         TerminalKeyword kw = Util.FindKeyword(term.GetDriver().VanillaTerminal, "info");

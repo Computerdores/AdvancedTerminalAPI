@@ -19,7 +19,7 @@ public class SimpleCommand : ICommand {
             new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone() => new SimpleCommand(_name);
+    public ICommand CloneStateless() => new SimpleCommand(_name);
 
     public static IEnumerable<SimpleCommand> GetAll() {
         return new[] { "other", "moons", "store", "upgrades", "decor", "storage", "sigurd", "bestiary" }.

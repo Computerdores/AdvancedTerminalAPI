@@ -16,7 +16,7 @@ public class PingCommand : ICommand, IPredictable {
         return new CommandResult(Util.GetSpecialNode(terminal, 21).displayText);
     }
 
-    public object Clone() => new PingCommand();
+    public ICommand CloneStateless() => new PingCommand();
 
     
 }

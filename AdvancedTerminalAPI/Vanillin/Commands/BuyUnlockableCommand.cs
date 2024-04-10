@@ -35,6 +35,6 @@ public class BuyUnlockableCommand : ICommand{
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone()
+    public ICommand CloneStateless()
         => new BuyUnlockableCommand(_itemName);
 }

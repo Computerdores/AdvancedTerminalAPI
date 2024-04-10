@@ -19,5 +19,5 @@ public class InfoThingCommand : ICommand {
             new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone() => new InfoThingCommand(_name);
+    public ICommand CloneStateless() => new InfoThingCommand(_name);
 }

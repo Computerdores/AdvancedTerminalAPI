@@ -60,7 +60,7 @@ public class VanillinTerminal : ITerminal {
         if (_currentCommand == null) {
             string[] words = text.Split(' ');
             input = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
-            _currentCommand = (ICommand)FindCommand(words[0])?.Clone();
+            _currentCommand = (ICommand)FindCommand(words[0])?.CloneStateless();
         }
         if (_currentCommand is {} command) {
             Log.LogInfo($"Executing Command ({_currentCommand.GetName()}) for input : '{text}'");

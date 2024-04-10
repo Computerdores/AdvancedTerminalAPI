@@ -19,5 +19,5 @@ public class ViewThingCommand : ICommand {
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone() => new ViewThingCommand(_name);
+    public ICommand CloneStateless() => new ViewThingCommand(_name);
 }

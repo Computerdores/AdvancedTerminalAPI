@@ -20,5 +20,5 @@ public class FlashCommand : ICommand, IPredictable {
         return new CommandResult(Util.GetSpecialNode(terminal, 23).displayText);
     }
 
-    public object Clone() => new FlashCommand();
+    public ICommand CloneStateless() => new FlashCommand();
 }

@@ -13,5 +13,5 @@ public class ScanCommand : ICommand {
         return new CommandResult(vT.TextPostProcess(node.displayText, node));
     }
 
-    public object Clone() => new ScanCommand();
+    public ICommand CloneStateless() => new ScanCommand();
 }

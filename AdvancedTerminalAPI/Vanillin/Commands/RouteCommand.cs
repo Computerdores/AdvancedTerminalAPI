@@ -21,5 +21,5 @@ public class RouteCommand : ICommand {
             _command.Execute(words.Skip(1).Join(delimiter: " "), terminal);
     }
 
-    public object Clone() => new RouteCommand();
+    public ICommand CloneStateless() => new RouteCommand();
 }

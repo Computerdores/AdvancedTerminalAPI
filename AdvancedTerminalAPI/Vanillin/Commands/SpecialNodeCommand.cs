@@ -16,5 +16,5 @@ public class SpecialNodeCommand : ICommand {
         return new CommandResult(Util.TextPostProcess(vT, Util.GetSpecialNode(vT, _index)));
     }
 
-    public object Clone() => new SpecialNodeCommand(_name, _index);
+    public ICommand CloneStateless() => new SpecialNodeCommand(_name, _index);
 }

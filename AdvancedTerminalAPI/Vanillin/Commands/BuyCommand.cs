@@ -21,7 +21,7 @@ public class BuyCommand : ICommand, IAliasable {
         return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IGNORE_INPUT;
     }
 
-    public object Clone() => new BuyCommand();
+    public ICommand CloneStateless() => new BuyCommand();
 
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from cn in Util.FindKeyword(term, "buy").compatibleNouns 

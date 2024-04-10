@@ -16,7 +16,7 @@ public class ViewCommand : ICommand, IAliasable {
         return cmd.Execute(words.Skip(1).Join(delimiter: " "), terminal);
     }
 
-    public object Clone() => new ViewCommand();
+    public ICommand CloneStateless() => new ViewCommand();
 
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "view").compatibleNouns 

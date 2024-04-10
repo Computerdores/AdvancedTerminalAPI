@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace Computerdores; 
 
-namespace Computerdores; 
-
-public interface ICommand : ICloneable {
+public interface ICommand {
     /// <summary>
     /// This returns the string by which the command can be called.
     /// </summary>
@@ -21,4 +19,7 @@ public interface ICommand : ICloneable {
     /// <returns>A <see cref="CommandResult"/> object which gives details about the execution of the Command
     /// (e.g. whether it was successful).</returns>
     public CommandResult Execute(string input, ITerminal terminal);
+
+
+    public ICommand CloneStateless();
 }

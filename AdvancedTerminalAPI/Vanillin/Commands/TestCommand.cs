@@ -8,5 +8,5 @@ public class TestCommand : ICommand {
         return new CommandResult("test!\n", false);
     }
 
-    public object Clone() => new TestCommand();
+    public ICommand CloneStateless() => new TestCommand();
 }

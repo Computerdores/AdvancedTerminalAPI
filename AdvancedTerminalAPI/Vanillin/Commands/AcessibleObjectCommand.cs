@@ -22,7 +22,7 @@ public class AccessibleObjectCommand : ICommand {
         return new CommandResult(Util.GetSpecialNode(vT, 19).displayText);
     }
 
-    public object Clone() => new AccessibleObjectCommand(_name);
+    public ICommand CloneStateless() => new AccessibleObjectCommand(_name);
 
     public static IEnumerable<AccessibleObjectCommand> GetAll(InputFieldDriver driver) =>
         driver.VanillaTerminal.terminalNodes.allKeywords.

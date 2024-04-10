@@ -40,7 +40,7 @@ public class RouteMoonCommand : ICommand, IAliasable {
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
-    public object Clone() => new RouteMoonCommand(_moonName);
+    public ICommand CloneStateless() => new RouteMoonCommand(_moonName);
     
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "route").compatibleNouns

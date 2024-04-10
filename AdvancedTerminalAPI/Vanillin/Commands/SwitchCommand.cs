@@ -22,5 +22,5 @@ public class SwitchCommand : ICommand, IPredictable {
         return new CommandResult(Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "switch").displayText);
     }
 
-    public object Clone() => new SwitchCommand();
+    public ICommand CloneStateless() => new SwitchCommand();
 }
