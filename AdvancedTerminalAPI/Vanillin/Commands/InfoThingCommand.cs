@@ -1,4 +1,6 @@
-﻿namespace Computerdores.Vanillin.Commands; 
+﻿using Computerdores.patch;
+
+namespace Computerdores.Vanillin.Commands; 
 
 public class InfoThingCommand : ICommand {
     private readonly string _name;
@@ -12,6 +14,7 @@ public class InfoThingCommand : ICommand {
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n = Util.FindKeyword(vT, "info").FindNoun(_name).result;
+        if (n.creatureFileID != -1) n = TerminalPatch.AttemptLoadCreatureFileNode(vT, n);
         return n == null ? CommandResult.GENERIC_ERROR : 
             new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
