@@ -26,15 +26,13 @@ public class VanillinTerminal : ITerminal {
         AddBuiltinCommand(new SpecialNodeCommand("welcome", 1));
         AddBuiltinCommand(new SpecialNodeCommand("help", 13));
         AddBuiltinCommands(SimpleCommand.GetAll());
+        AddBuiltinCommands(AccessibleObjectCommand.GetAll(this));
         AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new FlashCommand());
         AddBuiltinCommand(new PingCommand());
         AddBuiltinCommand(new ScanCommand());
         AddBuiltinCommand(new SwitchCommand());
         AddBuiltinCommand(new ViewCommand());
-        foreach (TerminalKeyword terminalKeyword in _driver.VanillaTerminal.terminalNodes.allKeywords.Where(keyword => keyword.accessTerminalObjects)) {
-            AddBuiltinCommand(new AccessibleObjectCommand(terminalKeyword.word));
-        }
         AddBuiltinCommand(new BuyCommand());
         AddBuiltinCommand(new TransmitCommand());
         AddBuiltinCommand(new RouteCommand());

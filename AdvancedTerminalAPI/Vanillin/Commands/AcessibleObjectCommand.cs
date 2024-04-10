@@ -1,4 +1,7 @@
-﻿namespace Computerdores.Vanillin.Commands; 
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Computerdores.Vanillin.Commands; 
 
 public class AccessibleObjectCommand : ICommand {
     private readonly string _name;
@@ -20,4 +23,9 @@ public class AccessibleObjectCommand : ICommand {
     }
 
     public object Clone() => new AccessibleObjectCommand(_name);
+
+    public static IEnumerable<AccessibleObjectCommand> GetAll(ITerminal term) =>
+        term.GetDriver().VanillaTerminal.terminalNodes.allKeywords.
+            Where(keyword => keyword.accessTerminalObjects).
+            Select(keyword => new AccessibleObjectCommand(keyword.word));
 }
