@@ -44,9 +44,6 @@ public class VanillinTerminal : ITerminal {
         }
         AddBuiltinCommand(new BuyCommand());
         AddBuiltinCommand(new TransmitCommand());
-        foreach (RouteMoonCommand command in RouteMoonCommand.GetAll(this)) {
-            AddBuiltinCommand(command);
-        }
         AddBuiltinCommand(new RouteCommand());
         foreach (ICommand command in InfoCommand.GetAll(this)) {
             AddBuiltinCommand(command);

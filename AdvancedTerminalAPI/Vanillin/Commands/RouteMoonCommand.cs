@@ -4,7 +4,7 @@ using Computerdores.patch;
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class RouteMoonCommand : ICommand {
+public class RouteMoonCommand : ICommand, IAliasable {
     private readonly string _moonName;
 
     private bool _awaitingConfirmation;
@@ -42,7 +42,7 @@ public class RouteMoonCommand : ICommand {
 
     public object Clone() => new RouteMoonCommand(_moonName);
     
-    public static IEnumerable<RouteMoonCommand> GetAll(ITerminal term) {
+    public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "route").compatibleNouns
             select new RouteMoonCommand(noun.noun.word);
     }
