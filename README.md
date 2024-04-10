@@ -1,37 +1,13 @@
 # AdvancedTerminalAPI
+## Overview
+AdvancedTerminalAPI provides a simple way of adding new commands and terminals.
+The primary motivation for the creation of this API was my personal dislike for the way Commands are implemented in the base game. For that reason this API is very different from the vanilla Implementation.
+If you are looking for an API that is close to the way the vanilla commands are implemented, take a look at the [TerminalApi by NotAtomicBomb](https://github.com/NotAtomicBomb/TerminalApi/) which also inspired me to pick up this project. 
 
-## Planned for 1.0.0
-### Commands
-- [x] bestiary
-- [x] buy
-- [x] decor
-- [x] eject
-- [x] flash
-- [x] help
-- [x] info
-- [x] moons
-- [x] other
-- [x] ping
-- [x] route
-- [x] scan
-- [x] sigurd
-- [x] storage
-- [x] store
-- [x] switch
-- [x] Terminal Accessible Objects
-- [x] transmit
-- [x] upgrades
-- [x] view monitor
+## Contributing
+If you want to contribute just open a pull request and make sure your code follows the same style as the existing code base.
 
-### API
-- [x] Custom Terminal Support
-- [x] Custom Command Support
+Also the [[license|LICENSE]] used by this project includes a [CLA](https://en.wikipedia.org/wiki/Contributor_License_Agreement).
 
-### Documentation
-- [ ] API 
-- [ ] Vanillin Terminal
-- [ ] Vanillin Commands
-- [x] InputFieldDriver
-
-# Credits
+## Credits
 This project uses the [LethalCompanyTemplate by Distractic](https://github.com/Distractic/LethalCompanyTemplate) under the [MIT License](https://github.com/Distractic/LethalCompanyTemplate/blob/main/LICENSE).
