@@ -25,14 +25,7 @@ public class VanillinTerminal : ITerminal {
         // Add Vanillin Commands
         AddBuiltinCommand(new SpecialNodeCommand("welcome", 1));
         AddBuiltinCommand(new SpecialNodeCommand("help", 13));
-        AddBuiltinCommand(new SimpleCommand("other"));
-        AddBuiltinCommand(new SimpleCommand("moons"));
-        AddBuiltinCommand(new SimpleCommand("store"));
-        AddBuiltinCommand(new SimpleCommand("upgrades"));
-        AddBuiltinCommand(new SimpleCommand("decor"));
-        AddBuiltinCommand(new SimpleCommand("storage"));
-        AddBuiltinCommand(new SimpleCommand("sigurd"));
-        AddBuiltinCommand(new SimpleCommand("bestiary"));
+        AddBuiltinCommands(SimpleCommand.GetAll());
         AddBuiltinCommand(new EjectCommand());
         AddBuiltinCommand(new FlashCommand());
         AddBuiltinCommand(new PingCommand());
@@ -50,6 +43,11 @@ public class VanillinTerminal : ITerminal {
 
     public InputFieldDriver GetDriver() => _driver;
 
+    private void AddBuiltinCommands(IEnumerable<ICommand> commands) {
+        foreach (ICommand command in commands) {
+            AddBuiltinCommand(command);
+        }
+    }
     private void AddBuiltinCommand(ICommand command) => AddCommand(_builtinCommands, command);
     public void AddCommand(ICommand command) => AddCommand(_commands, command);
 

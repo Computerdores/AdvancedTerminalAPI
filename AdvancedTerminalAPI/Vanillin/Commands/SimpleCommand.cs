@@ -1,4 +1,7 @@
-﻿namespace Computerdores.Vanillin.Commands; 
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Computerdores.Vanillin.Commands; 
 
 public class SimpleCommand : ICommand {
     private string _name;
@@ -17,4 +20,9 @@ public class SimpleCommand : ICommand {
     }
 
     public object Clone() => new SimpleCommand(_name);
+
+    public static IEnumerable<SimpleCommand> GetAll() {
+        return new[] { "other", "moons", "store", "upgrades", "decor", "storage", "sigurd", "bestiary" }.
+            Select(s => new SimpleCommand(s));
+    }
 }
