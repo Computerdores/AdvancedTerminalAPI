@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class InfoCommand : ICommand {
+public class InfoCommand : ICommand, IAliasable {
     public string GetName() => "info";
 
     public CommandResult Execute(string input, ITerminal terminal) {
@@ -14,7 +14,7 @@ public class InfoCommand : ICommand {
 
     public object Clone() => new InfoCommand();
 
-    public static IEnumerable<ICommand> GetAll(ITerminal term) {
+    public IEnumerable<ICommand> GetAll(ITerminal term) {
         TerminalKeyword kw = Util.FindKeyword(term.GetDriver().VanillaTerminal, "info");
         return from a in kw.compatibleNouns
             where a.noun.defaultVerb == kw
