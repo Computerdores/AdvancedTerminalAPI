@@ -20,8 +20,8 @@ public static class TerminalPatch {
     private static bool _redirectLoadNewNode;
 
     private static bool _usedTerminalThisSession;
-    
-    public static TerminalNode lastLoadedNode;
+
+    private static TerminalNode _lastLoadedNode;
 
     [HarmonyPrefix]
     [HarmonyPatch(nameof(Terminal.LoadNewNode))]
@@ -31,23 +31,32 @@ public static class TerminalPatch {
         return false;
     }
 
-    public static TerminalNode LoadNewNodeIfAffordable(Terminal term, TerminalNode node) {
-        lastLoadedNode = null;
-        // make sure LoadNewNode is redirected to TerminalPatch.LoadNewNode
+    public static TerminalNode AttemptLoadCreatureFileNode(Terminal term, TerminalNode node)
+        => VanillaLoad(node, term.AttemptLoadCreatureFileNode);
+    
+    public static TerminalNode AttemptLoadStoryLogFileNode(Terminal term, TerminalNode node)
+        => VanillaLoad(node, term.AttemptLoadStoryLogFileNode);
+
+    public static TerminalNode LoadNewNodeIfAffordable(Terminal term, TerminalNode node) 
+        => VanillaLoad(node, term.LoadNewNodeIfAffordable);
+
+    private static TerminalNode VanillaLoad(TerminalNode node, Consumer<TerminalNode> loadMethod) {
+        // prepare for execution
+        _lastLoadedNode = null;
         bool prev = _redirectLoadNewNode;
         _redirectLoadNewNode = true;
         // execute vanilla method
-        term.LoadNewNodeIfAffordable(node);
-        // undo previous set
+        loadMethod(node);
+        // undo prev set
         _redirectLoadNewNode = prev;
-        return lastLoadedNode;
+        return _lastLoadedNode;
     }
     
     // ReSharper disable once MemberCanBePrivate.Global
     public static void LoadNewNode(Terminal term, TerminalNode node) {
         term.RunTerminalEvents(node);
         term.screenText.interactable = true;
-        lastLoadedNode = node;
+        _lastLoadedNode = node;
         if (node.playSyncedClip != -1)
             term.PlayTerminalAudioServerRpc(node.playSyncedClip);
         else if (node.playClip != null)
