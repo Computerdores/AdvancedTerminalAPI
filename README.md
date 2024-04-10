@@ -2,7 +2,7 @@
 
 ## Planned for 1.0.0
 ### Commands
-- [ ] bestiary
+- [x] bestiary
 - [x] buy
 - [x] decor
 - [x] eject
