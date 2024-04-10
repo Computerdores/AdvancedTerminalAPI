@@ -62,12 +62,17 @@ public class VanillinTerminal : ITerminal {
 
     public InputFieldDriver GetDriver() => _driver;
 
-    private void AddBuiltinCommand(ICommand command) {
-        _builtinCommands[command.GetName()] = command;
+    private void AddBuiltinCommand(ICommand command) => AddCommand(_builtinCommands, command);
+    public void AddCommand(ICommand command) => AddCommand(_commands, command);
+
+    private void AddCommand(IDictionary<string, ICommand> commands, ICommand command) {
+        commands[command.GetName()] = command;
+        if (command is not IAliasable aliasable) return;
+        foreach (ICommand cmd in aliasable.GetAll(this)) {
+            AddCommand(commands, cmd);
+        }
     }
-    public void AddCommand(ICommand command) {
-        _commands[command.GetName()] = command;
-    }
+    
     public void CopyCommandsTo(ITerminal terminal) {
         foreach (ICommand command in _commands.Values) {
             terminal.AddCommand(command);
