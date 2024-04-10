@@ -38,7 +38,7 @@ public class BuyUnlockableCommand : ICommand{
     }
 
     public object Clone()
-        => new BuyItemCommand(_itemName);
+        => new BuyUnlockableCommand(_itemName);
 
     public static IEnumerable<BuyUnlockableCommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "buy").compatibleNouns 
