@@ -2,7 +2,7 @@
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class TransmitCommand : ICommand {
+public class TransmitCommand : ICommand, IDescribable {
 
     public string GetName() => "transmit";
 
@@ -22,4 +22,9 @@ public class TransmitCommand : ICommand {
     }
 
     public ICommand CloneStateless() => new TransmitCommand();
+
+    public string GetUsage()
+        => "TRANSMIT [message]";
+    public string GetDescription()
+        => "To transmit a message with the signal translator.";
 }

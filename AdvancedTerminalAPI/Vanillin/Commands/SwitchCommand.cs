@@ -2,7 +2,7 @@
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class SwitchCommand : ICommand, IPredictable {
+public class SwitchCommand : ICommand, IPredictable, IDescribable {
     public string GetName() => "switch";
 
     public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
@@ -23,4 +23,9 @@ public class SwitchCommand : ICommand, IPredictable {
     }
 
     public ICommand CloneStateless() => new SwitchCommand();
+
+    public string GetUsage()
+        => "SWITCH [Player name]";
+    public string GetDescription()
+        => "To switch view to a player on the main monitor.";
 }

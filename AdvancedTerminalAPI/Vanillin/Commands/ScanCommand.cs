@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class ScanCommand : ICommand {
+public class ScanCommand : ICommand, IDescribable {
     public string GetName() => "scan";
 
     /// <summary>
@@ -14,4 +14,9 @@ public class ScanCommand : ICommand {
     }
 
     public ICommand CloneStateless() => new ScanCommand();
+
+    public string GetUsage()
+        => "SCAN";
+    public string GetDescription()
+        => "To scan for the number of items left on the current planet.";
 }

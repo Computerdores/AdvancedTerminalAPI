@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.Vanillin.Commands; 
 
-public class PingCommand : ICommand, IPredictable {
+public class PingCommand : ICommand, IPredictable, IDescribable {
 
     public string GetName() => "ping";
 
@@ -18,5 +18,8 @@ public class PingCommand : ICommand, IPredictable {
 
     public ICommand CloneStateless() => new PingCommand();
 
-    
+    public string GetUsage()
+        => "PING [Radar booster name]";
+    public string GetDescription()
+        => "To make a radar booster play a noise.";
 }

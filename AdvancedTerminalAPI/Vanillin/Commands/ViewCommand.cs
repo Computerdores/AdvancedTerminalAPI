@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace Computerdores.Vanillin.Commands; 
 
-public class ViewCommand : ICommand, IAliasable {
+public class ViewCommand : ICommand, IAliasable, IDescribable {
     public string GetName() => "view";
 
     /// <summary>
@@ -23,4 +23,9 @@ public class ViewCommand : ICommand, IAliasable {
             where noun.noun.defaultVerb != null
             select new ViewThingCommand(noun.noun.word);
     }
+
+    public string GetUsage()
+        => "VIEW MONITOR";
+    public string GetDescription()
+        => "To toggle on AND off the main monitor's map cam.";
 }
