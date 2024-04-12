@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.0...v2.0.1) (2024-04-12)
+
+
+### Bug Fixes
+
+* update icon ([538709c](https://github.com/Computerdores/AdvancedTerminalAPI/commit/538709c91d14578e63d0f2522220d9abaedac832))
+
 ## [2.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v1.0.0...v2.0.0) (2024-04-12)
 
 
