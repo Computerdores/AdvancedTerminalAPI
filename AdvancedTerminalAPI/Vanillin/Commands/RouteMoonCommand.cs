@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Computerdores.patch;
 
 namespace Computerdores.Vanillin.Commands; 
 
@@ -26,7 +25,7 @@ public class RouteMoonCommand : ICommand, IAliasable {
                 vT.totalCostOfItems = _moon.result.itemCost;
             } 
             // trigger the vanilla behaviour
-            n = TerminalPatch.LoadNewNodeIfAffordable(vT, _moon.result);
+            n = TerminalWrapper.Get(vT).LoadNode(_moon.result);
             // output
             _awaitingConfirmation = (n.terminalOptions?.Length ?? 0) > 0; // kinda janky, but isConfirmationNode is always false for these
             return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
@@ -36,7 +35,7 @@ public class RouteMoonCommand : ICommand, IAliasable {
         // if the input doesn't match any available option ignore it
         if (cn == null) return CommandResult.IGNORE_INPUT;
         
-        n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
+        n = TerminalWrapper.Get(vT).LoadNode(cn.result);
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 

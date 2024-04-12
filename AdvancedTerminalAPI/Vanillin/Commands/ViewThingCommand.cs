@@ -1,6 +1,4 @@
-﻿using Computerdores.patch;
-
-namespace Computerdores.Vanillin.Commands; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class ViewThingCommand : ICommand {
     private readonly string _name;
@@ -14,8 +12,7 @@ public class ViewThingCommand : ICommand {
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n = Util.FindKeyword(terminal, "view").FindNoun(_name).result;
-        if (n.storyLogFileID != -1) n = TerminalPatch.AttemptLoadStoryLogFileNode(vT, n);
-        else TerminalPatch.LoadNewNode(vT, n);
+        n = TerminalWrapper.Get(vT).LoadNode(n);
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 

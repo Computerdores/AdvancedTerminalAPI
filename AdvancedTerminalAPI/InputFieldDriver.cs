@@ -1,6 +1,5 @@
 ﻿using System;
 using BepInEx;
-using Computerdores.patch;
 using JetBrains.Annotations;
 using TMPro;
 
@@ -62,6 +61,7 @@ public class InputFieldDriver {
     /// <summary>
     /// Triggered whenever the Player types in the Terminal
     /// </summary>
+    // ReSharper disable once EventNeverSubscribedTo.Global
     public event Consumer<string> OnInputChange;
 
     public InputFieldDriver(Terminal __instance) {
@@ -71,7 +71,7 @@ public class InputFieldDriver {
         // Add event listeners
         _inputField.onValueChanged.AddListener(OnInputFieldChangedHandler);
         _inputField.onSubmit.AddListener(OnInputFieldSubmitHandler);
-        TerminalPatch.OnEnterTerminal += OnEnterTerminalHandler;
+        TerminalWrapper.Get(__instance).EnterTerminal += OnEnterTerminalHandler;
     }
     
     /// <summary>

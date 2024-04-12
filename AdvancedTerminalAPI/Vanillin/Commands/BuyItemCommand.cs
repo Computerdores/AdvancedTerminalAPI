@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using BepInEx;
-using Computerdores.patch;
 using UnityEngine;
 
 namespace Computerdores.Vanillin.Commands; 
@@ -26,7 +25,7 @@ public class BuyItemCommand : ICommand {
             string count = Regex.Match(input, "\\d+").Value;
             vT.playerDefinedAmount = count.IsNullOrWhiteSpace() ? 1 : Mathf.Clamp(int.Parse(count), 0, 10);
             // trigger the vanilla behaviour
-            n = TerminalPatch.LoadNewNodeIfAffordable(vT, _item.result);
+            n = TerminalWrapper.Get(vT).LoadNode(_item.result);
             // output
             _awaitingConfirmation = n.isConfirmationNode;
             return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
@@ -37,7 +36,7 @@ public class BuyItemCommand : ICommand {
         // if the input doesn't match any available option ignore it
         if (cn == null) return CommandResult.IGNORE_INPUT;
         
-        n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
+        n = TerminalWrapper.Get(vT).LoadNode(cn.result);
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 

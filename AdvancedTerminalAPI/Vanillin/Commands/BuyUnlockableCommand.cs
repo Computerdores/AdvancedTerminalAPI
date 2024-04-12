@@ -1,6 +1,4 @@
-﻿using Computerdores.patch;
-
-namespace Computerdores.Vanillin.Commands; 
+﻿namespace Computerdores.Vanillin.Commands; 
 
 public class BuyUnlockableCommand : ICommand{
     private readonly string _itemName;
@@ -20,18 +18,17 @@ public class BuyUnlockableCommand : ICommand{
         if (!_awaitingConfirmation) {
             _item = Util.FindKeyword(terminal, "buy").FindNoun(_itemName);
             // trigger the vanilla behaviour
-            n = TerminalPatch.LoadNewNodeIfAffordable(vT, _item.result);
+            n = TerminalWrapper.Get(vT).LoadNode(_item.result);
             // output
             _awaitingConfirmation = (n.terminalOptions?.Length ?? 0) > 0;
             return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
         }
-
         
         CompatibleNoun cn = _item.result.FindTerminalOption(input);
         // if the input doesn't match any available option ignore it
         if (cn == null) return CommandResult.IGNORE_INPUT;
         
-        n = TerminalPatch.LoadNewNodeIfAffordable(vT, cn.result);
+        n = TerminalWrapper.Get(vT).LoadNode(cn.result);
         return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
     }
 
