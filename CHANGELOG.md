@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v1.0.0...v2.0.0) (2024-04-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Overhaul API for loading Nodes by adding a Wrapper Class
+
+### Features
+
+* add IDescribable Interface and implement it in Vanillin Commands ([aadfb1a](https://github.com/Computerdores/AdvancedTerminalAPI/commit/aadfb1a6fd6518a30b78983328122ea7aff953bc))
+* ITerminals now need to implement GetCommands ([dafadf4](https://github.com/Computerdores/AdvancedTerminalAPI/commit/dafadf4254422af7ef7c5ceef9bbcc323809b57a))
+* **OtherCommand:** rework to show commands that use the IDescribable Interface ([c9a0826](https://github.com/Computerdores/AdvancedTerminalAPI/commit/c9a08263ec85db76ad43f3aaa7d17330737fe5c9))
+* Overhaul API for loading Nodes by adding a Wrapper Class ([27fedeb](https://github.com/Computerdores/AdvancedTerminalAPI/commit/27fedeba4e92d070035e25b5c0fe4246bb989bd1))
+
+
+### Bug Fixes
+
+* **AdvancedTerminalAPI:** Fix NullReferenceException ([67747e7](https://github.com/Computerdores/AdvancedTerminalAPI/commit/67747e7bbdc637c62ecfe5ba4b067b1c0f2ff231))
+* **InputFieldDriver:** remove unnecessary types ([a60cd58](https://github.com/Computerdores/AdvancedTerminalAPI/commit/a60cd58d8f90666fc7c97b05652e0cb3b507405e))
+* remove 'test' command ([2ddbee9](https://github.com/Computerdores/AdvancedTerminalAPI/commit/2ddbee96834a7b72cb389b6fee739e1fe67eb16d))
+* **VanillinTerminal:** GetCommands now puts built-ins before other commands ([bba6dd1](https://github.com/Computerdores/AdvancedTerminalAPI/commit/bba6dd1a6ec5ea6c32067b562d1877c065c719a0))
+
 ## 1.0.0 (2024-04-10)
 
 
