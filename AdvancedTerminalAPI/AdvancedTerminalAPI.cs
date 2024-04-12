@@ -27,7 +27,8 @@ public class AdvancedTerminalAPI : BaseUnityPlugin {
     // ReSharper disable once MemberCanBePrivate.Global
     public static void ReplaceITerminal(Method<ITerminal, InputFieldDriver> terminalConstructor) {
         _terminalConstructor = terminalConstructor;
-        ReplaceITerminalInstance();
+        if (Driver is { })
+            ReplaceITerminalInstance();
     }
 
     // ReSharper disable once UnusedMember.Global
