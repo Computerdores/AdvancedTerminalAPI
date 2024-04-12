@@ -44,9 +44,10 @@ public class VanillinTerminal : ITerminal {
     // ReSharper disable once MemberCanBePrivate.Global
     public static IEnumerable<ICommand> GetBuiltinCommands(InputFieldDriver driver) {
         var a = new List<ICommand> {
-            new SpecialNodeCommand("welcome", 1), new SpecialNodeCommand("help", 13),
-            new EjectCommand(), new FlashCommand(), new PingCommand(), new ScanCommand(), new SwitchCommand(),
-            new ViewCommand(), new BuyCommand(), new TransmitCommand(), new RouteCommand(), new InfoCommand()
+            new SpecialNodeCommand("welcome", 1),
+            new ViewCommand(), new SwitchCommand(), new PingCommand(), new TransmitCommand(), new ScanCommand(),
+            new BuyCommand(), new RouteCommand(), new InfoCommand(), new EjectCommand(), new FlashCommand(), 
+            new OtherCommand()
         };
         a.AddRange(SimpleCommand.GetAll());
         a.AddRange(AccessibleObjectCommand.GetAll(driver));

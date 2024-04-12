@@ -22,7 +22,7 @@ public class SimpleCommand : ICommand {
     public ICommand CloneStateless() => new SimpleCommand(_name);
 
     public static IEnumerable<SimpleCommand> GetAll() {
-        return new[] { "other", "moons", "store", "upgrades", "decor", "storage", "sigurd", "bestiary" }.
+        return new[] { "help", "moons", "store", "upgrades", "decor", "storage", "sigurd", "bestiary" }.
             Select(s => new SimpleCommand(s));
     }
 }
