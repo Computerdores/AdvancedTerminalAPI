@@ -29,6 +29,10 @@ public class VanillinTerminal : ITerminal {
 
     public InputFieldDriver GetDriver() => _driver;
 
+    public IEnumerable<ICommand> GetCommands(bool includeBuiltins) {
+        return includeBuiltins ? _commands.Concat(_builtinCommands) : _commands;
+    }
+
     public void AddCommand(ICommand command) => AddCommand(_commands, command);
 
     private void AddCommand(ICollection<ICommand> commands, ICommand command) {
