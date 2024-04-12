@@ -49,23 +49,20 @@ public class InputFieldDriver {
     /// </summary>
     public Terminal VanillaTerminal { get; }
 
-    public delegate void EnterTerminalEvent(bool firstTime);
-    public delegate void StringEvent(string text);
-
     /// <summary>
     /// Triggered whenever the player enters the Terminal
     /// </summary>
-    public event EnterTerminalEvent OnEnterTerminal;
+    public event Consumer<bool> OnEnterTerminal;
     
     /// <summary>
     /// Triggered whenever the Player Submits what they typed in the Terminal
     /// </summary>
-    public event StringEvent OnSubmit;
+    public event Consumer<string> OnSubmit;
     
     /// <summary>
     /// Triggered whenever the Player types in the Terminal
     /// </summary>
-    public event StringEvent OnInputChange;
+    public event Consumer<string> OnInputChange;
 
     public InputFieldDriver(Terminal __instance) {
         // Init variables
