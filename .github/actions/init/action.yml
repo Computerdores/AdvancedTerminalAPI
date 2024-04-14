@@ -27,7 +27,3 @@ runs:
       shell: bash
       # https://github.com/thunderstore-io/thunderstore-cli
       run: dotnet tool install -g tcli
-    
-    - name: Add NuGet Package Source GitHub
-      shell: bash
-      run: dotnet nuget add source --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
