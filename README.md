@@ -9,5 +9,10 @@ If you want to contribute just open a pull request and make sure your code follo
 
 Also the [license](LICENSE) used by this project includes a [CLA](https://en.wikipedia.org/wiki/Contributor_License_Agreement).
 
+## Building
+Use `dotnet build -p:BuildThunderstorePackage=true` to build the Thunderstore package (Note: this requires `tcli` to be installed).
+
+Use `dotnet build -p:BuildNugetPackage=true` to build the NuGet package.
+
 ## Credits
 This project uses the [LethalCompanyTemplate by Distractic](https://github.com/Distractic/LethalCompanyTemplate) under the [MIT License](https://github.com/Distractic/LethalCompanyTemplate/blob/main/LICENSE).
