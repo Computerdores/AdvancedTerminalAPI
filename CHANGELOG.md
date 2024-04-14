@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.7](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.6...v2.0.7) (2024-04-14)
+
+
+### Bug Fixes
+
+* **ci:** stop using `${{ github.repository_owner }}` in hopes of getting it working ([747e7f5](https://github.com/Computerdores/AdvancedTerminalAPI/commit/747e7f515d743b8aa32d87b0ee5ea4168e417e46))
+
 ## [2.0.6](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.5...v2.0.6) (2024-04-14)
 
 
