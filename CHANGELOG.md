@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.1...v2.0.2) (2024-04-14)
+
+
+### Bug Fixes
+
+* add category "client-side" for Thunderstore upload ([d545879](https://github.com/Computerdores/AdvancedTerminalAPI/commit/d54587960c53ec142e3ef566b1caaa1634dff379))
+* move code from namespace 'Computerdores' to 'Computerdores.AdvancedTerminalAPI' ([9c8d88e](https://github.com/Computerdores/AdvancedTerminalAPI/commit/9c8d88e4d191d457d10b824883147f2edcbe4a5d))
+
 ## [2.0.1](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.0...v2.0.1) (2024-04-12)
 
 
