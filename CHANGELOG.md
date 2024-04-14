@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.4](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.3...v2.0.4) (2024-04-14)
+
+
+### Bug Fixes
+
+* remove unnecessary C# project ([a429909](https://github.com/Computerdores/AdvancedTerminalAPI/commit/a429909d355cf99a6b427a1d824910ff7e93b2fe))
+
 ## [2.0.3](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.2...v2.0.3) (2024-04-14)
 
 
