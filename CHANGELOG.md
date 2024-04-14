@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.9...v3.0.0) (2024-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* make Util.TextPostProcess an extension method of TerminalNode
+* make most private members of VanillinTerminal protected instead
+
+### Bug Fixes
+
+* make most private members of VanillinTerminal protected instead ([af764e2](https://github.com/Computerdores/AdvancedTerminalAPI/commit/af764e21dec7211a3230cc7cfd2598de960e6f21))
+* make Util.TextPostProcess an extension method of TerminalNode ([962ffcc](https://github.com/Computerdores/AdvancedTerminalAPI/commit/962ffcc12080c4ecfd4d1ae4e36d9205f717c363))
+
 ## [2.0.9](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.8...v2.0.9) (2024-04-14)
 
 
