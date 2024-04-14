@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.9](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.8...v2.0.9) (2024-04-14)
+
+
+### Bug Fixes
+
+* **ci:** I give up, no fancy GITHUB_TOKEN just use a generated PAT and be fucking done with it ([98a9558](https://github.com/Computerdores/AdvancedTerminalAPI/commit/98a9558cde39b36da6c93049ea9084d5af64d44f))
+
 ## [2.0.8](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.7...v2.0.8) (2024-04-14)
 
 
