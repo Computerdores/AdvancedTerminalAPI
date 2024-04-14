@@ -56,7 +56,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Publish to GitHub Packages
-        env:
-          NUGET_SOURCE: "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-          API_KEY: ${{secrets.GITHUB_TOKEN}}
-        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg -s $NUGET_SOURCE -k $API_KEY
+        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg -s https://nuget.pkg.github.com/Computerdores/index.json -k ${{secrets.GITHUB_TOKEN}}
