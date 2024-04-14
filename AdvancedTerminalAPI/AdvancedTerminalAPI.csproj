@@ -17,7 +17,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>LethalCompany Mod Plugin API BepInEx Unity</PackageTags>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>$(BuildNuGetPackage)</GeneratePackageOnBuild>
 
         <NoWarn>436</NoWarn>
 

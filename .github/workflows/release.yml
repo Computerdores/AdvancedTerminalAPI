@@ -43,6 +43,7 @@ jobs:
         run: dotnet build
         env:
           BuildThunderstorePackage: true
+          BuildNugetPackage: true
 
       - name: Publish to Thunderstore
         run: tcli publish --config-path thunderstore.toml --file build/*.zip
@@ -50,6 +51,6 @@ jobs:
           TCLI_AUTH_TOKEN: ${{ secrets.THUNDERSTORE_AUTH_TOKEN }}
 
       - name: Upload artifact
-        run: gh release upload ${{ needs.release.outputs.tag_name }} build/*.zip
+        run: gh release upload ${{ needs.release.outputs.tag_name }} build/*.zip bin/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
