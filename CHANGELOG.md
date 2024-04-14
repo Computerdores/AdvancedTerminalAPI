@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.8](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.7...v2.0.8) (2024-04-14)
+
+
+### Bug Fixes
+
+* **ci:** add continue on error to thunderstore publish ([627bc4d](https://github.com/Computerdores/AdvancedTerminalAPI/commit/627bc4d7eaa2448f6bd45ef885cbf12296ea4c78))
+
 ## [2.0.7](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.6...v2.0.7) (2024-04-14)
 
 
