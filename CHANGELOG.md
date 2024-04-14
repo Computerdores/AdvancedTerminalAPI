@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v3.0.0...v4.0.0) (2024-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **VanillinTerminal:** allow for certain methods to be overridden
+
+### Features
+
+* **VanillinTerminal:** allow for certain methods to be overridden ([86ae7cf](https://github.com/Computerdores/AdvancedTerminalAPI/commit/86ae7cf024e792f7c2635a6a0559aa2e42983a8c))
+
 ## [3.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.9...v3.0.0) (2024-04-14)
 
 
