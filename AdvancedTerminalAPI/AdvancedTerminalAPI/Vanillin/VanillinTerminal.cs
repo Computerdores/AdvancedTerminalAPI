@@ -30,13 +30,13 @@ public class VanillinTerminal : ITerminal {
 
     public InputFieldDriver GetDriver() => _driver;
 
-    public IEnumerable<ICommand> GetCommands(bool includeBuiltins) {
+    public virtual IEnumerable<ICommand> GetCommands(bool includeBuiltins) {
         return includeBuiltins ? BuiltinCommands.Concat(Commands) : Commands;
     }
 
     public void AddCommand(ICommand command) => AddCommand(Commands, command);
 
-    protected void AddCommand(ICollection<ICommand> commands, ICommand command) {
+    protected virtual void AddCommand(ICollection<ICommand> commands, ICommand command) {
         commands.Add(command);
         if (command is not IAliasable aliasable) return;
         aliasable.GetAll(this).Do(cmd => AddCommand(commands, cmd));
@@ -61,7 +61,7 @@ public class VanillinTerminal : ITerminal {
         }
     }
 
-    protected void OnSubmit(string text) {
+    protected virtual void OnSubmit(string text) {
         string input = text;
         if (currentCommand == null) {
             string[] words = text.Split(' ');
@@ -95,14 +95,14 @@ public class VanillinTerminal : ITerminal {
         }
     }
 
-    protected void OnEnterTerminal(bool firstTime) {
+    protected virtual void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help"); // TODO handle first time users
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
         _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
     }
     
 
-    protected ICommand FindCommand(string command) {
+    protected virtual ICommand FindCommand(string command) {
         return FindCommand(Commands, command) ?? FindCommand(BuiltinCommands, command);
     }
     
