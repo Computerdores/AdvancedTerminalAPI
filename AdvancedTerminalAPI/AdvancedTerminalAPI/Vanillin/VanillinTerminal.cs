@@ -8,21 +8,22 @@ using HarmonyLib;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin;
 
+// ReSharper disable MemberCanBePrivate.Global
 public class VanillinTerminal : ITerminal {
-    private readonly InputFieldDriver _driver;
+    protected readonly InputFieldDriver _driver;
 
-    private readonly List<ICommand> _commands = new();
-    private readonly List<ICommand> _builtinCommands = new();
+    protected List<ICommand> Commands { get; } = new();
+    protected List<ICommand> BuiltinCommands { get; } = new();
 
     private static ManualLogSource Log => Plugin.Log;
 
-    private ICommand _currentCommand;
+    protected ICommand currentCommand;
 
     public VanillinTerminal(InputFieldDriver driver) {
         _driver = driver;
         _driver.OnSubmit += OnSubmit;
         _driver.OnEnterTerminal += OnEnterTerminal;
-        DebugLogNodeInfo();
+        //DebugLogNodeInfo();
         // Add Vanillin Commands
         AddBuiltinCommands(GetBuiltinCommands(GetDriver()));
     }
@@ -30,12 +31,12 @@ public class VanillinTerminal : ITerminal {
     public InputFieldDriver GetDriver() => _driver;
 
     public IEnumerable<ICommand> GetCommands(bool includeBuiltins) {
-        return includeBuiltins ? _builtinCommands.Concat(_commands) : _commands;
+        return includeBuiltins ? BuiltinCommands.Concat(Commands) : Commands;
     }
 
-    public void AddCommand(ICommand command) => AddCommand(_commands, command);
+    public void AddCommand(ICommand command) => AddCommand(Commands, command);
 
-    private void AddCommand(ICollection<ICommand> commands, ICommand command) {
+    protected void AddCommand(ICollection<ICommand> commands, ICommand command) {
         commands.Add(command);
         if (command is not IAliasable aliasable) return;
         aliasable.GetAll(this).Do(cmd => AddCommand(commands, cmd));
@@ -56,19 +57,19 @@ public class VanillinTerminal : ITerminal {
 
     private void AddBuiltinCommands(IEnumerable<ICommand> commands) {
         foreach (ICommand command in commands) {
-            AddCommand(_builtinCommands, command);
+            AddCommand(BuiltinCommands, command);
         }
     }
 
-    private void OnSubmit(string text) {
+    protected void OnSubmit(string text) {
         string input = text;
-        if (_currentCommand == null) {
+        if (currentCommand == null) {
             string[] words = text.Split(' ');
             input = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
-            _currentCommand = (ICommand)FindCommand(words[0])?.CloneStateless();
+            currentCommand = (ICommand)FindCommand(words[0])?.CloneStateless();
         }
-        if (_currentCommand is {} command) {
-            Log.LogInfo($"Executing Command ({_currentCommand.GetName()}) for input : '{text}'");
+        if (currentCommand is {} command) {
+            Log.LogInfo($"Executing Command ({currentCommand.GetName()}) for input : '{text}'");
             CommandResult result;
             try {
                 result = command.Execute(input, this);
@@ -76,40 +77,40 @@ public class VanillinTerminal : ITerminal {
                 result = new CommandResult(
                     "An Error occured while executing the command.\nPlease contact the author of the mod that the command is from.\n\n"
                 );
-                Log.LogInfo($"An error occurred during execution of '{_currentCommand.GetName()}': {e}");
+                Log.LogInfo($"An error occurred during execution of '{currentCommand.GetName()}': {e}");
             }
             if (result.success) {
                 _driver.DisplayText(result.output, result.clearScreen);
             } else {
-                Log.LogInfo($"Command execution was not successful for input ({_currentCommand.GetName()}): '{text}'");
+                Log.LogInfo($"Command execution was not successful for input ({currentCommand.GetName()}): '{text}'");
                 _driver.DisplayText(
                     result.output.IsNullOrWhiteSpace() ? SpecialText(11) : result.output,
                     result.clearScreen
                 );
             }
-            if (!result.wantsMoreInput) _currentCommand = null;
+            if (!result.wantsMoreInput) currentCommand = null;
         } else if (text != "") {
             Log.LogInfo($"Did not find Command for input: '{text}'");
             _driver.DisplayText(SpecialText(10), true);
         }
     }
 
-    private void OnEnterTerminal(bool firstTime) {
+    protected void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help"); // TODO handle first time users
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
         _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
     }
     
 
-    private ICommand FindCommand(string command) {
-        return FindCommand(_commands, command) ?? FindCommand(_builtinCommands, command);
+    protected ICommand FindCommand(string command) {
+        return FindCommand(Commands, command) ?? FindCommand(BuiltinCommands, command);
     }
     
-    private static ICommand FindCommand(IEnumerable<ICommand> commands, string command)
+    protected static ICommand FindCommand(IEnumerable<ICommand> commands, string command)
         => commands.VanillaStringMatch(command, s => s.GetName());
 
     // purely for convenience
-    private string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
+    protected string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
 
     private void DebugLogNodeInfo() {
         // Special Nodes
@@ -130,3 +131,4 @@ public class VanillinTerminal : ITerminal {
         }
     }
 }
+// ReSharper restore MemberCanBePrivate.Global
