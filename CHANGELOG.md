@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.5](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.4...v2.0.5) (2024-04-14)
+
+
+### Bug Fixes
+
+* ci/cd pipeline should work now ([fa8d3ec](https://github.com/Computerdores/AdvancedTerminalAPI/commit/fa8d3ec583315289d292436d9f3202171d41739e))
+
 ## [2.0.4](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.3...v2.0.4) (2024-04-14)
 
 
