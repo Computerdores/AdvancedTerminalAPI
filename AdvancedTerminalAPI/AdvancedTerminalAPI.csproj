@@ -4,6 +4,20 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        
+        <!-- Nuget Stuff -->
+        <PackageId>Computerdores.AdvancedTerminalAPI</PackageId>
+        <Authors>Computerdores</Authors>
+        <!-- when updating description, also update in thundestore.toml -->
+        <Description>A Lethal Company Mod to provide a more advanced API for the Terminal.</Description>
+        <PackageProjectUrl>https://github.com/Computerdores/AdvancedTerminalAPI</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/Computerdores/AdvancedTerminalAPI</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>LethalCompany Mod Plugin API BepInEx Unity</PackageTags>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
         <NoWarn>436</NoWarn>
 
@@ -15,6 +29,24 @@
         <!-- https://github.com/adamralph/minver#options -->
         <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
+
+    <!-- Read Changelog from file and include it in NuGet Package Metadata -->
+    <Target Name="ImportChangelog" BeforeTargets="GenerateNuspec">
+        <ReadLinesFromFile File="..\CHANGELOG.md">
+            <Output TaskParameter="Lines" ItemName="Changelog" />
+        </ReadLinesFromFile>
+        <PropertyGroup>
+            <PackageReleaseNotes>@(Changelog, '%0a')</PackageReleaseNotes>
+        </PropertyGroup>
+    </Target>
+
+    <!-- NuGet Package Build Items -->
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="..\icon.png" Pack="true" PackagePath="\"/>
+        <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
+        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.*" PrivateAssets="all"/>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />

@@ -7,6 +7,7 @@ repository = "https://thunderstore.io"
 [package]
 namespace = "Computerdores"
 name = "AdvancedTerminalAPI"
+# when changing description, also update it in *.csproj
 description = "A Mod to provide a more advanced API for the Terminal."
 websiteUrl = "https://github.com/Computerdores/BetterTerminal"
 containsNsfwContent = false
