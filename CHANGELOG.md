@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.2...v2.0.3) (2024-04-14)
+
+
+### Bug Fixes
+
+* correct category name in thunderstore.toml to fix thunderstore upload ([635096a](https://github.com/Computerdores/AdvancedTerminalAPI/commit/635096af80cfbc226e8f6c795b3eca947984dc13))
+
 ## [2.0.2](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.1...v2.0.2) (2024-04-14)
 
 
