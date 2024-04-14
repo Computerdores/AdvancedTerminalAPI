@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.6](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.5...v2.0.6) (2024-04-14)
+
+
+### Bug Fixes
+
+* another attempt to fix the ci ([76d8da8](https://github.com/Computerdores/AdvancedTerminalAPI/commit/76d8da8779799971a8979611cc6f45577c454e4f))
+
 ## [2.0.5](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v2.0.4...v2.0.5) (2024-04-14)
 
 
