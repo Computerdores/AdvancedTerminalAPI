@@ -77,7 +77,7 @@ public static class Util {
     public static string TextPostProcess(this TerminalNode node, Terminal vanillaTerm)
         => vanillaTerm.TextPostProcess(node.displayText, node);
     
-    public static int GetPlayerIndexByName(string name) {
+    public static int GetPlayerIndexByName(string name) { // TODO: use VanillaStringMatch
         // Note: I didn't come up with this logic
         // I just reimplemented the base game name detection in a more efficient way (see: CheckForPlayerNameCommand)
         if (name.Length < 3) return -1;
