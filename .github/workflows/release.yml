@@ -53,11 +53,9 @@ jobs:
 
       - name: Upload artifact
         run: gh release upload ${{ needs.release.outputs.tag_name }} build/*.zip AdvancedTerminalAPI/bin/*.nupkg
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Add NuGet Package Source for GitHub
-        run: dotnet nuget add source --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
       
       - name: Publish to GitHub Packages
-        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg -k ${{secrets.GITHUB_TOKEN}} -s "github"
+        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg -s https://nuget.pkg.github.com/Computerdores/index.json -k ${{ secrets.PACKAGE_PAT }}
