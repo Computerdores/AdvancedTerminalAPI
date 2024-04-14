@@ -54,3 +54,6 @@ jobs:
         run: gh release upload ${{ needs.release.outputs.tag_name }} build/*.zip AdvancedTerminalAPI/bin/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg --source "github"
