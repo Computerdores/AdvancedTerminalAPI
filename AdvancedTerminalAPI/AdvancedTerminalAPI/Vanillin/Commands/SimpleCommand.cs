@@ -16,7 +16,7 @@ public class SimpleCommand : ICommand {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n = Util.FindKeyword(vT, _name).specialKeywordResult;
         return n == null ? CommandResult.GENERIC_ERROR : 
-            new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+            new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
     public ICommand CloneStateless() => new SimpleCommand(_name);

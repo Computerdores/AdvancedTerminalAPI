@@ -13,7 +13,7 @@ public class SpecialNodeCommand : ICommand {
 
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
-        return new CommandResult(Util.TextPostProcess(vT, Util.GetSpecialNode(vT, _index)));
+        return new CommandResult(Util.GetSpecialNode(vT, _index).TextPostProcess(vT));
     }
 
     public ICommand CloneStateless() => new SpecialNodeCommand(_name, _index);

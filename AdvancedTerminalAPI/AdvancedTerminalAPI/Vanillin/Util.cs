@@ -74,9 +74,8 @@ public static class Util {
         return tWord != null ? tWord.specialKeywordResult : null;
     }
 
-    public static string TextPostProcess(Terminal vanillaTerm, TerminalNode node) {
-        return vanillaTerm.TextPostProcess(node.displayText, node);
-    }
+    public static string TextPostProcess(this TerminalNode node, Terminal vanillaTerm)
+        => vanillaTerm.TextPostProcess(node.displayText, node);
     
     public static int GetPlayerIndexByName(string name) {
         // Note: I didn't come up with this logic

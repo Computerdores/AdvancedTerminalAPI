@@ -14,7 +14,7 @@ public class InfoThingCommand : ICommand {
         TerminalNode n = Util.FindKeyword(vT, "info").FindNoun(_name).result;
         if (n.creatureFileID != -1) n = TerminalWrapper.Get(vT).LoadNode(n);
         return n == null ? CommandResult.GENERIC_ERROR : 
-            new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+            new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
     public ICommand CloneStateless() => new InfoThingCommand(_name);

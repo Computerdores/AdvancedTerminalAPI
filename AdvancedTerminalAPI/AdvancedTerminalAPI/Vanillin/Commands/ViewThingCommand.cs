@@ -13,7 +13,7 @@ public class ViewThingCommand : ICommand {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n = Util.FindKeyword(terminal, "view").FindNoun(_name).result;
         n = TerminalWrapper.Get(vT).LoadNode(n);
-        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+        return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
     public ICommand CloneStateless() => new ViewThingCommand(_name);

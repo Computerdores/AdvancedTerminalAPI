@@ -21,7 +21,7 @@ public class BuyUnlockableCommand : ICommand{
             n = TerminalWrapper.Get(vT).LoadNode(_item.result);
             // output
             _awaitingConfirmation = (n.terminalOptions?.Length ?? 0) > 0;
-            return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
+            return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText, true, _awaitingConfirmation);
         }
         
         CompatibleNoun cn = _item.result.FindTerminalOption(input);
@@ -29,7 +29,7 @@ public class BuyUnlockableCommand : ICommand{
         if (cn == null) return CommandResult.IGNORE_INPUT;
         
         n = TerminalWrapper.Get(vT).LoadNode(cn.result);
-        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+        return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
     public ICommand CloneStateless()

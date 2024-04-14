@@ -28,7 +28,7 @@ public class BuyItemCommand : ICommand {
             n = TerminalWrapper.Get(vT).LoadNode(_item.result);
             // output
             _awaitingConfirmation = n.isConfirmationNode;
-            return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText, true, _awaitingConfirmation);
+            return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText, true, _awaitingConfirmation);
         }
 
         
@@ -37,7 +37,7 @@ public class BuyItemCommand : ICommand {
         if (cn == null) return CommandResult.IGNORE_INPUT;
         
         n = TerminalWrapper.Get(vT).LoadNode(cn.result);
-        return new CommandResult(Util.TextPostProcess(vT, n), n.clearPreviousText);
+        return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
     public ICommand CloneStateless()
