@@ -54,10 +54,9 @@ jobs:
         run: gh release upload ${{ needs.release.outputs.tag_name }} build/*.zip AdvancedTerminalAPI/bin/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add NuGet Package Source GitHub
-        shell: bash
-        run: dotnet nuget add source --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
       
       - name: Publish to GitHub Packages
-        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg --source "github"
+        env:
+          NUGET_SOURCE: "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          API_KEY: ${{secrets.GITHUB_TOKEN}}
+        run: dotnet nuget push AdvancedTerminalAPI/bin/*.nupkg -s $NUGET_SOURCE -k $API_KEY
