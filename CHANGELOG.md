@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.1.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v4.0.0...v4.1.0) (2024-04-15)
+
+
+### Features
+
+* **TerminalWrapper:** add field TerminalInUse ([8beb653](https://github.com/Computerdores/AdvancedTerminalAPI/commit/8beb6538918983a24fa60230d7836b9c183704cd))
+* **TerminalWrapper:** add OnExitTerminal Event ([2e91ff6](https://github.com/Computerdores/AdvancedTerminalAPI/commit/2e91ff6b06aae5a7359935de5a9458684cd8bddd))
+
+
+### Bug Fixes
+
+* Mark InputFieldDriver.OnEnterTerminal as obsolete and update internal usages ([262e3b0](https://github.com/Computerdores/AdvancedTerminalAPI/commit/262e3b0f4cb920112cd4752dd0ec4b01d596084f))
+
 ## [4.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v3.0.0...v4.0.0) (2024-04-14)
 
 
