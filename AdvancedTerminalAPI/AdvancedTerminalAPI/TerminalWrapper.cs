@@ -9,6 +9,8 @@ public class TerminalWrapper {
     private TerminalNode _lastLoadedNode;
 
     internal bool redirectLoadNewNode;
+
+    public bool TerminalInUse => _terminal.terminalInUse;
     
     private TerminalWrapper(Terminal terminal) {
         _terminal = terminal;
