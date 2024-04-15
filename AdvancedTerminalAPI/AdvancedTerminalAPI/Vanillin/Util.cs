@@ -94,6 +94,9 @@ public static class Util {
         return -1;
     }
 
+    public static string PredictMoonName(Terminal terminal, string partialInput)
+        => terminal == null ? partialInput : FindKeyword(terminal, "route").FindNoun(partialInput).noun.word;
+
     public static string PredictConfirmation(string partialInput)
         => new List<string> { "CONFIRM", "DENY" }.VanillaStringMatch(partialInput, s => s, specificity: 1);
 

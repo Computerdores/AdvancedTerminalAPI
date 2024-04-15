@@ -1,22 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class RouteMoonCommand : ICommand, IAliasable {
+public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
     private readonly string _moonName;
 
     private bool _awaitingConfirmation;
     private CompatibleNoun _moon;
+
+    private Terminal vT;
     
     public RouteMoonCommand(string moonName) {
         _moonName = moonName;
     }
 
+    public string PredictInput(string partialInput) {
+        return _awaitingConfirmation
+            ? Util.PredictConfirmation(partialInput)
+            : Util.PredictMoonName(vT, partialInput);
+    }
+
     public string GetName() => _moonName;
 
     public CommandResult Execute(string input, ITerminal terminal) {
-        Terminal vT = terminal.GetDriver().VanillaTerminal;
+        vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n;
         if (!_awaitingConfirmation) {
             // get the vanilla keyword
