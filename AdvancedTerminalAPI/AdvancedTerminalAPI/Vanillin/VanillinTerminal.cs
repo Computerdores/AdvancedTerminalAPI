@@ -10,7 +10,8 @@ namespace Computerdores.AdvancedTerminalAPI.Vanillin;
 
 // ReSharper disable MemberCanBePrivate.Global
 public class VanillinTerminal : ITerminal {
-    protected readonly InputFieldDriver _driver;
+    protected readonly InputFieldDriver driver;
+    protected readonly TerminalWrapper wrapper;
 
     protected List<ICommand> Commands { get; } = new();
     protected List<ICommand> BuiltinCommands { get; } = new();
@@ -20,15 +21,16 @@ public class VanillinTerminal : ITerminal {
     protected ICommand currentCommand;
 
     public VanillinTerminal(InputFieldDriver driver) {
-        _driver = driver;
-        _driver.OnSubmit += OnSubmit;
-        _driver.OnEnterTerminal += OnEnterTerminal;
+        this.driver = driver;
+        wrapper = TerminalWrapper.Get(driver.VanillaTerminal);
+        this.driver.OnSubmit += OnSubmit;
+        wrapper.EnterTerminal += OnEnterTerminal;
         //DebugLogNodeInfo();
         // Add Vanillin Commands
         AddBuiltinCommands(GetBuiltinCommands(GetDriver()));
     }
 
-    public InputFieldDriver GetDriver() => _driver;
+    public InputFieldDriver GetDriver() => driver;
 
     public virtual IEnumerable<ICommand> GetCommands(bool includeBuiltins) {
         return includeBuiltins ? BuiltinCommands.Concat(Commands) : Commands;
@@ -80,10 +82,10 @@ public class VanillinTerminal : ITerminal {
                 Log.LogInfo($"An error occurred during execution of '{currentCommand.GetName()}': {e}");
             }
             if (result.success) {
-                _driver.DisplayText(result.output, result.clearScreen);
+                driver.DisplayText(result.output, result.clearScreen);
             } else {
                 Log.LogInfo($"Command execution was not successful for input ({currentCommand.GetName()}): '{text}'");
-                _driver.DisplayText(
+                driver.DisplayText(
                     result.output.IsNullOrWhiteSpace() ? SpecialText(11) : result.output,
                     result.clearScreen
                 );
@@ -91,14 +93,14 @@ public class VanillinTerminal : ITerminal {
             if (!result.wantsMoreInput) currentCommand = null;
         } else if (text != "") {
             Log.LogInfo($"Did not find Command for input: '{text}'");
-            _driver.DisplayText(SpecialText(10), true);
+            driver.DisplayText(SpecialText(10), true);
         }
     }
 
     protected virtual void OnEnterTerminal(bool firstTime) {
         ICommand welcomeCommand = firstTime ? FindCommand("welcome") : FindCommand("help"); // TODO handle first time users
         Log.LogInfo("Entering Terminal"+(firstTime ? " for the first time" : "")+".");
-        _driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
+        driver.DisplayText(welcomeCommand?.Execute("", this).output, true);
     }
     
 
@@ -110,19 +112,19 @@ public class VanillinTerminal : ITerminal {
         => commands.VanillaStringMatch(command, s => s.GetName());
 
     // purely for convenience
-    protected string SpecialText(int i) => Util.GetSpecialNode(_driver.VanillaTerminal, i).displayText;
+    protected string SpecialText(int i) => Util.GetSpecialNode(driver.VanillaTerminal, i).displayText;
 
     private void DebugLogNodeInfo() {
         // Special Nodes
-        for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.specialNodes.Count; i++) {
+        for (var i = 0; i < driver.VanillaTerminal.terminalNodes.specialNodes.Count; i++) {
             Log.LogDebug($"Special Node ({i}): '" + 
-                         _driver.VanillaTerminal.terminalNodes.specialNodes[i].displayText
+                         driver.VanillaTerminal.terminalNodes.specialNodes[i].displayText
                              .Replace("\n", "\\n") + 
                          "'");
         }
         // Keywords
-        for (var i = 0; i < _driver.VanillaTerminal.terminalNodes.allKeywords.Length; i++) {
-            TerminalKeyword kw = _driver.VanillaTerminal.terminalNodes.allKeywords[i];
+        for (var i = 0; i < driver.VanillaTerminal.terminalNodes.allKeywords.Length; i++) {
+            TerminalKeyword kw = driver.VanillaTerminal.terminalNodes.allKeywords[i];
             string displayText = kw.specialKeywordResult == null
                 ? null
                 : kw.specialKeywordResult.displayText?.Replace("\n", "\\n");

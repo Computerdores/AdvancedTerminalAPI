@@ -51,6 +51,7 @@ public class InputFieldDriver {
     /// <summary>
     /// Triggered whenever the player enters the Terminal
     /// </summary>
+    [Obsolete("Use TerminalWrapper.EnterTerminal instead.")]
     public event Consumer<bool> OnEnterTerminal;
     
     /// <summary>
