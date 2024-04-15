@@ -17,32 +17,18 @@ public class EjectCommand : ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation see: <see cref="Terminal.RunTerminalEvents"/>.
     /// </summary>
-    public CommandResult Execute(string input, ITerminal terminal) {
-        CommandResult result = new() {
-            wantsMoreInput = true
-        };
+    public CommandResult Execute(string input, ITerminal terminal) { // TODO test
+        Terminal vT = terminal.GetDriver().VanillaTerminal;
 
         if (!_awaitingConfirmation) {
             _awaitingConfirmation = true;
-            result.output = Util.FindByKeyword(terminal.GetDriver().VanillaTerminal, "eject")
-                .displayText;
-            return result;
+            return new CommandResult(Util.FindByKeyword(vT, "eject").displayText, wantsMoreInput: true);
         }
         
-        Terminal vT = terminal.GetDriver().VanillaTerminal;
-        TerminalNode node = (
-            from option in Util.FindByKeyword(vT, "eject").terminalOptions
-            where string.Equals(option.noun.word, Util.PredictConfirmation(input),
-                StringComparison.CurrentCultureIgnoreCase)
-            select option
-        ).FirstOrDefault()?.result;
-        if (node == null) {
-            result.wantsMoreInput = false;
-        } else {
-            vT.RunTerminalEvents(node);
-            result.output = node.displayText;
-        }
-        return result;
+        TerminalNode node = Util.FindByKeyword(vT, "eject").FindTerminalOption(input).result;
+        if (node == null) return CommandResult.IGNORE_INPUT;
+        node = TerminalWrapper.Get(vT).LoadNode(node);
+        return new CommandResult(node.TextPostProcess(vT));
     }
 
 
