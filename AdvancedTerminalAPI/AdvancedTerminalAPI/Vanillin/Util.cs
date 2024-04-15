@@ -94,9 +94,8 @@ public static class Util {
         return -1;
     }
 
-    public static string PredictConfirmation(string partialInput) {
-        return partialInput.ToLower().StartsWith("c") ? "CONFIRM" : "DENY";
-    }
+    public static string PredictConfirmation(string partialInput)
+        => new List<string> { "CONFIRM", "DENY" }.VanillaStringMatch(partialInput, s => s, specificity: 1);
 
     public static string PredictPlayerName(string partialInput) { // untested
         int index = GetPlayerIndexByName(partialInput);
