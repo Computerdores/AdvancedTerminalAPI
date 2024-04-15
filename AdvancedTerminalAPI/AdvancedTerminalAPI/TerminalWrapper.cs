@@ -16,6 +16,7 @@ public class TerminalWrapper {
         _terminal = terminal;
         #region events
         TerminalPatch.OnEnterTerminal += OnEnterTerminal;
+        TerminalPatch.OnExitTerminal += OnExitTerminal;
         TerminalPatch.PreAwake += OnPreAwake;
         TerminalPatch.PostAwake += OnPostAwake;
         TerminalPatch.PreStart += OnPreStart;
@@ -65,7 +66,8 @@ public class TerminalWrapper {
     
     #region events
     // ReSharper disable EventNeverSubscribedTo.Global
-    public event Consumer<bool> EnterTerminal; 
+    public event Consumer<bool> EnterTerminal;
+    public event SimpleEvent ExitTerminal;
     public event SimpleEvent PreAwake;
     public event SimpleEvent PostAwake;
     public event SimpleEvent PreStart;
@@ -77,6 +79,11 @@ public class TerminalWrapper {
     private void OnEnterTerminal((bool firstTime, Terminal terminal) t) {
         if (t.terminal == _terminal)
             EnterTerminal?.Invoke(t.firstTime);
+    }
+
+    private void OnExitTerminal(Terminal terminal) {
+        if (terminal == _terminal)
+            ExitTerminal?.Invoke();
     }
 
     private void OnPreAwake(Terminal terminal) {
