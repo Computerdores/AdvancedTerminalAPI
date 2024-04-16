@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
+﻿namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
 public class EjectCommand : ICommand, IPredictable {
 
@@ -25,7 +22,7 @@ public class EjectCommand : ICommand, IPredictable {
             return new CommandResult(Util.FindByKeyword(vT, "eject").displayText, wantsMoreInput: true);
         }
         
-        TerminalNode node = Util.FindByKeyword(vT, "eject").FindTerminalOption(input).result;
+        TerminalNode node = Util.FindByKeyword(vT, "eject").FindTerminalOption(input)?.result;
         if (node == null) return CommandResult.IGNORE_INPUT;
         node = TerminalWrapper.Get(vT).LoadNode(node);
         return new CommandResult(node.TextPostProcess(vT));
