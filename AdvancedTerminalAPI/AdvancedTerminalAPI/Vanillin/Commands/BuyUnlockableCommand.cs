@@ -1,6 +1,6 @@
 ﻿namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class BuyUnlockableCommand : ICommand{
+public class BuyUnlockableCommand : ICommand, IPredictable {
     private readonly string _itemName;
     
     private bool _awaitingConfirmation;
@@ -10,8 +10,11 @@ public class BuyUnlockableCommand : ICommand{
         _itemName = itemName;
     }
 
-    public string GetName() => _itemName; 
+    public string GetName() => _itemName;
 
+    public string PredictInput(string partialInput)
+        => _awaitingConfirmation ? Util.PredictConfirmation(partialInput) : partialInput;
+    
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n;
