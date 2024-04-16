@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class BuyItemCommand : ICommand {
+public class BuyItemCommand : ICommand, IPredictable {
     private readonly string _itemName;
     
     private bool _awaitingConfirmation;
@@ -14,7 +14,10 @@ public class BuyItemCommand : ICommand {
         _itemName = itemName;
     }
 
-    public string GetName() => _itemName; 
+    public string GetName() => _itemName;
+
+    public string PredictInput(string partialInput)
+        => _awaitingConfirmation ? Util.PredictConfirmation(partialInput) : partialInput;
 
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
