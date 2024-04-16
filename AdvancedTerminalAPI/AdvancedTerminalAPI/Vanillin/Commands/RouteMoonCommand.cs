@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
@@ -10,22 +9,23 @@ public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
     private bool _awaitingConfirmation;
     private CompatibleNoun _moon;
 
-    private Terminal vT;
-    
-    public RouteMoonCommand(string moonName) {
+    private readonly Terminal _vT;
+
+    private RouteMoonCommand(string moonName, Terminal vT) {
+        _vT = vT;
         _moonName = moonName;
     }
 
     public string PredictInput(string partialInput) {
         return _awaitingConfirmation
             ? Util.PredictConfirmation(partialInput)
-            : Util.PredictMoonName(vT, partialInput);
+            : partialInput;
     }
 
     public string GetName() => _moonName;
 
     public CommandResult Execute(string input, ITerminal terminal) {
-        vT = terminal.GetDriver().VanillaTerminal;
+        Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n;
         if (!_awaitingConfirmation) {
             // get the vanilla keyword
@@ -48,16 +48,17 @@ public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
         return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
-    public ICommand CloneStateless() => new RouteMoonCommand(_moonName);
+    public ICommand CloneStateless() => new RouteMoonCommand(_moonName, _vT);
     
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "route").compatibleNouns
-            select new RouteMoonCommand(noun.noun.word);
+            select new RouteMoonCommand(noun.noun.word, _vT);
     }
 
     public static RouteMoonCommand FromPlayerInput(Terminal term, string input) {
         return new RouteMoonCommand(Util.FindKeyword(term, "route").
-            FindNoun(input).noun.word
+            FindNoun(input).noun.word,
+            term
         );
     }
 }
