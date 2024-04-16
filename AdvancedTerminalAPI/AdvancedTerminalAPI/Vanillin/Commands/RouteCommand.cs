@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class RouteCommand : ICommand, IPredictable {
+public class RouteCommand : ICommand, IPredictable, IAliasable {
     private RouteMoonCommand _command;
 
     private bool _awaitingConfirmation;
@@ -27,6 +28,11 @@ public class RouteCommand : ICommand, IPredictable {
         _command = RouteMoonCommand.FromPlayerInput(terminal.GetDriver().VanillaTerminal, words.First());
         
         return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IGNORE_INPUT;
+    }
+    
+    public IEnumerable<ICommand> GetAll(ITerminal term) {
+        return from noun in Util.FindKeyword(term, "route").compatibleNouns
+            select new RouteMoonCommand(noun.noun.word, _vT);
     }
 
     public ICommand CloneStateless() => new RouteCommand(_vT);

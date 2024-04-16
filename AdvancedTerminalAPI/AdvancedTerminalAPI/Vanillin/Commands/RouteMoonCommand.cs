@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
-
-public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
+public class RouteMoonCommand : ICommand, IPredictable {
     private readonly string _moonName;
 
     private bool _awaitingConfirmation;
@@ -11,7 +8,7 @@ public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
 
     private readonly Terminal _vT;
 
-    private RouteMoonCommand(string moonName, Terminal vT) {
+    public RouteMoonCommand(string moonName, Terminal vT) {
         _vT = vT;
         _moonName = moonName;
     }
@@ -49,11 +46,6 @@ public class RouteMoonCommand : ICommand, IAliasable, IPredictable {
     }
 
     public ICommand CloneStateless() => new RouteMoonCommand(_moonName, _vT);
-    
-    public IEnumerable<ICommand> GetAll(ITerminal term) {
-        return from noun in Util.FindKeyword(term, "route").compatibleNouns
-            select new RouteMoonCommand(noun.noun.word, _vT);
-    }
 
     public static RouteMoonCommand FromPlayerInput(Terminal term, string input) {
         return new RouteMoonCommand(Util.FindKeyword(term, "route").

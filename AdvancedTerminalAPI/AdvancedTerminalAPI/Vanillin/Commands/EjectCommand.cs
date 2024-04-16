@@ -14,7 +14,7 @@ public class EjectCommand : ICommand, IPredictable {
     /// <summary>
     /// For the vanilla implementation see: <see cref="Terminal.RunTerminalEvents"/>.
     /// </summary>
-    public CommandResult Execute(string input, ITerminal terminal) { // TODO test
+    public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
 
         if (!_awaitingConfirmation) {
