@@ -27,17 +27,21 @@ public static class Util {
     public static T VanillaStringMatch<T>(this IEnumerable<T> enumerable, string word,
         Converter<T, string> stringConverter, Predicate<T> predicate = null, int specificity = 3) {
         IEnumerable<T> array = enumerable as T[] ?? enumerable.ToArray();
-        T tWord = array.
-            FirstOrDefault(n => 
-                string.Equals(stringConverter(n), word, StringComparison.CurrentCultureIgnoreCase) &&
+        
+        T tWord = array.FirstOrDefault(n =>
+            string.Equals(stringConverter(n), word, StringComparison.CurrentCultureIgnoreCase) &&
+            (predicate?.Invoke(n) ?? true)
+        );
+        
+        if (tWord != null || word.Length < specificity) return tWord;
+
+        for (int spec = word.Length; spec >= specificity && tWord == null; spec--) {
+            tWord = array.FirstOrDefault(n =>
+                stringConverter(n).StartsWith(word[..spec], StringComparison.CurrentCultureIgnoreCase) &&
                 (predicate?.Invoke(n) ?? true)
             );
-        if (tWord == null && word.Length >= specificity)
-            tWord = array.
-                FirstOrDefault(n =>
-                    stringConverter(n).StartsWith(word[..specificity], StringComparison.CurrentCultureIgnoreCase) &&
-                    (predicate?.Invoke(n) ?? true)
-                );
+        }
+        
         return tWord;
     }
 
