@@ -13,7 +13,7 @@ public class FlashCommand : ICommand, IPredictable {
         if (index == -1) {
             index = StartOfRound.Instance.mapScreen.targetTransformIndex;
             if (!StartOfRound.Instance.mapScreen.radarTargets[index].isNonPlayer) {
-                return CommandResult.GENERIC_ERROR;
+                return CommandResult.GenericError;
             }
         }
         StartOfRound.Instance.mapScreen.FlashRadarBooster(index);

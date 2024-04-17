@@ -13,7 +13,7 @@ public class SwitchCommand : ICommand, IPredictable, IDescribable {
     /// </summary>
     public CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
-        if (index == -1 && input.IsNullOrWhiteSpace()) return CommandResult.GENERIC_ERROR;
+        if (index == -1 && input.IsNullOrWhiteSpace()) return CommandResult.GenericError;
         if (index != -1) {
             StartOfRound.Instance.mapScreen.SwitchRadarTargetAndSync(index);
         } else {

@@ -68,7 +68,7 @@ public class VanillinTerminal : ITerminal {
         if (currentCommand == null) {
             string[] words = text.Split(' ');
             input = words.Length == 1 ? "" : words.Skip(1).Join(delimiter: " ");
-            currentCommand = (ICommand)FindCommand(words[0])?.CloneStateless();
+            currentCommand = FindCommand(words[0])?.CloneStateless();
         }
         if (currentCommand is {} command) {
             Log.LogInfo($"Executing Command ({currentCommand.GetName()}) for input : '{text}'");
@@ -114,6 +114,7 @@ public class VanillinTerminal : ITerminal {
     // purely for convenience
     protected string SpecialText(int i) => Util.GetSpecialNode(driver.VanillaTerminal, i).displayText;
 
+    // ReSharper disable once UnusedMember.Local
     private void DebugLogNodeInfo() {
         // Special Nodes
         for (var i = 0; i < driver.VanillaTerminal.terminalNodes.specialNodes.Count; i++) {

@@ -11,7 +11,7 @@ public class PingCommand : ICommand, IPredictable, IDescribable {
     /// </summary>
     public CommandResult Execute(string input, ITerminal terminal) {
         int index = Util.GetPlayerIndexByName(input);
-        if (index == -1) return CommandResult.GENERIC_ERROR;
+        if (index == -1) return CommandResult.GenericError;
         StartOfRound.Instance.mapScreen.PingRadarBooster(index);
         return new CommandResult(Util.GetSpecialNode(terminal, 21).displayText);
     }

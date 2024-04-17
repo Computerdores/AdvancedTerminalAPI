@@ -14,7 +14,7 @@ public class Plugin : BaseUnityPlugin {
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
     private static Method<ITerminal, InputFieldDriver> _terminalConstructor;
-    private static List<ICommand> _commands = new();
+    private static readonly List<ICommand> Commands = new();
 
     private static InputFieldDriver Driver { get; set; }
     private static ITerminal CustomTerminal { get; set; }
@@ -33,7 +33,7 @@ public class Plugin : BaseUnityPlugin {
 
     // ReSharper disable once UnusedMember.Global
     public static void AddCommand(ICommand command) {
-        _commands.Add(command);
+        Commands.Add(command);
         CustomTerminal.AddCommand(command);
     }
 
@@ -44,7 +44,7 @@ public class Plugin : BaseUnityPlugin {
 
     private static void ReplaceITerminalInstance() {
         CustomTerminal = _terminalConstructor(Driver);
-        foreach (ICommand command in _commands) {
+        foreach (ICommand command in Commands) {
             CustomTerminal.AddCommand(command);
         }
     }

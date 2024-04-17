@@ -1,5 +1,6 @@
 ﻿namespace Computerdores.AdvancedTerminalAPI; 
 
+// ReSharper disable FieldCanBeMadeReadOnly.Global
 public struct CommandResult {
     public string output;
     public bool clearScreen;
@@ -16,6 +17,7 @@ public struct CommandResult {
         this.wantsMoreInput = wantsMoreInput;
     }
 
-    public static readonly CommandResult IGNORE_INPUT = new(null, false, true, true);
-    public static readonly CommandResult GENERIC_ERROR = new(null, true, false);
+    public static readonly CommandResult IgnoreInput = new(null, false, true, true);
+    public static readonly CommandResult GenericError = new(null, true, false);
 }
+// ReSharper restore FieldCanBeMadeReadOnly.Global

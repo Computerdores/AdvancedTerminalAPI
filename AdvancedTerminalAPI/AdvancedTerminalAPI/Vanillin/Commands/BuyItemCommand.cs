@@ -37,7 +37,7 @@ public class BuyItemCommand : ICommand, IPredictable {
         
         CompatibleNoun cn = _item.result.FindTerminalOption(input);
         // if the input doesn't match any available option ignore it
-        if (cn == null) return CommandResult.IGNORE_INPUT;
+        if (cn == null) return CommandResult.IgnoreInput;
         
         n = TerminalWrapper.Get(vT).LoadNode(cn.result);
         return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);

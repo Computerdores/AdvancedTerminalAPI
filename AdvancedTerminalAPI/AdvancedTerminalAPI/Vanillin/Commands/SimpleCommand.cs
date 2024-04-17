@@ -15,7 +15,7 @@ public class SimpleCommand : ICommand {
     public CommandResult Execute(string input, ITerminal terminal) {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         TerminalNode n = Util.FindKeyword(vT, _name).specialKeywordResult;
-        return n == null ? CommandResult.GENERIC_ERROR : 
+        return n == null ? CommandResult.GenericError : 
             new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 

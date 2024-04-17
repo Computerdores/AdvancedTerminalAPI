@@ -23,7 +23,7 @@ public class RouteCommand : ICommand, IPredictable, IAliasable {
         string[] words = input.Split(' ');
         _command = RouteMoonCommand.FromPlayerInput(terminal.GetDriver().VanillaTerminal, words.First());
         
-        return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IGNORE_INPUT;
+        return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IgnoreInput;
     }
     
     public IEnumerable<ICommand> GetAll(ITerminal term) {

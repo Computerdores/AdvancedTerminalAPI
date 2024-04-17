@@ -18,7 +18,7 @@ public class BuyCommand : ICommand, IAliasable {
         string[] words = input.Split(' ');
         _command = FromPlayerInput(terminal.GetDriver().VanillaTerminal, words.First());
         
-        return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IGNORE_INPUT;
+        return _command?.Execute(words.Skip(1).Join(delimiter: " "), terminal) ?? CommandResult.IgnoreInput;
     }
 
     public ICommand CloneStateless() => new BuyCommand();
@@ -26,16 +26,16 @@ public class BuyCommand : ICommand, IAliasable {
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from cn in Util.FindKeyword(term, "buy").compatibleNouns 
             where cn.result.shipUnlockableID != -1 || cn.result.buyItemIndex != -1
-            select FromCN(cn);
+            select FromCompatibleNoun(cn);
     }
 
     private static ICommand FromPlayerInput(Terminal term, string input) {
         CompatibleNoun a = Util.FindKeyword(term, "buy").
             FindNoun(input, cn => cn.result.shipUnlockableID != -1 || cn.result.buyItemIndex != -1);
-        return FromCN(a);
+        return FromCompatibleNoun(a);
     }
 
-    private static ICommand FromCN(CompatibleNoun cn) {
+    private static ICommand FromCompatibleNoun(CompatibleNoun cn) {
         if (cn.result.buyItemIndex != -1) {
             return new BuyItemCommand(cn.noun.word);
         }

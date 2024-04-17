@@ -13,7 +13,7 @@ public class TransmitCommand : ICommand, IDescribable {
         Terminal vT = terminal.GetDriver().VanillaTerminal;
         var translator = Object.FindObjectOfType<SignalTranslator>();
         if (translator == null || !((double)Time.realtimeSinceStartup - translator.timeLastUsingSignalTranslator > 8.0) || string.IsNullOrEmpty(input))
-            return CommandResult.GENERIC_ERROR;
+            return CommandResult.GenericError;
         if (!vT.IsServer)
             translator.timeLastUsingSignalTranslator = Time.realtimeSinceStartup;
         HUDManager.Instance.UseSignalTranslatorServerRpc(input[..Mathf.Min(input.Length, 10)]);

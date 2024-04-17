@@ -21,7 +21,7 @@ public class EjectCommand : ICommand, IPredictable {
         }
         
         TerminalNode node = Util.FindByKeyword(vT, "eject").FindTerminalOption(input)?.result;
-        if (node == null) return CommandResult.IGNORE_INPUT;
+        if (node == null) return CommandResult.IgnoreInput;
         node = TerminalWrapper.Get(vT).LoadNode(node);
         return new CommandResult(node.TextPostProcess(vT));
     }
