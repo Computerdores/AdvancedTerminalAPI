@@ -49,12 +49,6 @@ public class InputFieldDriver {
     public Terminal VanillaTerminal { get; }
 
     /// <summary>
-    /// Triggered whenever the player enters the Terminal
-    /// </summary>
-    [Obsolete("Use TerminalWrapper.EnterTerminal instead.")]
-    public event Consumer<bool> OnEnterTerminal;
-    
-    /// <summary>
     /// Triggered whenever the Player Submits what they typed in the Terminal
     /// </summary>
     public event Consumer<string> OnSubmit;
@@ -128,7 +122,6 @@ public class InputFieldDriver {
     }
 
     private void OnEnterTerminalHandler(bool firstTime) {
-        DisplayText("", true); // Counteract an effect from the EnterTerminal Handling of Terminal
-        OnEnterTerminal?.Invoke(firstTime);
+        Input = ""; // Counteract an effect from the EnterTerminal Handling of Terminal
     } 
 }
