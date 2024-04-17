@@ -8,17 +8,13 @@ public class RouteCommand : ICommand, IPredictable, IAliasable {
     private RouteMoonCommand _command;
 
     private bool _awaitingConfirmation;
-
-    private readonly Terminal _vT;
-    
-    public RouteCommand(Terminal term) {
-        _vT = term;
-    }
     
     public string GetName() => "route";
 
-    public string PredictInput(string partialInput)
-        => _awaitingConfirmation ? Util.PredictConfirmation(partialInput) : Util.PredictMoonName(_vT, partialInput);
+    public string PredictInput(string partialInput, ITerminal terminal)
+        => _awaitingConfirmation
+                ? Util.PredictConfirmation(partialInput)
+                : Util.PredictMoonName(terminal.GetDriver().VanillaTerminal, partialInput);
 
     public CommandResult Execute(string input, ITerminal terminal) {
         if (_awaitingConfirmation) return _command.Execute(input, terminal);
@@ -32,8 +28,8 @@ public class RouteCommand : ICommand, IPredictable, IAliasable {
     
     public IEnumerable<ICommand> GetAll(ITerminal term) {
         return from noun in Util.FindKeyword(term, "route").compatibleNouns
-            select new RouteMoonCommand(noun.noun.word, _vT);
+            select new RouteMoonCommand(noun.noun.word);
     }
 
-    public ICommand CloneStateless() => new RouteCommand(_vT);
+    public ICommand CloneStateless() => new RouteCommand();
 }

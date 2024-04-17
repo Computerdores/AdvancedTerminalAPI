@@ -49,7 +49,7 @@ public class VanillinTerminal : ITerminal {
         var a = new List<ICommand> {
             new SpecialNodeCommand("welcome", 1),
             new ViewCommand(), new SwitchCommand(), new PingCommand(), new TransmitCommand(), new ScanCommand(),
-            new BuyCommand(), new RouteCommand(driver.VanillaTerminal), new InfoCommand(), new EjectCommand(),
+            new BuyCommand(), new RouteCommand(), new InfoCommand(), new EjectCommand(),
             new FlashCommand(), new OtherCommand()
         };
         a.AddRange(SimpleCommand.GetAll());

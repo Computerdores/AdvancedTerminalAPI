@@ -6,10 +6,8 @@ public class EjectCommand : ICommand, IPredictable {
     
     public string GetName() => "eject";
 
-    public string PredictInput(string partialInput) =>
-        _awaitingConfirmation
-            ? Util.PredictConfirmation(partialInput)
-            : partialInput;
+    public string PredictInput(string partialInput, ITerminal terminal) =>
+        _awaitingConfirmation ? Util.PredictConfirmation(partialInput) : partialInput;
 
     /// <summary>
     /// For the vanilla implementation see: <see cref="Terminal.RunTerminalEvents"/>.

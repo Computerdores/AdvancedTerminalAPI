@@ -16,7 +16,7 @@ public class BuyItemCommand : ICommand, IPredictable {
 
     public string GetName() => _itemName;
 
-    public string PredictInput(string partialInput)
+    public string PredictInput(string partialInput, ITerminal terminal)
         => _awaitingConfirmation ? Util.PredictConfirmation(partialInput) : partialInput;
 
     public CommandResult Execute(string input, ITerminal terminal) {

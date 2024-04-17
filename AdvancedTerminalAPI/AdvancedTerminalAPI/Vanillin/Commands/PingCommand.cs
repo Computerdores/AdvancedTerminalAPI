@@ -4,7 +4,7 @@ public class PingCommand : ICommand, IPredictable, IDescribable {
 
     public string GetName() => "ping";
 
-    public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
+    public string PredictInput(string partialInput, ITerminal terminal) => Util.PredictPlayerName(partialInput);
     
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.ParsePlayerSentence"/>.

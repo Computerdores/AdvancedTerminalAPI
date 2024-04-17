@@ -5,7 +5,7 @@ namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands;
 public class SwitchCommand : ICommand, IPredictable, IDescribable {
     public string GetName() => "switch";
 
-    public string PredictInput(string partialInput) => Util.PredictPlayerName(partialInput);
+    public string PredictInput(string partialInput, ITerminal terminal) => Util.PredictPlayerName(partialInput);
 
     /// <summary>
     /// Very similar to the vanilla implementation, see:

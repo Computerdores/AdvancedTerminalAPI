@@ -6,14 +6,11 @@ public class RouteMoonCommand : ICommand, IPredictable {
     private bool _awaitingConfirmation;
     private CompatibleNoun _moon;
 
-    private readonly Terminal _vT;
-
-    public RouteMoonCommand(string moonName, Terminal vT) {
-        _vT = vT;
+    public RouteMoonCommand(string moonName) {
         _moonName = moonName;
     }
 
-    public string PredictInput(string partialInput) {
+    public string PredictInput(string partialInput, ITerminal terminal) {
         return _awaitingConfirmation
             ? Util.PredictConfirmation(partialInput)
             : partialInput;
@@ -45,12 +42,9 @@ public class RouteMoonCommand : ICommand, IPredictable {
         return new CommandResult(n.TextPostProcess(vT), n.clearPreviousText);
     }
 
-    public ICommand CloneStateless() => new RouteMoonCommand(_moonName, _vT);
+    public ICommand CloneStateless() => new RouteMoonCommand(_moonName);
 
     public static RouteMoonCommand FromPlayerInput(Terminal term, string input) {
-        return new RouteMoonCommand(Util.FindKeyword(term, "route").
-            FindNoun(input).noun.word,
-            term
-        );
+        return new RouteMoonCommand(Util.FindKeyword(term, "route").FindNoun(input).noun.word);
     }
 }
