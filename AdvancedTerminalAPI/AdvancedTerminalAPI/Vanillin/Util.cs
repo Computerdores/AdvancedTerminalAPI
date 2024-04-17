@@ -98,4 +98,13 @@ public static class Util {
         int index = GetPlayerIndexByName(partialInput);
         return index != -1 ? StartOfRound.Instance.mapScreen.radarTargets[index].name : partialInput;
     }
+
+    // ReSharper disable once Unity.NoNullPropagation
+    public static string PredictBuyable(Terminal terminal, string partialInput)
+        => FindKeyword(terminal, "buy").compatibleNouns.
+            VanillaStringMatch(
+                partialInput,
+                cn => cn.noun.word,
+                cn => cn.result.shipUnlockableID != -1 || cn.result.buyItemIndex != -1
+            )?.noun?.word;
 }
