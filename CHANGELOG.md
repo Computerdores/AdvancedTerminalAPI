@@ -1,5 +1,38 @@
 # Changelog
 
+## [5.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v4.1.0...v5.0.0) (2024-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactoring with renaming of API members
+* **InputFieldDriver:** remove obsolete method
+* **IPredictable:** pass an ITerminal instance when predicting to streamline predictors that require that
+
+### Features
+
+* add Util method for predicting Items to buy ([3baaa1f](https://github.com/Computerdores/AdvancedTerminalAPI/commit/3baaa1fd0fcc78b074a4886438b12dcd693bc1de))
+* **BuyItemCommand:** Implement IPredictable ([a3ee9b7](https://github.com/Computerdores/AdvancedTerminalAPI/commit/a3ee9b7e64d5c65283c1f40d885d2782ac880d09))
+* **BuyUnlockableCommand:** Implement IPredictable ([6836fbe](https://github.com/Computerdores/AdvancedTerminalAPI/commit/6836fbe43c968982f7f8eadfb555a828787dc669))
+* **IPredictable:** pass an ITerminal instance when predicting to streamline predictors that require that ([87f5c62](https://github.com/Computerdores/AdvancedTerminalAPI/commit/87f5c62286a620a7dd7403d213b1e449ebc3a6fe))
+* **RouteCommand:** Implement IPredictable ([6b092c6](https://github.com/Computerdores/AdvancedTerminalAPI/commit/6b092c6c6b17fd335ba1ed5443bf4e1995f467b1))
+* **RouteMoonCommand:** Implement IPredictable ([d891696](https://github.com/Computerdores/AdvancedTerminalAPI/commit/d891696bb5345362d46f66a3085e9f63f6b00cd1))
+
+
+### Bug Fixes
+
+* CommandResult.IGNORE_INPUT had `success == false` ([27cd187](https://github.com/Computerdores/AdvancedTerminalAPI/commit/27cd187ba19bf6f670ae98bf1e079c6c50dfe910))
+* **EjectCommand:** NullReferenceException in Execute ([588dd85](https://github.com/Computerdores/AdvancedTerminalAPI/commit/588dd8579977860ce136ecb39b83cfe9c6add885))
+* **EjectCommand:** update Logic to use newer Util methods and fix a bug where you couldn't exit the command ([8a1d3de](https://github.com/Computerdores/AdvancedTerminalAPI/commit/8a1d3de968bff5af8e4740aad300f8cdd14fa3be))
+* Implement IAliasable in RouteCommand instead of RouteMoonCommand ([c5a8c3b](https://github.com/Computerdores/AdvancedTerminalAPI/commit/c5a8c3b882c88432c7ae4f78184357a157b978b6))
+* Improve PredictConfirmation by using VanillaStringMatch ([ba4dd3f](https://github.com/Computerdores/AdvancedTerminalAPI/commit/ba4dd3f0c846262be5f725f41afd960cad68d2ea))
+* **InputFieldDriver:** remove obsolete method ([f7b09c7](https://github.com/Computerdores/AdvancedTerminalAPI/commit/f7b09c78b7418f26a66fac6980831b1627cb45c6))
+* refactoring with renaming of API members ([93222c7](https://github.com/Computerdores/AdvancedTerminalAPI/commit/93222c746fa0d4da6e389901b6c622cef28bf28e))
+* rename AdvancedTerminalAPI.cs to Plugin.cs ([27fcfff](https://github.com/Computerdores/AdvancedTerminalAPI/commit/27fcfffa5a69e3e86813f12116536d128bc7cb61))
+* **RouteMoonCommand:** Improve code quality ([896d82e](https://github.com/Computerdores/AdvancedTerminalAPI/commit/896d82ee186c919da1865e73224ac6cf1dc2016f))
+* Use VanillaStringMatch for GetPlayerIndexByName ([cb87b62](https://github.com/Computerdores/AdvancedTerminalAPI/commit/cb87b621ba50cebddd92a4b11931fdbd8d17cac6))
+* VanillaStringMatch now behaves closer to the base game ([d9a7dae](https://github.com/Computerdores/AdvancedTerminalAPI/commit/d9a7dae28c9b2df47197e844da8296652c65efe7))
+
 ## [4.1.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v4.0.0...v4.1.0) (2024-04-15)
 
 
