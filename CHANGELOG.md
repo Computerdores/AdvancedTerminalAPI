@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.1.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v5.0.0...v5.1.0) (2024-04-19)
+
+
+### Features
+
+* **BuyCommand:** Implement IPredictable ([ab7917c](https://github.com/Computerdores/AdvancedTerminalAPI/commit/ab7917cff558ebec46ff0af9e914e85d6790af47))
+* **InfoCommand:** Implement IPredictable ([80709ec](https://github.com/Computerdores/AdvancedTerminalAPI/commit/80709ec4956d7516db52b7f102eeb06307eb66ed))
+* **ViewCommand:** Implement IPredictable ([c97742d](https://github.com/Computerdores/AdvancedTerminalAPI/commit/c97742ddbf95fdb44c6d167b2ce037eaf1cea8ce))
+
 ## [5.0.0](https://github.com/Computerdores/AdvancedTerminalAPI/compare/v4.1.0...v5.0.0) (2024-04-17)
 
 
