@@ -4,8 +4,15 @@ using HarmonyLib;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class ViewCommand : ICommand, IAliasable, IDescribable {
+public class ViewCommand : ICommand, IAliasable, IDescribable, IPredictable {
     public string GetName() => "view";
+
+    public string PredictInput(string partialInput, ITerminal terminal)
+        => Util.FindKeyword(terminal, "view").compatibleNouns
+            .VanillaStringMatch(partialInput,
+                cn => cn.noun.word,
+                cn => cn.noun.defaultVerb != null
+            ).noun.word;
 
     /// <summary>
     /// For the vanilla implementation, see: <see cref="Terminal.LoadNewNode"/>.
