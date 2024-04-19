@@ -4,12 +4,18 @@ using HarmonyLib;
 
 namespace Computerdores.AdvancedTerminalAPI.Vanillin.Commands; 
 
-public class BuyCommand : ICommand, IAliasable {
+public class BuyCommand : ICommand, IAliasable, IPredictable {
     private bool _awaitingConfirmation;
 
     private ICommand _command;
-    
+
     public string GetName() => "buy";
+
+    public string PredictInput(string partialInput, ITerminal terminal) {
+        return _awaitingConfirmation
+            ? Util.PredictConfirmation(partialInput)
+            : FromPlayerInput(terminal.GetDriver().VanillaTerminal, partialInput).GetName();
+    }
 
     public CommandResult Execute(string input, ITerminal terminal) {
         if (_awaitingConfirmation) return _command.Execute(input, terminal);
